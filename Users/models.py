@@ -1,8 +1,19 @@
 from django.db import models
-from datetime import datetime
+from datetime import datetime,date
+import json
 # Create your models here.
 from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser, PermissionsMixin)
+
+#序列化datetime和date
+class DateEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, datetime):
+            return obj.strftime('%Y-%m-%d %H:%M:%S')
+        elif isinstance(obj, date):
+            return obj.strftime("%Y-%m-%d")
+        else:
+            return json.JSONEncoder.default(self, obj)
 
 class Users(AbstractBaseUser):
     nick_name = models.CharField(max_length=20,verbose_name=u"昵称",default="小豆瓣儿")
@@ -21,6 +32,18 @@ class Users(AbstractBaseUser):
 
     def __unicode__(self):
         return self.nickName
+
+    def toJson(self):
+        fields = []
+        for field in self._meta.fields:
+            fields.append(field.name)
+
+        d = {}
+        for attr in fields:
+            d[attr] = getattr(self, attr)
+
+        import json
+        return json.dumps(d,cls=DateEncoder)
 
 #score=models.FloatField(verbose_name=u"评分",default=0)
 class Articles(models.Model):
