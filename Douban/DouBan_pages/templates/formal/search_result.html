@@ -5,6 +5,7 @@
     <title>搜索</title>
 </head>
 <body>
+<a href="{% url 'DouBan_pages:search' %}">返回搜索界面</a><br/>
 <form action="" method="post">
     <input name="Article_or_Book" type="hidden" value="Article"> <!--用于区分位于何处的搜索,这个是位于Article的搜索-->
     <select name="search_type">

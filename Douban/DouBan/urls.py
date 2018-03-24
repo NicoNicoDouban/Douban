@@ -16,11 +16,13 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from login.views import *
+from DouBan_pages.views import home_page
 
 urlpatterns = [
+    url(r'^$', home_page, name='home'),
     url(r'^admin/', admin.site.urls),
-    url(r'^blog/', include('DouBan_pages.urls', namespace='DouBan_pages')),
-    url(r'^regist/$', userRegister),
-    url(r'^login/$', userLogin),
+    url(r'^douban/', include('DouBan_pages.urls', namespace='DouBan_pages')),
+    url(r'^regist/$', userRegister, name='regist'),
+    url(r'^login/$', userLogin, name='login'),
     url(r'^active/(.+)/$', userVerify)
 ]
