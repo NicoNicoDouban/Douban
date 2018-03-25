@@ -29,12 +29,10 @@ def search_result(request, index):
             context = search.article_search(search_text, search_type)
         elif aricle_or_book == 'book':
             context = search.book_search(search_text, search_type)
-
-        return render(request, 'formal/search_result.html', context)
+        return render(request, 'formal/search_result.html', {"context":context})
     except:
         pass
-    context = {}
-    return render(request, 'formal/search_result.html', context)
+    return render(request, 'formal/search_result.html', {"context":context})
 
 
 

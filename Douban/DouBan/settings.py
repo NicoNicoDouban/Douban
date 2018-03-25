@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "Users",
     "DouBan_pages",
     "login",
+    "Api",
 ]
 
 MIDDLEWARE = [
