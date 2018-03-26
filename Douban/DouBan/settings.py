@@ -54,7 +54,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'DouBan.urls'
-
+AUTH_USER_MODEL = "Users.Users"
 
 TEMPLATES = [
     {
