@@ -1,1 +1,3 @@
-the_number_of_items_in_each_page = 5
+'''
+用于设定全局变量的位置
+'''

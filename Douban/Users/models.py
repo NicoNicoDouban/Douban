@@ -5,7 +5,7 @@ import json
 from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser, PermissionsMixin)
 
-#序列化datetime和date
+# 序列化datetime和date
 class DateEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, datetime):
@@ -30,7 +30,7 @@ class Users(AbstractBaseUser):
         verbose_name = "用户信息"
         verbose_name_plural = verbose_name
 
-    def __unicode__(self):
+    def __str__(self):
         return self.nickName
 
     def toJson(self):
@@ -58,7 +58,7 @@ class Articles(models.Model):
         verbose_name = "文章信息"
         verbose_name_plural = verbose_name
 
-    def __unicode__(self):
+    def __str__(self):
         return self.Title
 
 
@@ -72,9 +72,8 @@ class Books(models.Model):
         verbose_name = "图书信息"
         verbose_name_plural = verbose_name
 
-    def __unicode__(self):
-        return self.Name
-
+    def __str__(self):
+        return self.name
 
 class Comments(models.Model):
     commenter_id = models.ForeignKey(Users,verbose_name=u"发表评论的人")
@@ -86,7 +85,7 @@ class Comments(models.Model):
         verbose_name = "评论信息"
         verbose_name_plural = verbose_name
 
-    def __unicode__(self):
+    def __str__(self):
         return self.Text
 
 

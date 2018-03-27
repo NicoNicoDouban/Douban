@@ -6,14 +6,11 @@
 </head>
 <body>
 <a href="{% url 'DouBan_pages:search' %}">返回搜索界面</a><br/>
+{% for i in context.search_result.objects %}
+    书名:{{ i.title }} 作者:{{ i.writer }}<br/>
+{% endfor %}
+index{{ context.search_result.index }}
 <form action="" method="post">
-    <input name="Article_or_Book" type="hidden" value="Article"> <!--用于区分位于何处的搜索,这个是位于Article的搜索-->
-    <select name="search_type">
-      <option value ="标题">Volvo</option>
-      <option value ="内容">Saab</option>
-      <option value="作者">Opel</option>
-    </select></br>
-    <input name="search_text" type="text" maxlength="20">
 </form>
 </body>
 </html>
