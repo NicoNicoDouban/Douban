@@ -19,6 +19,9 @@ from django.conf.urls import url
 
 urlpatterns = [
     url(r'^regist/$', userRegister),
-    url(r'^login/$', userLogin),
-    url(r'^active/(.+)/$', userVerify)
+    url(r'^login/$', userLogin, name='Login'),
+    url(r'^active/(.+)/$', userVerify),
+    url(r'^forget/$', forget_pwd),
+    url(r'^admin/', admin.site.urls),
+    url(r'^change/(.+)/$', change_pwd)
 ]

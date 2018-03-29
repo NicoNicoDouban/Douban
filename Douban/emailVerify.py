@@ -16,9 +16,9 @@ def createCode():
     return code
 
 
-def saveCode(user):
+def saveCode(user, status):
     code = createCode()
-    userActive.objects.create(username=user, activation_code=code)
+    userActive.objects.create(username=user, activation_code=code, status=status)
     return code
 
 
