@@ -3,12 +3,7 @@ from django.contrib import admin
 # Register your models here.
 
 from django.conf.urls import url, include
-from Users.models import Users
-from Users.models import Articles
-from Users.models import Books
-from Users.models import Comments
-from Users.models import GoodLink
-from Users.models import FollowLink
+from .models import *
 
 admin.site.register(Users)
 admin.site.register(Articles)

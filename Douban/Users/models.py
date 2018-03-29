@@ -1,6 +1,5 @@
 from django.db import models
 from datetime import datetime,date
-from DouBan import settings
 import json
 # Create your models here.
 from django.contrib.auth.models import (
@@ -16,6 +15,7 @@ class DateEncoder(json.JSONEncoder):
         else:
             return json.JSONEncoder.default(self, obj)
 
+
 class Users(AbstractUser):
     '''
 
@@ -26,11 +26,10 @@ class Users(AbstractUser):
     )
     '''
     objects = UserManager()
-    USERNAME_FIELD = 'email'#认证标识
+    USERNAME_FIELD = 'email'  # 认证标识
     REQUIRED_FIELDS = ['username']
     username=models.CharField(max_length=20,verbose_name=u"用户名",default="user",null=True)
-    nick_name = models.CharField(max_length=20,verbose_name=u"昵称",default="小豆瓣儿",null=True)
-    #password = models.CharField(max_length=20,verbose_name=u"密码",default="123456")
+    # password = models.CharField(max_length=20,verbose_name=u"密码",default="123456")
     email = models.EmailField(verbose_name=u"邮箱",default="",null=False,unique=True)
     birthday = models.DateField(verbose_name=u"生日",default="2000-01-01")
     gender = models.CharField(max_length=2, verbose_name=u"性别",default="保密")
@@ -44,7 +43,7 @@ class Users(AbstractUser):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return self.nick_name
+        return self.username
 
     #序列化的
     def toJson(self):
@@ -73,7 +72,7 @@ class Articles(models.Model):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return self.Title
+        return self.title
 
 
 class Books(models.Model):
@@ -100,7 +99,7 @@ class Comments(models.Model):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return self.Text
+        return self.text
 
 
 class GoodLink(models.Model):
@@ -120,3 +119,12 @@ class FollowLink(models.Model):
     class Meta:
         verbose_name = "用户关注关联信息"
         verbose_name_plural = verbose_name
+
+
+class userActive(models.Model):
+    username = models.ForeignKey(Users, on_delete=models.CASCADE)
+    activation_code = models.CharField(max_length=30)
+    status = models.CharField(max_length=1, default='r')
+
+    def __str__(self):
+        return self.username.username

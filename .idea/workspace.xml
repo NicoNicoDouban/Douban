@@ -2,13 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="89550ab8-6ef1-4d7a-8a20-698e05e0a3dd" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/Douban/DouBan_pages/templates/formal/search_result_article.html" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/Douban/Users/migrations/0002_remove_users_nick_name.py" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/Douban/Users/migrations/0003_useractive.py" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/Douban/DouBan_pages/func.py" afterPath="$PROJECT_DIR$/Douban/DouBan_pages/func.py" />
-      <change beforePath="$PROJECT_DIR$/Douban/DouBan_pages/templates/formal/search.html" afterPath="$PROJECT_DIR$/Douban/DouBan_pages/templates/formal/search.html" />
-      <change beforePath="$PROJECT_DIR$/Douban/DouBan_pages/templates/formal/search_result.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/Douban/DouBan_pages/urls.py" afterPath="$PROJECT_DIR$/Douban/DouBan_pages/urls.py" />
+      <change beforePath="$PROJECT_DIR$/Douban/DouBan/__init__.py" afterPath="$PROJECT_DIR$/Douban/DouBan/__init__.py" />
+      <change beforePath="$PROJECT_DIR$/Douban/DouBan/settings.py" afterPath="$PROJECT_DIR$/Douban/DouBan/settings.py" />
       <change beforePath="$PROJECT_DIR$/Douban/DouBan_pages/views.py" afterPath="$PROJECT_DIR$/Douban/DouBan_pages/views.py" />
+      <change beforePath="$PROJECT_DIR$/Douban/Users/admin.py" afterPath="$PROJECT_DIR$/Douban/Users/admin.py" />
       <change beforePath="$PROJECT_DIR$/Douban/Users/models.py" afterPath="$PROJECT_DIR$/Douban/Users/models.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -40,16 +40,9 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Douban/Users/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="235">
-              <caret line="78" column="26" lean-forward="false" selection-start-line="78" selection-start-column="26" selection-end-line="78" selection-end-column="26" />
-              <folding>
-                <element signature="e#611#2146#0" expanded="false" />
-                <element signature="e#2237#2764#0" expanded="false" />
-                <element signature="e#2798#3227#0" expanded="false" />
-                <element signature="e#3263#3641#0" expanded="false" />
-                <element signature="e#3678#3933#0" expanded="false" />
-                <element signature="e#3972#4217#0" expanded="false" />
-              </folding>
+            <state relative-caret-position="2344">
+              <caret line="77" column="26" lean-forward="false" selection-start-line="77" selection-start-column="26" selection-end-line="77" selection-end-column="26" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -57,24 +50,44 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Douban/DouBan_pages/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="523">
-              <caret line="35" column="53" lean-forward="false" selection-start-line="35" selection-start-column="53" selection-end-line="35" selection-end-column="53" />
+            <state relative-caret-position="495">
+              <caret line="25" column="12" lean-forward="false" selection-start-line="25" selection-start-column="12" selection-end-line="25" selection-end-column="12" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
                 <element signature="e#185#439#0" expanded="false" />
                 <element signature="e#473#516#0" expanded="false" />
-                <element signature="e#1219#1225#0" expanded="false" />
-                <marker date="1522323912802" expanded="true" signature="903:1828" ph="..." />
+                <element signature="e#1220#1226#0" expanded="false" />
+                <marker date="1522324088739" expanded="true" signature="904:1829" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="urls.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Douban/DouBan/__init__.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="37">
+              <caret line="1" column="28" lean-forward="false" selection-start-line="1" selection-start-column="28" selection-end-line="1" selection-end-column="28" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Douban/DouBan/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="158">
+              <caret line="82" column="16" lean-forward="true" selection-start-line="82" selection-start-column="16" selection-end-line="82" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Douban/DouBan_pages/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="333">
-              <caret line="9" column="1" lean-forward="true" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
+            <state relative-caret-position="111">
+              <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
                 <marker date="1522323942284" expanded="true" signature="95:389" ph="..." />
@@ -87,7 +100,7 @@
         <entry file="file://$PROJECT_DIR$/Douban/DouBan_pages/templates/formal/search.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="164">
-              <caret line="14" column="18" lean-forward="true" selection-start-line="14" selection-start-column="18" selection-end-line="14" selection-end-column="18" />
+              <caret line="14" column="18" lean-forward="false" selection-start-line="14" selection-start-column="18" selection-end-line="14" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -128,7 +141,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Douban/DouBan/settings.py" />
         <option value="$PROJECT_DIR$/Douban/DouBan_pages/setting.py" />
         <option value="$PROJECT_DIR$/Douban/DouBan_pages/func.py" />
         <option value="$PROJECT_DIR$/Douban/DouBan_pages/templates/formal/search_result.html" />
@@ -136,8 +148,10 @@
         <option value="$PROJECT_DIR$/Douban/DouBan_pages/templates/formal/search_result_book.html" />
         <option value="$PROJECT_DIR$/Douban/DouBan_pages/templates/formal/search_result_article.html" />
         <option value="$PROJECT_DIR$/Douban/Users/models.py" />
-        <option value="$PROJECT_DIR$/Douban/DouBan_pages/views.py" />
         <option value="$PROJECT_DIR$/Douban/DouBan_pages/urls.py" />
+        <option value="$PROJECT_DIR$/Douban/DouBan_pages/views.py" />
+        <option value="$PROJECT_DIR$/Douban/DouBan/__init__.py" />
+        <option value="$PROJECT_DIR$/Douban/DouBan/settings.py" />
       </list>
     </option>
   </component>
@@ -186,27 +200,6 @@
               <item name="douban" type="462c0819:PsiDirectoryNode" />
               <item name="Douban" type="462c0819:PsiDirectoryNode" />
               <item name="DouBan" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="douban" type="b2602c69:ProjectViewProjectNode" />
-              <item name="douban" type="462c0819:PsiDirectoryNode" />
-              <item name="Douban" type="462c0819:PsiDirectoryNode" />
-              <item name="DouBan_pages" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="douban" type="b2602c69:ProjectViewProjectNode" />
-              <item name="douban" type="462c0819:PsiDirectoryNode" />
-              <item name="Douban" type="462c0819:PsiDirectoryNode" />
-              <item name="DouBan_pages" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="douban" type="b2602c69:ProjectViewProjectNode" />
-              <item name="douban" type="462c0819:PsiDirectoryNode" />
-              <item name="Douban" type="462c0819:PsiDirectoryNode" />
-              <item name="DouBan_pages" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-              <item name="formal" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="douban" type="b2602c69:ProjectViewProjectNode" />
@@ -339,8 +332,8 @@
             <element signature="e#0#35#0" expanded="true" />
             <element signature="e#185#439#0" expanded="false" />
             <element signature="e#473#516#0" expanded="false" />
-            <element signature="e#1219#1225#0" expanded="false" />
-            <marker date="1522323912802" expanded="true" signature="903:1828" ph="..." />
+            <element signature="e#1220#1226#0" expanded="false" />
+            <marker date="1522324088739" expanded="true" signature="904:1829" ph="..." />
           </folding>
         </state>
       </provider>
@@ -376,14 +369,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="444">
           <caret line="18" column="26" lean-forward="false" selection-start-line="18" selection-start-column="26" selection-end-line="18" selection-end-column="26" />
-          <folding>
-            <element signature="e#611#2146#0" expanded="false" />
-            <element signature="e#2237#2764#0" expanded="false" />
-            <element signature="e#2798#3227#0" expanded="false" />
-            <element signature="e#3263#3641#0" expanded="false" />
-            <element signature="e#3678#3933#0" expanded="false" />
-            <element signature="e#3972#4217#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -410,8 +396,8 @@
             <element signature="e#0#35#0" expanded="true" />
             <element signature="e#185#439#0" expanded="false" />
             <element signature="e#473#516#0" expanded="false" />
-            <element signature="e#1219#1225#0" expanded="false" />
-            <marker date="1522323912802" expanded="true" signature="903:1828" ph="..." />
+            <element signature="e#1220#1226#0" expanded="false" />
+            <marker date="1522324088739" expanded="true" signature="904:1829" ph="..." />
           </folding>
         </state>
       </provider>
@@ -480,8 +466,8 @@
             <element signature="e#0#35#0" expanded="true" />
             <element signature="e#185#439#0" expanded="false" />
             <element signature="e#473#516#0" expanded="false" />
-            <element signature="e#1219#1225#0" expanded="false" />
-            <marker date="1522323912802" expanded="true" signature="903:1828" ph="..." />
+            <element signature="e#1220#1226#0" expanded="false" />
+            <marker date="1522324088739" expanded="true" signature="904:1829" ph="..." />
           </folding>
         </state>
       </provider>
@@ -531,8 +517,8 @@
             <element signature="e#0#35#0" expanded="true" />
             <element signature="e#185#439#0" expanded="false" />
             <element signature="e#473#516#0" expanded="false" />
-            <element signature="e#1219#1225#0" expanded="false" />
-            <marker date="1522323912802" expanded="true" signature="903:1828" ph="..." />
+            <element signature="e#1220#1226#0" expanded="false" />
+            <marker date="1522324088739" expanded="true" signature="904:1829" ph="..." />
           </folding>
         </state>
       </provider>
@@ -590,8 +576,8 @@
             <element signature="e#0#35#0" expanded="true" />
             <element signature="e#185#439#0" expanded="false" />
             <element signature="e#473#516#0" expanded="false" />
-            <element signature="e#1219#1225#0" expanded="false" />
-            <marker date="1522323912802" expanded="true" signature="903:1828" ph="..." />
+            <element signature="e#1220#1226#0" expanded="false" />
+            <marker date="1522324088739" expanded="true" signature="904:1829" ph="..." />
           </folding>
         </state>
       </provider>
@@ -655,13 +641,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Douban/DouBan/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="39" column="9" lean-forward="false" selection-start-line="39" selection-start-column="9" selection-end-line="39" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Douban/DouBan/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-212">
@@ -702,16 +681,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Douban/Users/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="78" column="26" lean-forward="false" selection-start-line="78" selection-start-column="26" selection-end-line="78" selection-end-column="26" />
-          <folding>
-            <element signature="e#611#2146#0" expanded="false" />
-            <element signature="e#2237#2764#0" expanded="false" />
-            <element signature="e#2798#3227#0" expanded="false" />
-            <element signature="e#3263#3641#0" expanded="false" />
-            <element signature="e#3678#3933#0" expanded="false" />
-            <element signature="e#3972#4217#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="2344">
+          <caret line="77" column="26" lean-forward="false" selection-start-line="77" selection-start-column="26" selection-end-line="77" selection-end-column="26" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -726,33 +698,49 @@
     <entry file="file://$PROJECT_DIR$/Douban/DouBan_pages/templates/formal/search.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="164">
-          <caret line="14" column="18" lean-forward="true" selection-start-line="14" selection-start-column="18" selection-end-line="14" selection-end-column="18" />
+          <caret line="14" column="18" lean-forward="false" selection-start-line="14" selection-start-column="18" selection-end-line="14" selection-end-column="18" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Douban/DouBan_pages/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="523">
-          <caret line="35" column="53" lean-forward="false" selection-start-line="35" selection-start-column="53" selection-end-line="35" selection-end-column="53" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-            <element signature="e#185#439#0" expanded="false" />
-            <element signature="e#473#516#0" expanded="false" />
-            <element signature="e#1219#1225#0" expanded="false" />
-            <marker date="1522323912802" expanded="true" signature="903:1828" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Douban/DouBan_pages/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
-          <caret line="9" column="1" lean-forward="true" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
+        <state relative-caret-position="111">
+          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
           <folding>
             <element signature="e#0#32#0" expanded="true" />
             <marker date="1522323942284" expanded="true" signature="95:389" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Douban/DouBan_pages/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="25" column="12" lean-forward="false" selection-start-line="25" selection-start-column="12" selection-end-line="25" selection-end-column="12" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+            <element signature="e#185#439#0" expanded="false" />
+            <element signature="e#473#516#0" expanded="false" />
+            <element signature="e#1220#1226#0" expanded="false" />
+            <marker date="1522324088739" expanded="true" signature="904:1829" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Douban/DouBan/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="37">
+          <caret line="1" column="28" lean-forward="false" selection-start-line="1" selection-start-column="28" selection-end-line="1" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Douban/DouBan/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="158">
+          <caret line="82" column="16" lean-forward="true" selection-start-line="82" selection-start-column="16" selection-end-line="82" selection-end-column="16" />
+          <folding />
         </state>
       </provider>
     </entry>

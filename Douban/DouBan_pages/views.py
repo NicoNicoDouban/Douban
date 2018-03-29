@@ -27,6 +27,7 @@ def search_result_article(request):
     error = None
     return render(request, 'formal/search_result_article.html', {"context": context, "error": error})
 
+
 def search_result_book(request):
     search_type = request.GET.get('search_type')
     search_text = request.GET.get('search_text')
