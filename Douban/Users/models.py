@@ -78,9 +78,9 @@ class Articles(models.Model):
 
 class Books(models.Model):
     name = models.CharField(verbose_name=u"图书名",max_length=30,default="")
-    writer=models.CharField(verbose_name=u"作者名",max_length=50,default="")
-    publisher=models.CharField(verbose_name=u"出版社",max_length=30,default="")
-    good_num=models.IntegerField(verbose_name=u"点赞数",default=0)
+    writer = models.CharField(verbose_name=u"作者名",max_length=50,default="")
+    publisher = models.CharField(verbose_name=u"出版社",max_length=30,default="")
+    good_num = models.IntegerField(verbose_name=u"点赞数",default=0)
 
     class Meta:
         verbose_name = "图书信息"
