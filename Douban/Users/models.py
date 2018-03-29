@@ -28,7 +28,7 @@ class Users(AbstractUser):
     objects = UserManager()
     USERNAME_FIELD = 'email'  # 认证标识
     REQUIRED_FIELDS = ['username']
-    username=models.CharField(max_length=20,verbose_name=u"用户名",default="user",null=True)
+    username=models.CharField(max_length=20,verbose_name=u"用户名",default="user",null=True, unique=True)
     # password = models.CharField(max_length=20,verbose_name=u"密码",default="123456")
     email = models.EmailField(verbose_name=u"邮箱",default="",null=False,unique=True)
     birthday = models.DateField(verbose_name=u"生日",default="2000-01-01")
@@ -56,12 +56,13 @@ class Users(AbstractUser):
             d[attr] = getattr(self, attr)
 
         import json
-        return json.dumps(d,cls=DateEncoder)
+        return json.dumps(d, cls=DateEncoder)
 
-#score=models.FloatField(verbose_name=u"评分",default=0)
+
+# score=models.FloatField(verbose_name=u"评分",default=0)
 class Articles(models.Model):
     title = models.CharField(max_length=20,verbose_name=u"标题",default="一篇文章")
-    writer = models.ForeignKey(Users,verbose_name=u"文章作者")
+    author = models.ForeignKey(Users,verbose_name=u"文章作者")
     pub_time = models.DateTimeField(verbose_name=u"发表时间")
     click_num = models.IntegerField(verbose_name=u"点击数", default=0)
     text = models.TextField(verbose_name=u"文章内容", default="")
@@ -77,7 +78,7 @@ class Articles(models.Model):
 
 class Books(models.Model):
     name = models.CharField(verbose_name=u"图书名",max_length=30,default="")
-    writer=models.CharField(verbose_name=u"作者名",max_length=50,default="")
+    author=models.CharField(verbose_name=u"作者名",max_length=50,default="")
     publisher=models.CharField(verbose_name=u"出版社",max_length=30,default="")
     good_num=models.IntegerField(verbose_name=u"点赞数",default=0)
 
@@ -88,8 +89,9 @@ class Books(models.Model):
     def __str__(self):
         return self.name
 
+
 class Comments(models.Model):
-    commenter_id = models.ForeignKey(Users,verbose_name=u"发表评论的人")
+    commenter_id = models.ForeignKey(Users,verbose_name=u"评论者")
     book_id = models.ForeignKey(Books,verbose_name=u"图书")
     pub_time = models.DateTimeField(verbose_name=u"发表时间")
     text = models.TextField(verbose_name=u"评论内容",default="")
@@ -103,7 +105,7 @@ class Comments(models.Model):
 
 
 class GoodLink(models.Model):
-    userId=models.ForeignKey(Users,verbose_name=u"点赞的人")
+    userId=models.ForeignKey(Users,verbose_name=u"点赞者")
     bookId=models.ForeignKey(Books,verbose_name=u"图书")
     Time = models.DateTimeField(verbose_name=u"点赞时间")
 
@@ -113,8 +115,8 @@ class GoodLink(models.Model):
 
 
 class FollowLink(models.Model):
-    userId=models.ForeignKey(Users,verbose_name=u"发起关注的人",related_name=u"关注者")
-    toId=models.ForeignKey(Users,verbose_name=u"被关注的人",related_name=u"被关注者")
+    userId=models.ForeignKey(Users,verbose_name=u"关注者",related_name=u"关注者")
+    toId=models.ForeignKey(Users,verbose_name=u"被关注者",related_name=u"被关注者")
 
     class Meta:
         verbose_name = "用户关注关联信息"
