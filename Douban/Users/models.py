@@ -1,9 +1,10 @@
 from django.db import models
 from datetime import datetime,date
+from DouBan import settings
 import json
 # Create your models here.
 from django.contrib.auth.models import (
-    BaseUserManager, AbstractBaseUser, PermissionsMixin)
+    BaseUserManager, AbstractBaseUser, PermissionsMixin,UserManager,AbstractUser)
 
 # 序列化datetime和date
 class DateEncoder(json.JSONEncoder):
@@ -15,11 +16,23 @@ class DateEncoder(json.JSONEncoder):
         else:
             return json.JSONEncoder.default(self, obj)
 
-class Users(AbstractBaseUser):
-    nick_name = models.CharField(max_length=20,verbose_name=u"昵称",default="小豆瓣儿")
-    password = models.CharField(max_length=20,verbose_name=u"密码",default="123456")
-    email = models.EmailField(verbose_name=u"邮箱",default="")
-    birthday = models.DateTimeField(verbose_name=u"生日",default="")
+class Users(AbstractUser):
+    '''
+
+    is_staff = models.BooleanField(
+        ('staff status'),
+        default=False,
+        help_text=('Designates whether the user can log into this admin site.'),
+    )
+    '''
+    objects = UserManager()
+    USERNAME_FIELD = 'email'#认证标识
+    REQUIRED_FIELDS = ['username']
+    username=models.CharField(max_length=20,verbose_name=u"用户名",default="user",null=True)
+    nick_name = models.CharField(max_length=20,verbose_name=u"昵称",default="小豆瓣儿",null=True)
+    #password = models.CharField(max_length=20,verbose_name=u"密码",default="123456")
+    email = models.EmailField(verbose_name=u"邮箱",default="",null=False,unique=True)
+    birthday = models.DateField(verbose_name=u"生日",default="2000-01-01")
     gender = models.CharField(max_length=2, verbose_name=u"性别",default="保密")
     follow_num = models.IntegerField(verbose_name=u"关注数",default=0)
     pub_time = models.DateTimeField(verbose_name=u"注册时间",default=datetime.now)
@@ -31,8 +44,9 @@ class Users(AbstractBaseUser):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return self.nickName
+        return self.nick_name
 
+    #序列化的
     def toJson(self):
         fields = []
         for field in self._meta.fields:

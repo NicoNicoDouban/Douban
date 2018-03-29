@@ -8,9 +8,10 @@ from .emailVerify import *
 
 # Create your views here.
 
-
+'''
 def userVerify(request, code):
-    exist = userActive.objects.get(activation_code=code)
+
+   exist = userActive.objects.get(activation_code=code)
     if exist:
         user = User.objects.get(username=exist.username)
         user.is_active = True
@@ -19,6 +20,8 @@ def userVerify(request, code):
         return HttpResponse('您已完成注册')
     else:
         return HttpResponse('注册失败')
+'''
+
 
 
 @csrf_exempt
