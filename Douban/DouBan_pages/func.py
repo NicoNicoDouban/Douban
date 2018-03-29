@@ -1,5 +1,5 @@
 from Users.models import Articles, Books
-from . import  setting
+from . import setting
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 
@@ -24,8 +24,8 @@ class Search:
         """
         search_correct = True
         search_result = None
-        if search_type == 'title':
-            search_result = Books.objects.filter(title__contains=search_text)
+        if search_type == 'name':
+            search_result = Books.objects.filter(name__contains=search_text)
         elif search_type == 'writer':
             search_result = Books.objects.filter(writer__contains=search_text)
         context = {

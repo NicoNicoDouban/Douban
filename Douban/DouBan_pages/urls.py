@@ -4,7 +4,7 @@ app_name = 'DouBan_pages'
 
 urlpatterns = [
     url('^search$', views.search_start, name='search'),
-    url('^search/result$', views.search_result, name='search_result'),
+    url('^search/result_book$', views.search_result_book, name='search_result_book'),
     url('^search/$', views.search_start, name='search'),
-    url('^search/result/$', views.search_result, name='search_result')
+    url('^search/result_article$', views.search_result_article, name='search_result_article')
 ]
