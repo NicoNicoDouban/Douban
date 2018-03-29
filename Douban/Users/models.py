@@ -5,7 +5,6 @@ import json
 from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser, PermissionsMixin,UserManager,AbstractUser)
 
-
 # 序列化datetime和date
 class DateEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -88,7 +87,6 @@ class Books(models.Model):
 
     def __str__(self):
         return self.name
-
 
 class Comments(models.Model):
     commenter_id = models.ForeignKey(Users,verbose_name=u"发表评论的人")

@@ -21,15 +21,25 @@ def search_start(request):
 
 
 def search_result(request):
+    article_or_book = request.GET.get('Article_or_Book', default='article')
+    search_type = request.GET.get('search_type')
+    search_text = request.GET.get('search_text')
+    index = request.GET.get('index')
+    if article_or_book == 'article':
+        context = search.article_search(search_text, search_type)
+    elif article_or_book == 'book':
+        context = search.book_search(search_text, search_type)
+    error = None
+    return render(request, 'formal/search_result.html', {"context": context,"error": error})
     #try:
-        aricle_or_book = request.GET.get('Article_or_Book', default='article')
-        search_type = request.GET.get('search_type')
-        search_text = request.GET.get('search_text')
-        if aricle_or_book == 'Article':
-            context = search.article_search(search_text, search_type)
-        elif aricle_or_book == 'book':
-            context = search.book_search(search_text, search_type)
-        return render(request, 'formal/search_result.html', {"context":context})
+        # aricle_or_book = request.GET.get('Article_or_Book', default='article')
+        # search_type = request.GET.get('search_type')
+        # search_text = request.GET.get('search_text')
+        # if aricle_or_book == 'Article':
+        #     context = search.article_search(search_text, search_type)
+        # elif aricle_or_book == 'book':
+        #     context = search.book_search(search_text, search_type)
+        # return render(request, 'formal/search_result.html', {"context":context})
     #except:
      #   pass
     #return render(request, 'formal/search_result.html', {"context":context})

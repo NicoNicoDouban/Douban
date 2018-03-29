@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'DouBan.wsgi.application'
 DATABASES = {
     'default': {
     'ENGINE': 'django.db.backends.mysql',
-    'NAME': 'DouBan',   #数据库名
+    'NAME': 'douban',   #数据库名
     'USER': 'root',    #用户名
     'PASSWORD': '123456',
     'HOST': '127.0.0.1',

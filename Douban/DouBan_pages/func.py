@@ -5,9 +5,11 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 class Search:
     index = 1
+    page_items = 5
 
-    def __init__(self, index):
+    def __init__(self, index, page_items=5):
         self.index = index
+        self.page_items = page_items
 
     def __str__(self):
         return self.index
@@ -18,16 +20,14 @@ class Search:
         :param search_text: 搜索的文本内容
         :param search_type: 搜索类型，分为title， writer， 两种
         :return: 搜索结果字典 'search_result'里有要的结果， 'search_correct'是搜索的正确性
+        search_result里的东西{'passages': 返回的内容, 'page_error': 搜索问题提示信息, 'index': 页码, 'index_all': 所有页面
         """
         search_correct = True
         search_result = None
-        try:
-            if search_type == 'title':
-                search_result = Books.objects.filter(title__contains=search_text)
-            elif search_type == 'writer':
-                search_result = Books.objects.filter(writer__contains=search_text)
-        except:
-            search_correct = False
+        if search_type == 'title':
+            search_result = Books.objects.filter(title__contains=search_text)
+        elif search_type == 'writer':
+            search_result = Books.objects.filter(writer__contains=search_text)
         context = {
             'search_result': self.__objects_list(search_result),
             'search_correct': search_correct,
@@ -43,15 +43,12 @@ class Search:
         """
         search_correct = True
         search_result = None
-        try:
-            if search_type == 'title':
-                search_result = Articles.objects.filter(title__contains = search_text)
-            elif search_type == 'text':
-                search_result = Articles.objects.filter(text__contains= search_text)
-            elif search_type == 'writer':
-                search_result = Articles.objects.filter(writer__nick_name__contains= search_text)
-        except:
-            search_correct = False
+        if search_type == 'title':
+            search_result = Articles.objects.filter(title__contains = search_text)
+        elif search_type == 'text':
+            search_result = Articles.objects.filter(text__contains= search_text)
+        elif search_type == 'writer':
+            search_result = Articles.objects.filter(writer__nick_name__contains= search_text)
         context = {
             'search_result': self.__objects_list(search_result),
             'search_correct': search_correct,
@@ -63,53 +60,41 @@ class Search:
         返回热门文章
         :return: 搜索结果字典 'search_result'里有要的结果， 'search_correct'是搜索的正确性
         """
-        try:
-            articles = Articles.objects.order_by('good_num').all()
-            return {
-                'search_result': self.__objects_list(articles),
-                'search_correct': True,
-            }
-        except:
-            return {
-                'search_result': None,
-                'search_correct': False,
-            }
+        articles = Articles.objects.order_by('good_num').all()
+        return {
+            'search_result': self.__objects_list(articles),
+            'search_correct': True,
+        }
 
     def good_book(self):
-        try:
-            books = Books.objects.order_by('good_num').all()
-            return {
-                'search_result': self.__objects_list(books),
-                'search_correct': True,
-            }
-        except:
-            return {
-                'search_result': None,
-                'search_correct': False,
-            }
+        books = Books.objects.order_by('good_num').all()
+        return {
+            'search_result': self.__objects_list(books),
+            'search_correct': True,
+        }
 
-    def __objects_list(self, p_objects, page_items=setting.the_number_of_items_in_each_page):
+    def __objects_list(self, p_objects, page_items=page_items):
         """
         返回相应的文章列表，页码, 总页数
         :param p_objects:
         :param page_items:
-        :return:
+        :return: {'passages': 返回的内容, 'page_error': 搜索问题提示信息, 'index': 页码, 'index_all': 所有页面
         """
         p = Paginator(p_objects, page_items)
         context = {}
         try:
-            context['passages'] = p.page(self.index)
+            context['objects'] = p.page(self.index)
         except PageNotAnInteger:
             self.index = 1
-            context['passages'] = p.page(1)
+            context['objects'] = p.page(1)
         except EmptyPage:
             if self.index <= 0:
                 self.index = 1
-                context['passages'] = p.page(1)
+                context['objects'] = p.page(1)
                 context['page_error'] = "已经到首页了"
             else:
                 index = p.num_pages
-                context['passages'] = p.page(p.num_pages)
+                context['objects'] = p.page(p.num_pages)
                 context['page_error'] = '已经到末页了'
         context['index'] = str(self.index)
         context['index_all'] = str(p.num_pages)
