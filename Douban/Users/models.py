@@ -28,7 +28,7 @@ class Users(AbstractUser):
     objects = UserManager()
     USERNAME_FIELD = 'email'  # 认证标识
     REQUIRED_FIELDS = ['username']
-    username=models.CharField(max_length=20,verbose_name=u"用户名",default="user",null=True, unique=True)
+    #username=models.CharField(max_length=20,verbose_name=u"用户名",default="user",null=True, unique=True)
     # password = models.CharField(max_length=20,verbose_name=u"密码",default="123456")
     email = models.EmailField(verbose_name=u"邮箱",default="",null=False,unique=True)
     birthday = models.DateField(verbose_name=u"生日",default="2000-01-01")
