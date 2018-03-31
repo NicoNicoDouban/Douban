@@ -2,10 +2,13 @@ from django.template.context_processors import csrf
 from django.http import HttpResponse
 from django.shortcuts import render
 from Users.models import Users
+from Users.models import Books
+from Users.models import Articles
 from DouBan_pages import func
 from django.views.generic.base import View
 from django.contrib.auth import authenticate, login, logout
-
+from django.core import serializers
+import json
 
 def test(request):
     return render(request,"index.html")
@@ -33,7 +36,10 @@ def toRegiste(request):
 class users(View):
     def judgeExist(self,type,text):#判断用户是否存在 type为标识类型(email phone)
         if type=="email":
-            user=Users.objects.get(email=text)
+            try:
+                user=Users.objects.get(email=text)
+            except:
+                return False
             if user:
                 return True
             else :
@@ -49,18 +55,98 @@ class users(View):
             else:
                 return False
 
-    def createUser(self,text,pwd,type="email"):
+    def createUser(request):
+        if request.method!="POST":
+            resp = {'rsNum': 0}
+            return HttpResponse(json.dumps(resp), content_type="application/json")
         #try:
+        text=request.POST.get("text")
+        pwd = request.POST.get("pwd")
+        type = request.POST.get("type")
+
+        if not users().judgeExist(type=type, text=text):
             user=Users.objects.create()
             if type=="email":
                 user.email=text
             user.password=pwd
             user.save()
-            return True
-        #except:
-         #   return False
+            resp = {'rsNum': 1}
+        else:
+            resp = {'rsNum': -1}
+    #except:
+     #   resp = {'rsNum': 0}
+        return HttpResponse(json.dumps(resp), content_type="application/json")
 
-    def login(self,text,pwd,type="type"):
+
+
+    def login(request):
+        text=request.GET.get("text")
+        pwd=request.GET.get("pwd")
+        type=request.GET.get("type")
         if type=="email":
-            user=authenticate()
+            user = authenticate(username=text)
+            if user is not None:
+                user = authenticate(username=text, password=pwd)
+                if user is not None:
+                    if user.is_active:
+                        login(request, user)
+                        resp = {'rsNum':1}
+                    else:
+                        resp = {'rsNum': 0}
+                else:
+                    resp = {'rsNum': -2}
+            else:
+                resp = {'rsNum': -1}
+            return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
+
+class search(View):
+    #获取热门文章
+    def getHotArtcles(self):
+        search=func.Search(1,5)
+        result=search.good_article()
+        #result=search.book_search("a","name")
+        context=serializers.serialize("json", result["search_result"]["objects"])
+        return HttpResponse(context, content_type="application/json")
+
+    #获取热门图书
+    def getHotBooks(self):
+        search=func.Search(1,5)
+        result=search.good_book()
+        #result=search.book_search("a","name")
+        context=serializers.serialize("json", result["search_result"]["objects"])
+        return HttpResponse(context, content_type="application/json")
+
+    '''
+    搜索书 
+    type 为搜索类型(name author)
+    '''
+    def bookSearch(self,request):
+        searchText=request.GET.get("text")
+        search = func.Search(1, 5)
+        result = search.book_search(searchText, request.GET.get("type"))
+        context = serializers.serialize("json", result["search_result"]["objects"])
+        return HttpResponse(context, content_type="application/json")
+
+    '''
+        搜索文章
+        type 为搜索类型(title， text，writer)
+    '''
+    def artclesSearch(self,request):
+        searchText=request.GET.get("text")
+        search = func.Search(1, 5)
+        result = search.article_search(searchText, request.GET.get("type"))
+        context = serializers.serialize("json", result["search_result"]["objects"])
+        return HttpResponse(context, content_type="application/json")
+
+
+    def getDetails(request):
+        #search = func.Search(1, 5)
+        if request.GET.get("type")=="book":
+            result=Books.objects.filter(id=request.GET.get("id"))
+        elif request.GET.get("type")=="artcles":
+            result = Articles.objects.filter(id=request.GET.get("id"))
+        context = serializers.serialize("json",result)
+        return HttpResponse(context, content_type="application/json")
 

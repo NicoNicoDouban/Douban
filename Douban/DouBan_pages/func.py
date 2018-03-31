@@ -14,11 +14,15 @@ class Search:
     def __str__(self):
         return self.index
 
-    def book_search(self, search_text='', search_type='title'):
+    def book_search(self, search_text='', search_type='name'):
         """
         对图书进行搜索
         :param search_text: 搜索的文本内容
+<<<<<<< HEAD
         :param search_type: 搜索类型，分为name， writer， 两种
+=======
+        :param search_type: 搜索类型，分为name， author， 两种
+>>>>>>> e3cd42459dc9b876597de3509bfeb0b47d90cb7f
         :return: 搜索结果字典 'search_result'里有要的结果， 'search_correct'是搜索的正确性
         search_result里的东西{'objects': 返回的内容, 'page_error': 搜索问题提示信息, 'index': 页码, 'index_all': 所有页面数
         """
@@ -26,8 +30,8 @@ class Search:
         search_result = None
         if search_type == 'name':
             search_result = Books.objects.filter(name__contains=search_text)
-        elif search_type == 'writer':
-            search_result = Books.objects.filter(writer__contains=search_text)
+        elif search_type == 'author':
+            search_result = Books.objects.filter(author__contains=search_text)
         context = {
             'search_result': self.__objects_list(search_result),
             'search_correct': search_correct,
