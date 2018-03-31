@@ -19,6 +19,7 @@ def home_page(request):
 def search_start(request):
     return render(request,'formal/search.html')
 
+
 def search_result_article(request):
     search_type = request.GET.get('search_type')
     search_text = request.GET.get('search_text')
@@ -50,5 +51,9 @@ def search_result_book(request):
     #return render(request, 'formal/search_result.html', {"context":context})
 
 
+def self_home(request):
+    self_info = Users.objects.get(id)
 
 
+def add_article(request):
+    return render(request, 'formal/add_article.html')

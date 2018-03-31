@@ -25,5 +25,6 @@ urlpatterns = [
     url(r'^douban/', include('DouBan_pages.urls', namespace='DouBan_pages')),
     url(r'^regist/$', userRegister, name='regist'),
     url(r'^login/$', userLogin, name='login'),
+    url(r'^ueditor/', include('ueditor.urls')),
    # url(r'^active/(.+)/$', userVerify)
 ]

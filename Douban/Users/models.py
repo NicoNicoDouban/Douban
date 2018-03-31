@@ -58,7 +58,8 @@ class Users(AbstractUser):
         import json
         return json.dumps(d,cls=DateEncoder)
 
-#score=models.FloatField(verbose_name=u"评分",default=0)
+
+# score=models.FloatField(verbose_name=u"评分",default=0)
 class Articles(models.Model):
     title = models.CharField(max_length=20,verbose_name=u"标题",default="一篇文章")
     writer = models.ForeignKey(Users,verbose_name=u"文章作者")
@@ -76,10 +77,10 @@ class Articles(models.Model):
 
 
 class Books(models.Model):
-    name = models.CharField(verbose_name=u"图书名",max_length=30,default="")
-    writer = models.CharField(verbose_name=u"作者名",max_length=50,default="")
-    publisher = models.CharField(verbose_name=u"出版社",max_length=30,default="")
-    good_num = models.IntegerField(verbose_name=u"点赞数",default=0)
+    name = models.CharField(verbose_name=u"图书名", max_length=30, default="")
+    writer = models.CharField(verbose_name=u"作者名", max_length=50, default="")
+    publisher = models.CharField(verbose_name=u"出版社", max_length=30, default="")
+    good_num = models.IntegerField(verbose_name=u"点赞数", default=0)
 
     class Meta:
         verbose_name = "图书信息"
@@ -88,11 +89,12 @@ class Books(models.Model):
     def __str__(self):
         return self.name
 
+
 class Comments(models.Model):
     commenter_id = models.ForeignKey(Users,verbose_name=u"发表评论的人")
     book_id = models.ForeignKey(Books,verbose_name=u"图书")
     pub_time = models.DateTimeField(verbose_name=u"发表时间")
-    text = models.TextField(verbose_name=u"评论内容",default="")
+    text = models.TextField(verbose_name=u"评论内容", default="")
 
     class Meta:
         verbose_name = "评论信息"

@@ -18,9 +18,9 @@ class Search:
         """
         对图书进行搜索
         :param search_text: 搜索的文本内容
-        :param search_type: 搜索类型，分为title， writer， 两种
+        :param search_type: 搜索类型，分为name， writer， 两种
         :return: 搜索结果字典 'search_result'里有要的结果， 'search_correct'是搜索的正确性
-        search_result里的东西{'passages': 返回的内容, 'page_error': 搜索问题提示信息, 'index': 页码, 'index_all': 所有页面
+        search_result里的东西{'objects': 返回的内容, 'page_error': 搜索问题提示信息, 'index': 页码, 'index_all': 所有页面数
         """
         search_correct = True
         search_result = None
@@ -40,6 +40,7 @@ class Search:
         :param search_text: 搜索文本内容
         :param search_type: 搜索类型：title， text，writer
         :return: 搜索结果字典 'search_result'里有要的结果， 'search_correct'是搜索的正确性
+        search_result里的东西{'objects': 返回的内容, 'page_error': 搜索问题提示信息, 'index': 页码, 'index_all': 所有页面数
         """
         search_correct = True
         search_result = None
