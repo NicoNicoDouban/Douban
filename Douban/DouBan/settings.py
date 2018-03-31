@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "DouBan_pages",
     "login",
     "Api",
+    "ueditor" # 富文本 https://github.com/HaddyYang/django-ueditor
 ]
 
 MIDDLEWARE = [
@@ -131,5 +132,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, "static"),
 )
