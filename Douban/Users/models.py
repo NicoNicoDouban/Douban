@@ -17,18 +17,10 @@ class DateEncoder(json.JSONEncoder):
 
 
 class Users(AbstractUser):
-    '''
-
-    is_staff = models.BooleanField(
-        ('staff status'),
-        default=False,
-        help_text=('Designates whether the user can log into this admin site.'),
-    )
-    '''
     objects = UserManager()
     USERNAME_FIELD = 'email'  # 认证标识
     REQUIRED_FIELDS = ['username']
-    #username=models.CharField(max_length=20,verbose_name=u"用户名",default="user",null=True, unique=True)
+    username=models.CharField(max_length=20,verbose_name=u"用户名",default="user",null=True, unique=True)
     # password = models.CharField(max_length=20,verbose_name=u"密码",default="123456")
     email = models.EmailField(verbose_name=u"邮箱",default="",null=False,unique=True)
     birthday = models.DateField(verbose_name=u"生日",default="2000-01-01")
@@ -81,7 +73,8 @@ class Books(models.Model):
     author=models.CharField(verbose_name=u"作者名",max_length=50,default="")
     publisher=models.CharField(verbose_name=u"出版社",max_length=30,default="")
     good_num=models.IntegerField(verbose_name=u"点赞数",default=0)
-
+    text=models.TextField(verbose_name=u"简介",default="暂无介绍")
+    src=models.CharField(verbose_name=u"封面url地址",default="image/default.png",max_length=100)
     class Meta:
         verbose_name = "图书信息"
         verbose_name_plural = verbose_name
