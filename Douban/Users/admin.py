@@ -187,8 +187,11 @@ class ArticleAdmin(admin.ModelAdmin):
     list_filter = (ArticleFilterPubtime, ClickNumFilter, LickNumFilter)
 
     class Media:
-        # js = ('/js/tinymce/tinymce.min.js', '/js/textareas.js')
-        js = ('/js/ueditor/ueditor.all.js', '/js/ueditor/ueditor.config.js', '/js/ueditorCustomConfig.js')
+        js = (
+            '/static/js/kindeditor-4.1.11/kindeditor-all.js',
+            '/static/js/kindeditor-4.1.11/lang/zh-CN.js',
+            '/static/js/kindeditor-4.1.11/config.js'
+        )
 
 
 class BookAdmin(admin.ModelAdmin):
@@ -205,8 +208,11 @@ class CommentsAdmin(admin.ModelAdmin):
     list_filter = (CommentFilterPubtime,)
 
     class Media:
-        # js = ('/js/tinymce/tinymce.min.js', '/js/textareas.js')
-        js = ('/js/ueditor/ueditor.all.js', '/js/ueditor/ueditor.config.js', '/js/ueditorCustomConfig.js')
+        js = (
+            '/static/js/kindeditor-4.1.11/kindeditor-all.js',
+            '/static/js/kindeditor-4.1.11/lang/zh-CN.js',
+            '/static/js/kindeditor-4.1.11/config.js'
+        )
 
 
 class GoodLinkAdmin(admin.ModelAdmin):

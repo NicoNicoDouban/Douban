@@ -71,7 +71,7 @@ class Articles(models.Model):
     author = models.ForeignKey(Users,verbose_name=u"文章作者")
     pub_time = models.DateTimeField(verbose_name=u"发表时间", default=datetime.now())
     click_num = models.IntegerField(verbose_name=u"点击数", default=0)
-    text = models.TextField(verbose_name=u"文章内容", default="")
+    text = models.TextField(verbose_name='文章内容', default="")
     like_num = models.IntegerField(verbose_name=u"点赞数", default=0)
 
     class Meta:
@@ -100,7 +100,7 @@ class Comments(models.Model):
     commenter_id = models.ForeignKey(Users,verbose_name=u"评论者")
     book_id = models.ForeignKey(Books,verbose_name=u"图书")
     pub_time = models.DateTimeField(verbose_name=u"发表时间")
-    text = models.TextField(verbose_name=u"评论内容", default="")
+    text = models.TextField(verbose_name='评论内容', default="")
 
     class Meta:
         verbose_name = "评论信息"

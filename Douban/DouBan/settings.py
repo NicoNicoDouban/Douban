@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     "DouBan_pages",
     "login",
     "Api",
-    "ueditor" # 富文本 https://github.com/HaddyYang/django-ueditor
+    "ueditor", # 富文本 https://github.com/HaddyYang/django-ueditor
 ]
 
 MIDDLEWARE = [
@@ -110,6 +110,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
 
 
 # Internationalization
