@@ -17,14 +17,6 @@ class DateEncoder(json.JSONEncoder):
 
 
 class Users(AbstractUser):
-    '''
-
-    is_staff = models.BooleanField(
-        ('staff status'),
-        default=False,
-        help_text=('Designates whether the user can log into this admin site.'),
-    )
-    '''
 
     Gender_Choice = (
         ('F', u'女'),
@@ -72,7 +64,7 @@ class Articles(models.Model):
     pub_time = models.DateTimeField(verbose_name=u"发表时间", default=datetime.now())
     click_num = models.IntegerField(verbose_name=u"点击数", default=0)
     text = models.TextField(verbose_name='文章内容', default="")
-    like_num = models.IntegerField(verbose_name=u"点赞数", default=0)
+    good_num = models.IntegerField(verbose_name=u"点赞数", default=0)
 
     class Meta:
         verbose_name = "文章信息"
@@ -83,10 +75,12 @@ class Articles(models.Model):
 
 
 class Books(models.Model):
-    name = models.CharField(verbose_name=u"图书名",max_length=30,default="")
-    author=models.CharField(verbose_name=u"作者名",max_length=50,default="")
-    publisher=models.CharField(verbose_name=u"出版社",max_length=30,default="")
-    like_num=models.IntegerField(verbose_name=u"点赞数",default=0)
+    name = models.CharField(verbose_name=u"图书名", max_length=30, default="")
+    author = models.CharField(verbose_name=u"作者名", max_length=50, default="")
+    publisher = models.CharField(verbose_name=u"出版社", max_length=30, default="")
+    good_num = models.IntegerField(verbose_name=u"点赞数", default=0)
+    text = models.TextField(verbose_name=u"简介", default="暂无介绍")
+    src = models.CharField(verbose_name=u"封面url地址", default="image/default.png", max_length=100)
 
     class Meta:
         verbose_name = "图书信息"
