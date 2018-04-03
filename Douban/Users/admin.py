@@ -144,7 +144,7 @@ class ClickNumFilter(admin.SimpleListFilter):
 
 class LickNumFilter(admin.SimpleListFilter):
     title = u'点赞数'
-    parameter_name = 'like_num'
+    parameter_name = 'good_num'
 
     def lookups(self, request, model_admin):
         return (
@@ -155,11 +155,11 @@ class LickNumFilter(admin.SimpleListFilter):
 
     def queryset(self, request, queryset):
         if self.value() == '0':
-            return queryset.filter(like_num__gte=1000)
+            return queryset.filter(good_num__gte=1000)
         if self.value() == '1':
-            return queryset.filter(like_num__gte=500)
+            return queryset.filter(good_num__gte=500)
         if self.value() == '2':
-            return queryset.filter(like_num__gte=200)
+            return queryset.filter(good_num__gte=200)
 
 
 class UserAdmin(admin.ModelAdmin):
@@ -179,9 +179,9 @@ class UserAdmin(admin.ModelAdmin):
 
 
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ('title', 'author', 'pub_time', 'click_num', 'like_num')
+    list_display = ('title', 'author', 'pub_time', 'click_num', 'good_num')
     search_fields = ('title', 'author')
-    fields = ('title', 'author', 'pub_time', 'click_num', 'like_num', 'text')
+    fields = ('title', 'author', 'pub_time', 'click_num', 'good_num', 'text')
     list_per_page = 30
     ordering = ('-pub_time',)
     list_filter = (ArticleFilterPubtime, ClickNumFilter, LickNumFilter)
@@ -195,7 +195,7 @@ class ArticleAdmin(admin.ModelAdmin):
 
 
 class BookAdmin(admin.ModelAdmin):
-    list_display = ('name', 'author', 'publisher', 'like_num')
+    list_display = ('name', 'author', 'publisher', 'good_num')
     search_fields = ('name', 'author', 'publisher')
     list_per_page = 30
     list_filter = (LickNumFilter,)
