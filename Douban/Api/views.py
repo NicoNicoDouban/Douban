@@ -409,23 +409,45 @@ class comments(View):
                 context.append(temp)
         return HttpResponse(json.dumps(context), content_type="application/json")
 
-    # 评论
+    # 基本完善 评论
     def toComment(request):
-        try:
-            id = request.user.id
-            bookId = request.POST.get("bookId")
-            text = request.POST.get("text")
-            time = datetime.datetime.now()
-            newInfo = models.Comments.objects.create()
-            newInfo.book_id = bookId
-            newInfo.commenter_id = id
-            newInfo.text = text
-            newInfo.pub_time = time
-            newInfo.save()
-            resp = {'rsNum': 1}
-        except:
+        if request.method!="POST":
             resp = {'rsNum': 0}
+        else:
+            try:
+                id = request.user.id
+                bookId = request.POST.get("bookId")
+                text = request.POST.get("text")
+                time = datetime.datetime.now()
+                newInfo = models.Comments.objects.create()
+                newInfo.book_id = bookId
+                newInfo.commenter_id = id
+                newInfo.text = text
+                newInfo.pub_time = time
+                newInfo.save()
+                resp = {'rsNum': 1} # 成功
+            except:
+                resp = {'rsNum': 0} # 位置错误
         return HttpResponse(json.dumps(resp), content_type="application/json")
+
+    # 基本完善 删除评论
+    def toDelComment(request):
+        if request.method!="POST":
+            resp = {'rsNum': 0}
+        else:
+            try:
+                id = request.user.id
+                bookId = request.POST.get("bookId")
+                try:
+                    info=models.Comments.objects.get(commenter_id=id,book_id=id)
+                except:
+                    resp = {'rsNum': -1} #没有找到评论
+                    HttpResponse(json.dumps(resp), content_type="application/json")
+                info.delete()
+                resp = {'rsNum': 1} # 成功
+            except:
+                resp = {'rsNum': 0} #未知错误
+        HttpResponse(json.dumps(resp), content_type="application/json")
 
     # 获取指定id书或用户的点赞信息
     def getGoods(request):
@@ -463,4 +485,24 @@ class comments(View):
             resp = {'rsNum': 1}
         except:
             resp = {'rsNum': 0}
+        return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
+    # 基本完善 取消赞
+    def toCancelGood(request):
+        if request.method!="POST":
+            resp = {'rsNum': 0}
+        else:
+            try:
+                id = request.user.id
+                bookId = request.POST.get("bookId")
+                try:
+                    info=models.GoodLink.objects.get(bookId=bookId,userId=id)
+                except:
+                    resp = {'rsNum': -1}#没有点赞信息
+                    return HttpResponse(json.dumps(resp), content_type="application/json")
+                info.delete()
+                resp = {'rsNum': 1}  # 成功
+            except:
+                resp = {'rsNum': 0} # 未知错误
         return HttpResponse(json.dumps(resp), content_type="application/json")

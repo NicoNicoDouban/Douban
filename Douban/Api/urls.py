@@ -24,11 +24,15 @@ urlpatterns = [
     url('^registe/', views.users.createUser, name='createUser'),
     url('^changePwd/', views.users.changePwd, name='changePwd'),
 
+
     #评论与点赞
     url('^getComments/', views.comments.getComments, name='getComments'),#获取指定id书或用户的评论
     url('^toComment/', views.comments.toComment, name='toComment'),#登录的用户发表评论
+    url('^toDelComment/', views.comments.toDelComment, name='toDelComment'),#登录的用户删除评论
+
     url('^getGoods/', views.comments.getGoods, name='getGoods'),#获取指定id书或用户的点赞信息
     url('^toGood/', views.comments.toGood, name='toGood'),#登录的用户点赞
+    url('^toCancelGood/', views.comments.toCancelGood, name='toCancelGood'),#登录的用户取消点赞
 
     #测试
     url('^test/', views.test, name='getHotAricles2'),
