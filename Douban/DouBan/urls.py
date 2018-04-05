@@ -26,5 +26,5 @@ urlpatterns = [
     url(r'^regist/$', userRegister, name='regist'),
     url(r'^login/$', userLogin, name='login'),
     url(r'^ueditor/', include('ueditor.urls')),
-   # url(r'^active/(.+)/$', userVerify)
+    # url(r'^active/(.+)/$', userVerify)
 ]

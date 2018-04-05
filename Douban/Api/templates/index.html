@@ -5,9 +5,15 @@
     <title>Title</title>
 </head>
 <body>
-<form method="post">
+
+<form action="{% url "Api:login" %}" method="post">
     {% csrf_token %}
-    <input type="submit">
+   type: <input type="text" name="type"><br>
+    text: <input type="text" name="text"><br>
+    pwd: <input type="text" name="pwd"><br>
+    <input type="submit" value="登录">
 </form>
+
+
 </body>
 </html>
