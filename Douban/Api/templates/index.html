@@ -11,9 +11,16 @@
    type: <input type="text" name="type"><br>
     text: <input type="text" name="text"><br>
     pwd: <input type="text" name="pwd"><br>
-    <input type="submit" value="登录">
+    <input type="submit" value="登录" name="login">
 </form>
-
+<br>
+<form action="{% url "Api:createUser" %}" method="post">
+    {% csrf_token %}
+   type: <input type="text" name="type"><br>
+    text: <input type="text" name="text"><br>
+    pwd: <input type="text" name="pwd"><br>
+    <input type="submit" value="注册" name="registe"><br>
+</form>
 
 </body>
 </html>

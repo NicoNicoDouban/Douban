@@ -74,7 +74,6 @@ class CommentFilterPubtime(admin.SimpleListFilter):
             ('3', u'今年'),
             ('4', u'今年之前')
         )
-
     def queryset(self, request, queryset):
         if self.value() == '0':
             start = datetime.now() - timedelta(days=1)

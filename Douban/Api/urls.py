@@ -24,7 +24,6 @@ urlpatterns = [
     url('^registe/', views.users.createUser, name='createUser'),
     url('^changePwd/', views.users.changePwd, name='changePwd'),
 
-
     #评论与点赞
     url('^getComments/', views.comments.getComments, name='getComments'),#获取指定id书或用户的评论
     url('^toComment/', views.comments.toComment, name='toComment'),#登录的用户发表评论
