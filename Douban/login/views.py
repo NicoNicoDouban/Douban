@@ -39,16 +39,15 @@ def userRegister(request):
         else:
             userform = registForm(request.POST)
             userform.add_error('username', '用户名已注册')
-            return render_to_response('Register.html', {'userform': userform})
+            return render_to_response('signin.html', {'userform': userform})
     else:
         userform = registForm()
-    return render_to_response('Register.html', {'userform': userform})
+    return render_to_response('signin.html', {'userform': userform})
 
 
 @csrf_exempt
 def userLogin(request):
     if request.user.is_authenticated:
-        logout(request)
         userform = loginForm()
         return render_to_response('Register.html', {'userform': userform})
     else:
@@ -59,11 +58,11 @@ def userLogin(request):
             if not user:
                 userform = loginForm(request.POST)
                 userform.add_error('username', '用户名或密码错误！')
-                return render_to_response('Register.html', {'userform': userform})
+                return render_to_response('signin.html', {'userform': userform})
             else:
                 login(request, user)
                 return HttpResponse('登陆成功')  # 跳转到主页面
         else:
             userform = loginForm()
-            return render_to_response('Register.html', {'userform': userform})
+            return render_to_response('signin.html', {'userform': userform})
 

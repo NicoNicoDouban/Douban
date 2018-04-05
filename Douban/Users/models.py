@@ -75,19 +75,12 @@ class Articles(models.Model):
 
 
 class Books(models.Model):
-<<<<<<< HEAD
-    name = models.CharField(verbose_name=u"图书名",max_length=30,default="")
-    author=models.CharField(verbose_name=u"作者名",max_length=50,default="")
-    publisher=models.CharField(verbose_name=u"出版社",max_length=30,default="")
-    good_num=models.IntegerField(verbose_name=u"点赞数",default=0)
-=======
     name = models.CharField(verbose_name=u"图书名", max_length=30, default="")
     author = models.CharField(verbose_name=u"作者名", max_length=50, default="")
     publisher = models.CharField(verbose_name=u"出版社", max_length=30, default="")
     good_num = models.IntegerField(verbose_name=u"点赞数", default=0)
     text = models.TextField(verbose_name=u"简介", default="暂无介绍")
     src = models.CharField(verbose_name=u"封面url地址", default="image/default.png", max_length=100)
->>>>>>> ad73afc31c8a3dce6fc5a3c419bc81772dc13a8e
 
     class Meta:
         verbose_name = "图书信息"

@@ -9,7 +9,7 @@ a{
 .container{
 	height: 1276px;
 	width: 100%;
-	background-image: url('../imgs./ff563.png');
+	background-image: url('../imgs/ff563.png');
 	background-repeat: no-repeat;
 	background-size:100% 1276px;
 }
@@ -90,15 +90,6 @@ a{
 	position: absolute;
 	right: 0px;
 	width: 309px;
-}
-input:: -webkit-input-placeholder {
-	color: red;
-}
-input:: -moz-input-placeholder{
-	color: red;
-}
-input:: -ms-input-placeholder{
-	color: red;
 }
 .password_span{
 	left: 5px; 
