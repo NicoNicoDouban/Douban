@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<title>书本详情页</title>
+    <meta charset="utf-8" />
+	<link rel="stylesheet" type="text/css" href="{% static 'Douban_pages/css/d.css' %}"> # "./css./d.css"
+	<link rel="stylesheet" type="text/css" href="{% static 'Douban_pages/css/bookdetail.css' %}"> # ./css./bookdetail.css
+</head>
+<body>
+	<div class="container">
+	<div class="head">
+		<div class="center">
+			<img src="{% static 'Douban_pages/imgs/logo.png' %}" class="douban_logo">
+			<ul class="head_list">
+				<li class="navi HOME">HOME</li>
+				<li class="navi BOOK">BOOK</li>
+				<li class="navi ACTIVITY">ACTIVITY</li>
+				<li class="navi LOGIN" style="margin-right: 0px;">LOGIN</li>
+			</ul>
+			<div class="head_search_div">
+				<input type="text" name="" class="head_search" placeholder="请输入关键字">
+				<a href=""><img src="{% static 'Douban_pages/imgs/search.png' %}" class="search_img"></a>
+			</div>
+		</div>
+	</div>
+	<div class="main">
+		<div class="center">
+			<div class="book_cover">
+				<img src="{% static 'Douban_pages/imgs/s29608420.jpg' %}" class="cover">
+				<a href="#"><img src="{% static 'Douban_pages/imgs/share.png' %}" class="share"></a>
+				<a href="#"><img src="{% static 'Douban_pages/imgs/like.png' %}" class="like"></a>
+				<a href="#"><div class="pointview">我来发表评论</div></a>
+			</div>
+			<div class="book_review">
+				<div class="book_name_sign">
+					<h2 class="book_name">孤独梦想家</h2>
+					<span class="book_press">(湖北文艺出版社)</span>
+					<h3 class="book_sign">唤醒爱, 唯有爱</h3>
+				</div>
+				<div class="review_content">
+					<div class="ranking">
+						<span class="ranking_time">时间</span>
+						<span class="ranking_hot">热度</span>
+					</div>
+					<div class="pointview_one">
+						<div class="person_infor">
+							<img src="{% static 'Douban_pages/imgs/dd141.jpg' %}" class="portrait portrait_one">
+							<h4 class="name name_one">刘星</h4>
+							<h4 class="date date_one">2018.3.10</h4>
+						</div>
+						<div class="content_div">
+							<div class="content_main"><p class="content_main_em content_main_em_one">哈哈哈哈哈或或哈或或哈或或或或哈或哈哈哈哈哈或或或或哈或或或或哈哈哈哈或或哈或或或或或哈或哈哈哈哈或或哈或或或或或哈或或或哈哈哈哈或或或哈或或或或或哈或或哈哈哈哈哈或或哈或或哈或或或或哈或哈哈哈</p></div>
+							<img src="{% static 'Douban_pages/imgs/zan.png' %}" class="zan">
+							<span class="zan_number zan_number_one">(1)</span>
+						</div>
+					</div>
+					<div class="pointview_two">
+						<div class="person_infor">
+							<img src="{% static 'Douban_pages/imgs/dd141.jpg' %}" class="portrait portrait_two">
+							<h4 class="name name_two">刘星</h4>
+							<h4 class="date date_two">2018.3.10</h4>
+						</div>
+						<div class="content_div">
+							<div class="content_main"><p class="content_main_em content_main_em_two">哈哈哈哈哈或或哈或或哈或或或或哈或哈哈哈哈哈或或或或哈或或或或哈哈哈哈或或哈或或或或或哈或哈哈哈哈或或哈或或或或或哈或或或哈哈哈哈或或或哈或或或或或哈或或哈哈哈哈哈或或哈或或哈或或或或哈或哈哈哈</p></div>
+							<img src="{% static 'Douban_pages/imgs/zan.png' %}" class="zan">
+							<span class="zan_number zan_number_two">(1)</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="book_main">
+		<div class="center">
+			<div class="fen">
+				<img src="{% static 'Douban_pages/imgs/can.png' %}" class="fen_line">
+				<h2>书籍详情</h2>
+			</div>
+			<div class="introduce">
+				<h3>简介</h3>
+				<img src="{% static 'Douban_pages/imgs/you.png' %}" class="jianjieyou">
+				<div class="introduce_content">
+					<p class="introduce_content_p">哈哈哈哈哈或或哈或或哈或或或或哈或哈哈哈哈哈或或或或哈或或或或哈哈哈哈或或哈或或或或或哈或哈哈哈哈或或哈或或或或或哈或或或哈哈哈哈或或或哈或或或或或哈或或哈哈哈哈哈或或哈或或哈或或或或哈或哈哈哈</p>
+					<img src="{% static 'Douban_pages/imgs/zuo.png' %}" class="content_zuo">
+					<img src="{% static 'Douban_pages/imgs/you.png' %}" class="content_you">
+				</div>
+			</div>
+			<div class="author">
+				<h3>作者</h3>
+				<img src="{% static 'Douban_pages/imgs/you.png' %}" class="jianjieyou">
+				<div class="author_picture">
+					<img src="{% static 'Douban_pages/imgs/dd141.jpg' %}" class="author_picture_one author_picture_">
+					<img src="{% static 'Douban_pages/imgs/dd141.jpg' %}" class="author_picture_two author_picture_">
+					<img src="{% static 'Douban_pages/imgs/dd141.jpg' %}" class="author_picture_three author_picture_">
+				</div>
+				<div class="author_content"><p class="author_intro"><span class="author_name">戴维•巴尼特（David M. Barnett）</span>：英国新晋获奖作家，1970年出生于英国兰开夏郡，曾出版包括《雅努斯的房子》《另外两个故事》在内的多部小说。2017年，戴维•巴尼特推出温情疗愈新作《孤独梦想家》，作品一经出版，便空降各大销售排行榜，风靡英伦三岛，成为多家媒体的年度荐书，是几乎每个英国人都喜欢的年度疗愈畅销书。戴维•巴尼特也自此成为英国炙手可热的畅销作家。</p></div>
+			</div>
+			<div class="disscuss">
+				<img src="{% static 'Douban_pages/imgs/h.jpg' %}" class="user_picture">
+				<form>
+					<textarea class="user_disscuss" placeholder="#请在此处输入文字"></textarea> 
+					<button h class="user_share">发表评论</button>
+			</form>
+			</div>
+
+		</div>
+
+	</div>
+	<div class="spread">
+		<div class="center">
+			<div style="width: 480px;position: relative;height: 200px;margin:auto;">
+				<div class="spread_div" style="margin-right: 110px;">
+					<a href="#" class="spread_media spread_blog">
+						<img src="{% static 'Douban_pages/imgs/blog2.png' %}" style="position: absolute;left: 23px;top:20px;">
+						<span class="label" style="left:23px;">BLOG</span>
+					</a>
+				</div>
+				<div class="spread_div" style="margin-right: 100px;">
+					<a href="#" class="spread_media spread_wechat">
+						<img src="{% static 'Douban_pages/imgs/wechat2.png' %}" style="position: absolute;left:28px;top:28px;">
+						<span class="label">WECHAT</span>
+					</a>
+				</div>
+				<div class="spread_div">
+					<a href="#" class="spread_media spread_moment">
+						<img src="{% static 'Douban_pages/imgs/moment2.png' %}" style="position: absolute;left: 28px;top:28px;">
+						<span class="label" style="left:10px;">MOMENT</span>
+					</a>
+			 	</div>
+			</div>
+		</div>
+	</div>
+	<div class="foot">
+		<div class="center">
+			<ul class="foot_menu">
+				<li>关于我们</li>
+				<li>加入我们</li>
+				<li>合作伙伴</li>
+				<li>广告服务</li>
+				<li style="margin-right: 0px;">常见问题</li>
+			</ul>
+			<p class="copyright">© 2005－2018 douban.com, all rights reserved 北京豆网科技有限公司</p>
+		</div>
+		
+	</div>
+	</div>
+</body>
+</html>

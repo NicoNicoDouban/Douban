@@ -57,3 +57,21 @@ def self_home(request):
 
 def add_article(request):
     return render(request, 'formal/add_article.html')
+
+
+def add_article_result(request):
+    text = request.POST.get('article')
+    context = {"text": text}
+    return render(request, 'formal/article_detail.html', context)
+
+
+def book_detail(request):
+    pass
+
+
+def test(request):
+    return render(request, 'formal/bookdetail.html')
+
+
+def useinfo(request):
+    user_id = request.session['user_id']

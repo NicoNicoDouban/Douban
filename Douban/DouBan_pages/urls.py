@@ -8,4 +8,6 @@ urlpatterns = [
     url('^search/$', views.search_start, name='search'),
     url('^search/result_article$', views.search_result_article, name='search_result_article'),
     url(r'^add/article$', views.add_article, name='add_article'),
+    url(r'add/article_result', views.add_article_result, name='add_article_result'),
+    url(r'test', views.test),
 ]
