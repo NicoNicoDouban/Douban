@@ -1,0 +1,64 @@
+*{
+	font-family: 微软雅黑, sans-serif;}
+@font-face{
+	font-family: 'a';
+	src:url('../fonts./AAA.eot') /*format('embedded-opentype')*/,
+		url('../fonts./AAA.woff') /*format('truetype')*/,
+		url('../fonts./AAA.otf') /*format('opentype')*/,
+		url('../fonts./AAA.woff') ,
+		url('../fonts./AAA.svg') /*format('svg')*/;
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face{
+	font-family: 'b';
+	src:url('../fonts./Helvetica Bold.eot') /*format('embedded-opentype')*/,
+		url('../fonts./Helvetica Bold.otf') /*format('truetype')*/,
+		url('../fonts./Helvetica Bold.svg') /*format('opentype')*/,
+		url('../fonts./Helvetica Bold.ttf') ,
+		url('../fonts./Helvetica Bold.woff') /*format('svg')*/;
+    font-weight: normal;
+    font-style: normal;
+}
+.head{
+	height: 112px;
+}
+.center{
+	width: 1202px;
+	margin: auto;
+	position: relative;
+}
+.douban_logo{
+	position: absolute;
+	top: 30px;
+}
+.head_list{
+	width: 700px;
+	height: 20px;
+	position: absolute;
+	right: 0px;
+	top: 50px;
+}
+.navi{
+	float: left;
+	font-size: 18px;
+	margin-right: 35px;
+	font-weight: bold;
+	height: 20px;
+	line-height:20px;
+	padding: 0px 3px 0px 3px;
+	cursor: pointer;
+	font-family: 'b';
+}
+.INFORMATION{
+	color: #71CDD8;
+	border-left: 4px #FEDFE1 solid;
+	border-right: 4px #FEDFE1 solid;
+}
+.navi:hover{
+	color: #71CDD8;
+}
+.background{
+	height: 392px;
+	background-image: url("../imgs./");
+}

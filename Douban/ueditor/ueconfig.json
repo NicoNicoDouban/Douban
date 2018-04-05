@@ -1,4 +1,5 @@
-{"imageActionName": "uploadimage", 
+{
+    "imageActionName": "上传图片",
     "imageFieldName": "upfile", 
     "imageMaxSize": 2048000, 
     "imageAllowFiles": [".png", ".jpg", ".jpeg", ".gif", ".bmp"],

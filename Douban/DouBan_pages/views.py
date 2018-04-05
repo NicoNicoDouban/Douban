@@ -13,11 +13,11 @@ def home_page(request):
         'books': book_list,
         'article': article_list,
     }
-    return render(request, 'formal/home.html', context)
+    return render(request, 'formal_before/home.html', context)
 
 
 def search_start(request):
-    return render(request,'formal/search.html')
+    return render(request, 'formal_before/search.html')
 
 
 def search_result_article(request):
@@ -26,7 +26,7 @@ def search_result_article(request):
     index = request.GET.get('index')
     context = search.article_search(search_text, search_type)
     error = None
-    return render(request, 'formal/search_result_article.html', {"context": context, "error": error})
+    return render(request, 'formal_before/search_result_article.html', {"context": context, "error": error})
 
 
 def search_result_book(request):
@@ -56,4 +56,30 @@ def self_home(request):
 
 
 def add_article(request):
-    return render(request, 'formal/add_article.html')
+    return render(request, 'formal_before/add_article.html')
+
+
+def add_article_result(request):
+    text = request.POST.get('article')
+    context = {"text": text}
+    return render(request, 'formal_before/article_detail.html', context)
+
+
+def book_detail(request):
+    pass
+
+
+def test(request):
+    return render(request, 'formal/bookdetail.html')
+
+
+def useinfo(request):
+    user_id = 0
+    try:
+        user_id = request.user.id
+    except:
+        return render(request, 404)
+    user = Users.objects.get(id=user_id)
+    context = {
+
+    }
