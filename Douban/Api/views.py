@@ -2,6 +2,8 @@ from django.template.context_processors import csrf
 from django.http import HttpResponse
 from django.shortcuts import render
 from Users import models
+from DouBan import settings
+import hashlib
 from Users.models import Users
 from Users.models import Books
 from Users.models import Articles
@@ -29,13 +31,11 @@ def test2(request):
     else:
         return render(request, "test.html")
 
-
 @csrf_exempt
 def photo(request):
     image = request.FILES.get("photo")
     result = image.size
     return HttpResponse(json.dumps(result), content_type="application/json")
-
 
 # 对request加csrftoken并返回
 def getCsrf(request):
@@ -134,6 +134,7 @@ class users(View):
 
     def login(request):
         if request.method !="POST":
+            logout()
             resp = {'rsNum': 0}
         else:
             try:
@@ -157,6 +158,15 @@ class users(View):
             except:
                 resp = {'rsNum': 0}
         return HttpResponse(json.dumps(resp), content_type="application/json")
+
+    def logout(request):
+        try:
+            logout(request)
+            resp = {'rsNum': 1} #注销成功
+        except:
+            resp = {'rsNum': 0} # 未知错误
+        return HttpResponse(json.dumps(resp), content_type="application/json")
+
 
     def changePwd(request):
         try:
@@ -373,6 +383,31 @@ class userInfo(View):
             resp = {'rsNum': -1}  # 用户不存在
         return HttpResponse(json.dumps(resp), content_type="application/json")
 
+    def changeHeadImage(request):
+        try:
+            id = request.user.id
+            if id != None:
+                image = request.FILES.get("image")
+                size = image.size
+                if size<=2048000:
+                    name=hashlib.md5((str(id)+str(size)+image.name+str(datetime.datetime.now())).encode('utf-8')).hexdigest()[8:-8]+".jpg"
+                    src = '%s%s' % (settings.MEDIA_ROOT, name)
+                    user=Users.objects.get(id=id)
+                    user.image=src
+                    user.save()
+                    with open(src,"wb") as f:
+                        for fimg in image.chunks():
+                            f.write(fimg)
+                            resp = {'rsNum': src} # 上传成功
+                else:
+                    resp = {'rsNum': -1}  # 文件太大
+            else:
+                resp = {'rsNum': -2}  # 没有检测到登录信息
+        except:
+            resp = {'rsNum': 0}  # 未知错误
+        return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
     def getMyGoodBook(request):
         id = request.user.id
         results = GoodLink.objects.filter(userId_id=id).order_by("-time")
@@ -513,3 +548,5 @@ class comments(View):
             except:
                 resp = {'rsNum': 0} # 未知错误
         return HttpResponse(json.dumps(resp), content_type="application/json")
+
+
