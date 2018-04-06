@@ -108,48 +108,55 @@ class users(View):
         if request.method != "POST":
             resp = {'rsNum': 0}
             return HttpResponse(json.dumps(resp), content_type="application/json")
-        try:
-            text = request.POST.get("text")
-            pwd = request.POST.get("pwd")
-            type = request.POST.get("type")
-            username = request.POST.get("username")
-            if not users().judgeExist(type=type, text=text):
-
-                user = Users.objects.create_user(username=username)
-                # user=Users.objects.create()
-                if type == "email":
-                    user.email = text
-                    user.username = username
-                    user.password = make_password(pwd)
-                    user.save()
-                    resp = {'rsNum': 1}
-                else:
-                    resp = {'rsNum': -1}
-            else:
-                resp = {'rsNum': -1}
-        except:
-            resp = {'rsNum': 0}
-        return HttpResponse(json.dumps(resp), content_type="application/json")
-
-    def login(request):
+        #try:
         text = request.POST.get("text")
         pwd = request.POST.get("pwd")
         type = request.POST.get("type")
-        if type == "email":
-            user = Users.objects.filter(email=text)
-            if len(user):
-                user = authenticate(username=text, password=pwd)
-                if user is not None:
-                    if user.is_active:
-                        login(request, user)
-                        resp = {'rsNum': 1}
-                    else:
-                        resp = {'rsNum': 0}
-                else:
-                    resp = {'rsNum': -2}
+        #username = request.POST.get("username")
+        if not users().judgeExist(type=type, text=text):
+
+            user = Users.objects.create_user()
+            # user=Users.objects.create()
+            if type == "email":
+                user.email = text
+                #user.username = username
+                user.password = make_password(pwd)
+                user.is_active=False
+                user.save()
+                resp = {'rsNum': 1}
             else:
                 resp = {'rsNum': -1}
-            return HttpResponse(json.dumps(resp), content_type="application/json")
+        else:
+            resp = {'rsNum': -1}
+        #except:
+        #    resp = {'rsNum': 0}
+        return HttpResponse(json.dumps(resp), content_type="application/json")
+
+    def login(request):
+        if request.method !="POST":
+            resp = {'rsNum': 0}
+        else:
+            try:
+                text = request.POST.get("text")
+                pwd = request.POST.get("pwd")
+                type = request.POST.get("type")
+                if type == "email":
+                    user = Users.objects.filter(email=text)
+                    if len(user):
+                        user = authenticate(username=text, password=pwd)
+                        if user is not None:
+                            if user.is_active:
+                                login(request, user)
+                                resp = {'rsNum': 1}
+                            else:
+                                resp = {'rsNum': 0}
+                        else:
+                            resp = {'rsNum': -2}
+                    else:
+                        resp = {'rsNum': -1}
+            except:
+                resp = {'rsNum': 0}
+        return HttpResponse(json.dumps(resp), content_type="application/json")
 
     def changePwd(request):
         try:
