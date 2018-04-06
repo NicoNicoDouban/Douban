@@ -50,7 +50,7 @@
 	cursor: pointer;
 	font-family: 'b';
 }
-.INFORMATION{
+.COLLECTION{
 	color: #71CDD8;
 	border-left: 4px #FEDFE1 solid;
 	border-right: 4px #FEDFE1 solid;
@@ -102,53 +102,241 @@
 	bottom: 44px;
 	cursor: pointer;
 }
-.main{
-	height: 640px;
-}
 .fen{
 	position: relative;
 	width: 100%;
-	margin-top: 60px;
+	margin-top: 90px;
 	margin-bottom: 50px;
+	overflow: hidden;
 }
 .fen_line{
 	position: absolute;
 	top: 20px;
+	left: -10%;
+	width: 120%;
 }
 .fen h2{
 	font-family:'a';
 	font-size: 48px;
 	margin: auto;
-	width: 158px;
+	width: 234px;
 	padding-left: 12px;
 	padding-right: 12px;
 	border-left: 4px #FEDFE1 solid;
 	border-right: 4px #FEDFE1 solid;
 }
-.message{
-	width: 260px;
-	height: 180px;
-	margin:100px auto 0 auto;
+.text{
+	width:578px;
+	height:853px;
 }
-.div{
-	margin-top: 30px;
-	height: 39px;
+.picture_text{
+	float: left;
+	box-shadow:5px 0px 9px rgba(0,0,0,0.28);
+}
+.no_text{
+	float: right;
+	box-shadow:5px 0px 9px rgba(0,0,0,0.28);
+	padding-top: 1px;
 	position: relative;
 }
-.input{
-	width: 160px;
-	outline: none;
-	border:none;
-	height: 39px;
-	font-size: 20px;
-	position: relative;
-	bottom: 10px;
-	left: 5px;
+.text1{
+	width: 541px;
+	height: 349px;
+	margin-left: 18px;
+    position: relative;
 }
-.white2,.white3,.white4{
+.text1_img{
+	width: 541px;
+	height: 349px;
+	z-index: 2;
+}
+.hidden{
+	width: 95px;
+	height: 349px;
+	z-index: 3;
+	background-color: #00AFDB;
 	position: absolute;
-	right: 5px;
-	top:8px; 
+	opacity:0;
+	right: 0px;
+	top: 0px;
+	cursor: pointer;
+	transition: 0.5s;
+}
+.hidden img{
+	position: absolute;
+	top: 150px;
+	right: 26px;
+}
+.message{
+	width:143px;
+	height:80px; 
+	background-color: white;
+	position: absolute;
+	left: 0px;
+	bottom: 46px;
+}
+.book_name{
+	color: #71CDD8;
+	position: absolute;
+	left: 10px;
+	top: 17px;
+	font-size: 16px;
+	font-family: 'a';
+}
+.book_intro{
+	position: absolute;
+	left: 10px;
+	top: 47px;
+	font-size: 16px;
+	font-family: 'a';
+}
+.hidden:hover{
+	opacity: 0.62;
+}
+.text2{
+	position: relative;
+	margin-top: 24px;
+	width: 541px;
+	height: 349px;
+	margin-left: 18px;
+}
+.page_turn{
+	height: 44px;
+	margin-top: 70px;
+}
+.button{
+	border:2px solid #CCCCCC;
+	background-color: white;
+	outline: none;
+	color: #CCCCCC;
+	letter-spacing: 1px;
+	margin-left: 4px;
+	cursor: pointer;
+}
+.button:hover{
+	border:none;
+	color: white;
+	background-color: #F7BDCA;
+}
+.home{
+	width: 70px;
+	height: 40px;
+	margin-left: 130px;
+}
+.home:hover{
+	width: 70px;
+	height: 40px;
+}
+.next{
+	width: 70px;
+	height: 40px;
+}
+.next:hover{
+	width: 70px;
+	height: 40px;
+}
+.one{
+	height: 40px;
+	width: 40px;
+}
+.two{
+	height: 40px;
+	width: 40px;
+}
+.one:hover{
+	height: 40px;
+	width: 40px;
+}
+.two:hover{
+	height: 40px;
+	width: 40px;
+}
+.last{
+	height: 40px;
+	width: 70px;
+}
+.last:hover{
+	height: 40px;
+	width: 70px;
+}
+.text_div{
+	height: 30px;
+	position: relative;
+	margin-top: 27px;
+}
+.subject{
+	width: 471px;
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+	font-size: 20px;
+	color: #00AFDB;
+	position:absolute;
+	left: 20px;
+}
+.delete{
+	position: absolute;
+	right: 20px;
+	cursor: pointer;
+}
+.page_turn2{
+	height: 44px;
+	position: absolute;
+	bottom: 18px;
+}
+.collect_book{
+	width:1200px;
+	height:832px; 
+	position: relative;
+	margin-bottom: 100px;
+	box-shadow:5px 0px 9px rgba(0,0,0,0.28) 
+}
+.book{
+	width: 200px;
+	height: 280px;
+	float: left;
+	position: relative;
+	margin-right: 69px;
+}
+.coverage{
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 200px;
+	height: 280px;
+	cursor: pointer;
+	transition:0.8s;
+	opacity: 0;
+}
+.white_background{
+	width: 200px;
+	height: 280px;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	background-color:rgba(255, 255, 255, 0);
+	transition:0.8s;
+}
+.book_div{
+	width: 1085px;
+	height: 832px;
+	position: absolute;
+	left: 100px;
+	top: 40px;
+}
+.second_line{
+	margin-top: 91px;
+}
+.book:hover .coverage{
+	opacity: 1;
+}
+.book:hover .white_background{
+	background-color:rgba(255, 255, 255, 0.8);
+}
+.page_turn3{
+	position: absolute;
+	bottom:80px;
+	left: 240px;
 }
 .spread{
 	height: 200px;
@@ -209,12 +397,4 @@
 	text-align: center;
 	font-size: 16px;
 	letter-spacing: 2px;
-}
-@media screen and (min-width:980px) and (max-width:1423px){
-	.center{
-		width: 100%;
-	}
-	.fen_line{
-		width: 100%;
-	}
 }

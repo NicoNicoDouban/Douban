@@ -50,7 +50,7 @@
 	cursor: pointer;
 	font-family: 'b';
 }
-.INFORMATION{
+.WAITING{
 	color: #71CDD8;
 	border-left: 4px #FEDFE1 solid;
 	border-right: 4px #FEDFE1 solid;
@@ -102,53 +102,244 @@
 	bottom: 44px;
 	cursor: pointer;
 }
-.main{
-	height: 640px;
-}
 .fen{
 	position: relative;
 	width: 100%;
 	margin-top: 60px;
 	margin-bottom: 50px;
+	overflow: hidden;
 }
 .fen_line{
 	position: absolute;
 	top: 20px;
+	left: -20%;
+	width: 140%;
 }
 .fen h2{
 	font-family:'a';
 	font-size: 48px;
 	margin: auto;
-	width: 158px;
+	width: 272px;
 	padding-left: 12px;
 	padding-right: 12px;
 	border-left: 4px #FEDFE1 solid;
 	border-right: 4px #FEDFE1 solid;
 }
-.message{
-	width: 260px;
-	height: 180px;
-	margin:100px auto 0 auto;
+.add{
+	width: 906px;
+	height: 164px;
+	margin:70px auto 0px auto;
+	border-radius: 10px ;
+	border:2px solid #D9D9D9;
+	position: relative;
+	cursor: pointer;
 }
-.div{
-	margin-top: 30px;
-	height: 39px;
+.add_img{
+	position: absolute;
+	top:36px;
+	left: 435px;
+}
+.add_text{
+	position: absolute;top: 103px;
+	left: 411px;
+	font-size: 20px;
+}
+.form{
+	height: 1203px;
+	width: 906px;
+	margin: 75px auto 0px auto;
+	display: none;
 	position: relative;
 }
-.input{
-	width: 160px;
+.kong{
+	width:906px;
+	height:1003px;
+	background-color: yellow;
+	border-radius: 10px;
+	border:2px solid #D9D9D9;
+}
+.sp{
+	width:226px;
+	height:79px; 
+	background:rgba(0,175,219,1);
+	border-radius: 10px ;
+	box-shadow:0px 0px 5px rgba(0,0,0,0.09) ;
 	outline: none;
 	border:none;
-	height: 39px;
-	font-size: 20px;
-	position: relative;
-	bottom: 10px;
-	left: 5px;
-}
-.white2,.white3,.white4{
+	font-size:24px;
+	color: white;
 	position: absolute;
-	right: 5px;
-	top:8px; 
+	right: 0px;
+	bottom:80px;
+	letter-spacing: 2px;
+}
+.article{
+	height: 1300px;
+	width: 906px;
+	margin: auto; 
+}
+.article_div{
+	width: 100%;
+	height: 235px;
+	margin-top: 60px;
+	position: relative;
+	box-shadow: 0px 1px 2px rgb(207,207,207);
+}
+.article_img{
+	position: absolute;
+	top: 0px;
+	left: 70px;
+}
+.article_name{
+	position: absolute;
+	top: 0px;
+	left:340px ;
+	font-size: 20px;
+	letter-spacing: 2px;
+}
+.article_date{
+	position: absolute;
+	left: 340px;
+	top: 50px;
+	font-size: 18px;
+	color: rgb(204,204,204);
+	letter-spacing: 2px;
+}
+.pop_windows{
+	width: 150px;
+	height: 80px;
+	position: absolute;
+	top: 100px;
+	right: 200px;
+	background-color: white;
+	border-radius: 10px;
+	box-shadow: 2px 2px 5px rgb(207,207,207);
+	display: none;
+}
+.pop_windows span{
+	position: absolute;
+	top: 10px;
+	left: 33px;
+	letter-spacing: 2px;
+}
+.confirm{
+	width: 35px;
+	height: 20px;
+	position: absolute;
+	bottom: 10px;
+	left: 30px;
+	border:none;
+	color: white;
+	background-color: #F7BDCA;
+	outline: none;
+	letter-spacing: 1px;
+	cursor: pointer;
+	font-size: 14px;
+	border-radius: 3px;
+}
+.cancle{
+	width: 35px;
+	height: 20px;
+	position: absolute;
+	bottom: 10px;
+	left: 90px;
+	border:none;
+	color: white;
+	background-color: #F7BDCA;
+	outline: none;
+	letter-spacing: 1px;
+	cursor: pointer;
+	font-size: 14px;
+	border-radius: 3px;
+}
+.delete2{
+	width: 60px;
+	height: 35px;
+	position: absolute;
+	right: 120px;
+	bottom: 70px;
+	border:none;
+	color: white;
+	background-color: #F7BDCA;
+	outline: none;
+	letter-spacing: 1px;
+	cursor: pointer;
+}
+.edit{
+	width: 60px;
+	height: 35px;
+	position: absolute;
+	right: 50px;
+	bottom: 70px;
+	border:2px solid #CCCCCC;
+	background-color: white;
+	outline: none;
+	color: #CCCCCC;
+	letter-spacing: 1px;
+	cursor: pointer;
+}
+.page_turn4{
+	position: absolute;
+	bottom: 70px;
+	right:200px;
+}
+.button{
+	border:2px solid #CCCCCC;
+	background-color: white;
+	outline: none;
+	color: #CCCCCC;
+	letter-spacing: 1px;
+	margin-left: 4px;
+	cursor: pointer;
+}
+.button:hover{
+	border:none;
+	color: white;
+	background-color: #F7BDCA;
+}
+.home{
+	width: 70px;
+	height: 40px;
+	margin-left: 130px;
+}
+.home:hover{
+	width: 70px;
+	height: 40px;
+}
+.next{
+	width: 70px;
+	height: 40px;
+}
+.next:hover{
+	width: 70px;
+	height: 40px;
+}
+.one{
+	height: 40px;
+	width: 40px;
+	border:none;
+	color: white;
+	background-color: #F7BDCA;
+}
+.two{
+	height: 40px;
+	width: 40px;
+}
+.one:hover{
+	height: 40px;
+	width: 40px;
+}
+.two:hover{
+	height: 40px;
+	width: 40px;
+}
+.last{
+	height: 40px;
+	width: 70px;
+}
+.last:hover{
+	height: 40px;
+	width: 70px;
 }
 .spread{
 	height: 200px;
@@ -209,12 +400,4 @@
 	text-align: center;
 	font-size: 16px;
 	letter-spacing: 2px;
-}
-@media screen and (min-width:980px) and (max-width:1423px){
-	.center{
-		width: 100%;
-	}
-	.fen_line{
-		width: 100%;
-	}
 }

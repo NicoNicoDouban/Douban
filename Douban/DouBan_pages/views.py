@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from Users.models import Articles, Users, Books
+import django.contrib.auth as login
 from .func import Search
 # Create your views here.
 
@@ -70,7 +71,7 @@ def book_detail(request):
 
 
 def test(request):
-    return render(request, 'formal/bookdetail.html')
+    return render(request, 'formal/publish.html')
 
 
 def useinfo(request):
@@ -81,5 +82,30 @@ def useinfo(request):
         return render(request, 404)
     user = Users.objects.get(id=user_id)
     context = {
-
+        'signature': user.signature,
+        'nick_name': user.nick_name,
+        'gender': user.gender,
+        'birthday': user.birthday,
     }
+    return render(request, 'formal/userinfo.html', context)
+
+
+def logout(request):
+    login.logout(request)
+    return render(request, 'signin.html')
+
+
+def myPublish(request):
+    user_id = 0
+    try:
+        user_id = request.user.id
+        user = Users.objects.get(id=user_id)
+    except:
+        pass
+    index = 1
+
+    context = {
+        # 'signature': user.signature,
+        'index': index,
+    }
+    return render(request, 'formal/publish.html', context)
