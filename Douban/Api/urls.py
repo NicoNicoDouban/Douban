@@ -38,7 +38,9 @@ urlpatterns = [
     url('^toCancelGood/', views.comments.toCancelGood, name='toCancelGood'),#登录的用户取消点赞
 
     #收藏
-
+    url('^getCollectedInfo/', views.collect.getCollectedInfo, name='getCollectedInfo'),#获取登录用户的收藏信息
+    url('^toCollect/', views.collect.toCollect, name='toCollect'),#登录的用户收藏
+    url('^toCancelCollect/', views.collect.toCancelCollect, name='toCancelCollect'),#登录的用户取消收藏
 
     #测试
     url('^test/', views.test, name='getHotAricles2'),
