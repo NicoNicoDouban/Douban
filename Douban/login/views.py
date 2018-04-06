@@ -1,10 +1,11 @@
-from django.contrib.auth.models import User
+from Users.models import *
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render_to_response, render
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from .userForm import *
 from django.views.decorators.csrf import csrf_exempt
 from .emailVerify import *
+
 
 # Create your views here.
 
@@ -23,16 +24,15 @@ def userVerify(request, code):
 '''
 
 
-
 @csrf_exempt
 def userRegister(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
         email = request.POST['email']
-        isuser = User.objects.filter(username=username)
+        isuser = Users.objects.filter(username=username)
         if not isuser:
-            user = User.objects.create_user(username=username, password=password, email=email, is_active=False)
+            user = Users.objects.create_user(username=username, password=password, email=email, is_active=False)
             code = saveCode(user)
             send_email(username, code, email)
             return HttpResponse('请去邮箱激活账号')  # 跳转到主页面
@@ -65,4 +65,3 @@ def userLogin(request):
         else:
             userform = loginForm()
             return render_to_response('signin.html', {'userform': userform})
-

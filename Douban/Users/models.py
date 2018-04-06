@@ -35,7 +35,8 @@ class Users(AbstractUser):
     pub_time = models.DateTimeField(verbose_name=u"注册时间",default=datetime.now)
     address = models.CharField(max_length=100,verbose_name=u"用户地址", default=u"保密")
     image = models.CharField(verbose_name=u"用户头像", default=u"image/default.png", max_length=100)
-
+    signature = models.CharField(verbose_name=u"个性签名", default="这个人很懒，还什么都没说", max_length=30)
+    nick_name = models.CharField(verbose_name=u'昵称', default='小豆瓣', max_length=30)
     class Meta:
         verbose_name = "用户信息"
         verbose_name_plural = verbose_name
@@ -133,4 +134,22 @@ class userActive(models.Model):
 
     class Meta:
         verbose_name = "用户激活验证码"
+        verbose_name_plural = verbose_name
+
+
+class UserCollectionBooks(models.Model):
+    username = models.ForeignKey(Users, on_delete=models.CASCADE, verbose_name=u'用户')
+    book = models.ForeignKey(Books, on_delete=models.CASCADE, verbose_name=u'用户')
+
+    class Meta:
+        verbose_name = "用户收藏书籍"
+        verbose_name_plural = verbose_name
+
+
+class UserCollectionArticles(models.Model):
+    username = models.ForeignKey(Users, on_delete=models.CASCADE, verbose_name=u'用户')
+    Articles = models.ForeignKey(Books, on_delete=models.CASCADE, verbose_name=u'用户')
+
+    class Meta:
+        verbose_name = "用户收藏文章"
         verbose_name_plural = verbose_name

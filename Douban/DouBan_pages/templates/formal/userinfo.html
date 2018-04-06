@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>个人资料</title>
+	<meta charset="utf-8" />
 	<link rel="stylesheet" type="text/css" href="{% static 'Douban_pages/css/d.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'Douban_pages/css/userinfo.css' %}">
 </head>
@@ -11,19 +12,50 @@
 		    <div class="center">
 		    	<img src="{% static 'Douban_pages/imgs/logo.png' %}" class="douban_logo">
 		    	<ul class="head_list">
-		    		<li class="navi HOME">HOME</li>
-		    		<li class="navi WAITING">WAITING</li>
-		    		<li class="navi INFORMATION">INFORMATION</li>
-		    		<li class="navi COLLECTION">COLLECTION</li>
-                    <form>
-		    		<li class="LOGOUT" style="margin-right: 0px;">LOGOUT</li>
-                    </form>
+		    		<a class="navi HOME" style="text-decoration: none;">HOME</a>
+		    		<a class="navi WAITING" style="text-decoration: none;">WAITING</a>
+		    		<a class="navi INFORMATION" style="text-decoration: none;">INFORMATION</a>
+		    		<a class="navi COLLECTION" style="text-decoration: none;">COLLECTION</a>
+		    		<a class="navi LOGOUT" style="margin-right: 0px;text-decoration: none;">LOGOUT</a>
 		    	</ul>
 		    </div>
 	    </div>
-	    <div class="backdround">
-	    	
+	    <div class="background">
+	    	<div class="user">
+	    		<h1 class="name">阿浦爱曼联的个人主页</h1>
+	    		<img src="{% static 'Douban_pages/imgs/h.jpg' %}" class="portrait">
+	    		<input type="" name="" value="{{ signature }}" class="sign" readonly="readonly">
+	    		<img src="{% static 'Douban_pages/imgs/white.png' %}" class="white white1">
+	    	</div>
+	    </div>
+	    <div class="main">
+	    	<div class="center">
+	    		<div class="fen">
+					<img src="{% static 'Douban_pages/imgs/can.png' %}" class="fen_line">
+					<h2>我的信息</h2>
+				</div>
+				<div class="message">
+					<div class="name_div div" style="margin-top: 0px;">
+						<img src="{% static 'Douban_pages/imgs/gigu.png.png' %}">
+						<input type="text" name="nick_name" class="input name_input" value="{{ nick_name }}" readonly="readonly">
+						<img src="{% static 'Douban_pages/imgs/white.png' %}" class="white white2">
+					</div>
+					<div class="gender_div div">
+						<img src="{% static 'Douban_pages/imgs/fugo.png' %}">
+						<input type="text" name="nick_name" class="input gender_input" value="{{ gender }}" readonly="readonly">
+						<img src="{% static 'Douban_pages/imgs/white.png' %}" class="white white3">
+					</div>
+					<div class="date_div div" >
+						<img src="{% static 'Douban_pages/imgs/ioi.png' %}">
+						<input type="text" name="" class="input date_input" value="{{ birthday|date:"Y-m-d" }}" readonly="readonly">
+						<img src="{% static 'Douban_pages/imgs/white.png' %}" class="white white4">
+					</div>
+				</div>
+	    	</div>
 	    </div>
 	</div>
+	{% include 'base/footer.html' %}
+	<script type="text/javascript" src="./js/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="./js/userinfo.js"></script>
 </body>
 </html>
