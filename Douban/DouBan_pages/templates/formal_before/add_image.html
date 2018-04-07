@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="{% url 'DouBan_pages:createInfo' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" id="btn_file" name="pic1" />
+    <button type="button" onclick="F_Open_dialog()" >选择图片</button>
+    <br/>
+    <input type="submit" value="确定" />
+</form>
+</body>
+</html>

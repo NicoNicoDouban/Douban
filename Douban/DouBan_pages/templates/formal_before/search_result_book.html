@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>书目清单</title>
+</head>
+<body>
+<a href="{% url 'home' %}">返回首页</a><br/>
+{% for i in context.search_result.objects %}
+    书名:{{ i.name }} 作者:{{ i.writer }}<br/>
+{% endfor %}
+页数:{{ context.search_result.index }}
+<form action="" method="post">
+</form>
+</body>
+</html>

@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 from Users.models import Articles, Users, Books
+import django.contrib.auth as login
 from .func import Search
+from DouBan import settings
 # Create your views here.
 
 search = Search(1)
@@ -13,11 +15,11 @@ def home_page(request):
         'books': book_list,
         'article': article_list,
     }
-    return render(request, 'formal/home.html', context)
+    return render(request, 'formal/shouye.html', context)
 
 
 def search_start(request):
-    return render(request,'formal/search.html')
+    return render(request, 'formal_before/search.html')
 
 
 def search_result_article(request):
@@ -26,7 +28,9 @@ def search_result_article(request):
     index = request.GET.get('index')
     context = search.article_search(search_text, search_type)
     error = None
-    return render(request, 'formal/search_result_article.html', {"context": context, "error": error})
+    if search.article_searchinfo_safe_test(search_text, search_type):
+        return render(request, 'formal/shouye.html')
+    return render(request, 'formal_before/search_result_article.html', {"context": context, "error": error})
 
 
 def search_result_book(request):
@@ -35,20 +39,9 @@ def search_result_book(request):
     index = request.GET.get('index')
     context = search.book_search(search_text, search_type)
     error = None
-    return render(request, 'formal/search_result_book.html', {"context": context, "error": error})
-
-    # try:
-        # aricle_or_book = request.GET.get('Article_or_Book', default='article')
-        # search_type = request.GET.get('search_type')
-        # search_text = request.GET.get('search_text')
-        # if aricle_or_book == 'Article':
-        #     context = search.article_search(search_text, search_type)
-        # elif aricle_or_book == 'book':
-        #     context = search.book_search(search_text, search_type)
-        # return render(request, 'formal/search_result.html', {"context":context})
-    #except:
-     #   pass
-    #return render(request, 'formal/search_result.html', {"context":context})
+    if search.book_searchinfo_safe_test(search_text, search_type):
+        return render(request, 'formal/shouye.html')
+    return render(request, 'formal_before/search_result_book.html', {"context": context, "error": error})
 
 
 def self_home(request):
@@ -56,4 +49,72 @@ def self_home(request):
 
 
 def add_article(request):
-    return render(request, 'formal/add_article.html')
+    return render(request, 'formal_before/add_article.html')
+
+
+def add_article_result(request):
+    text = request.POST.get('article')
+    context = {"text": text}
+    return render(request, 'formal_before/article_detail.html', context)
+
+
+def book_detail(request):
+    pass
+
+
+def test(request):
+    return render(request, 'formal/publish.html')
+
+
+def user_info(request):
+    user_id = 1
+    '''try:
+        user_id = request.user.id
+    except:
+        return render(request, 404)
+    '''
+    user = Users.objects.get(id=user_id)
+    context = {
+        'signature': user.signature,
+        'username': user.username,
+        'gender': user.gender,
+        'birthday': user.birthday,
+    }
+    return render(request, 'formal/userinfo.html', context)
+
+
+def logout(request):
+    login.logout(request)
+    return render(request, 'signin.html')
+
+
+def myPublish(request):
+    user_id = 0
+    try:
+        user_id = request.user.id
+        user = Users.objects.get(id=user_id)
+    except:
+        pass
+    index = 1
+
+    context = {
+        # 'signature': user.signature,
+        'index': index,
+    }
+    return render(request, 'formal/publish.html', context)
+
+
+def catinfo(request):
+    if request.method == "POST":
+        f1 = request.FILES['pic1']
+        fname = '%s\\pictures\\%s' % (settings.MEDIA_ROOT, f1.name)
+        with open(fname, 'wb') as pic:
+            for c in f1.chunks():
+                pic.write(c)
+        return HttpResponse("ok")
+    else:
+        return HttpResponse("error")
+
+
+def addImage(request):
+    return render(request, 'formal_before/add_image.html')

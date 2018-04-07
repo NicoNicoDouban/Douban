@@ -1,11 +1,10 @@
 from django.db import models
 from datetime import datetime,date
 import json
-# Create your models here.
 from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser, PermissionsMixin,UserManager,AbstractUser)
-
+from  DouBan import settings
 # 序列化datetime和date
 class DateEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -16,17 +15,9 @@ class DateEncoder(json.JSONEncoder):
         else:
             return json.JSONEncoder.default(self, obj)
 
-
+'''
 class Users(AbstractUser):
-    '''
-
-    is_staff = models.BooleanField(
-        ('staff status'),
-        default=False,
-        help_text=('Designates whether the user can log into this admin site.'),
-    )
-    '''
-
+    AbstractUser.username=
     Gender_Choice = (
         ('F', u'女'),
         ('M', u'男'),
@@ -44,6 +35,65 @@ class Users(AbstractUser):
     pub_time = models.DateTimeField(verbose_name=u"注册时间",default=datetime.now)
     address = models.CharField(max_length=100,verbose_name=u"用户地址", default=u"保密")
     image = models.CharField(verbose_name=u"用户头像", default=u"image/default.png", max_length=100)
+    signature = models.CharField(verbose_name=u"个性签名", default="这个人很懒，还什么都没说", max_length=30)
+    nick_name = models.CharField(verbose_name=u'昵称', default='小豆瓣', max_length=30)
+    class Meta:
+        verbose_name = "用户信息"
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.username
+
+    #序列化的
+    def toJson(self):
+        fields = []
+        for field in self._meta.fields:
+            fields.append(field.name)
+
+        d = {}
+        for attr in fields:
+            d[attr] = getattr(self, attr)
+
+        import json
+        return json.dumps(d, cls=DateEncoder)
+
+'''
+
+class Users(AbstractBaseUser, PermissionsMixin):
+    Gender_Choice = (
+        ('F', u'女'),
+        ('M', u'男'),
+        ('S', u'保密')
+    )
+    objects = UserManager()
+    USERNAME_FIELD = 'email'  # 认证标识
+    REQUIRED_FIELDS = ["username"]
+    defalut_avatar = '%s\\pictures\\defalut_avatar.jpg'%(settings.MEDIA_ROOT)
+    username=models.CharField(max_length=20,verbose_name=u"昵称",default="user",null=True, unique=False)
+    email = models.EmailField(verbose_name=u"邮箱",default="",null=False,unique=True)
+    birthday = models.DateField(verbose_name=u"生日",default="2000-01-01")
+    gender = models.CharField(max_length=1, verbose_name=u"性别",default="S", choices=Gender_Choice)
+    follow_num = models.IntegerField(verbose_name=u"被关注数",default=0)
+    pub_time = models.DateTimeField(verbose_name=u"注册时间",default=datetime.now)
+    address = models.CharField(max_length=100,verbose_name=u"用户地址", default=u"保密")
+    image = models.CharField(verbose_name=u"用户头像", default=defalut_avatar, max_length=100)
+    signature = models.CharField(verbose_name=u"个性签名", default="这个人很懒，还什么都没说", max_length=30)
+    is_staff = models.BooleanField(
+        ('staff status'),
+        default=False,
+        help_text=('Designates whether the user can log into this admin site.'),
+    )
+    is_active = models.BooleanField(
+        ('active'),
+        default=True,
+        help_text=(
+            'Designates whether this user should be treated as active. '
+            'Unselect this instead of deleting accounts.'
+        ),
+    )
+    def get_short_name(self):
+        "Returns the username for the user."
+        return self.username
 
     class Meta:
         verbose_name = "用户信息"
@@ -65,12 +115,11 @@ class Users(AbstractUser):
         import json
         return json.dumps(d, cls=DateEncoder)
 
-
 # score=models.FloatField(verbose_name=u"评分",default=0)
 class Articles(models.Model):
     title = models.CharField(max_length=20,verbose_name=u"标题", default="一篇文章")
     author = models.ForeignKey(Users,verbose_name=u"文章作者")
-    pub_time = models.DateTimeField(verbose_name=u"发表时间", default=datetime.now())
+    pub_time = models.DateTimeField(verbose_name=u"发表时间", default=datetime.now)
     click_num = models.IntegerField(verbose_name=u"点击数", default=0)
     text = models.TextField(verbose_name='文章内容', default="")
     like_num = models.IntegerField(verbose_name=u"点赞数", default=0)
@@ -84,10 +133,13 @@ class Articles(models.Model):
 
 
 class Books(models.Model):
-    name = models.CharField(verbose_name=u"图书名",max_length=30,default="")
-    author=models.CharField(verbose_name=u"作者名",max_length=50,default="")
-    publisher=models.CharField(verbose_name=u"出版社",max_length=30,default="")
-    like_num=models.IntegerField(verbose_name=u"点赞数",default=0)
+    name = models.CharField(verbose_name=u"图书名", max_length=30, default="")
+    author = models.CharField(verbose_name=u"作者名", max_length=50, default="")
+    publisher = models.CharField(verbose_name=u"出版社", max_length=30, default="")
+    like_num = models.IntegerField(verbose_name=u"点赞数", default=0)
+    click_num = models.IntegerField(verbose_name=u"点击数", default=0)
+    text = models.TextField(verbose_name=u"简介", default="暂无介绍")
+    src = models.CharField(verbose_name=u"封面url地址", default="image/default.png", max_length=100)
 
     class Meta:
         verbose_name = "图书信息"
@@ -120,7 +172,6 @@ class GoodLink(models.Model):
         verbose_name = "图书点赞关联信息"
         verbose_name_plural = verbose_name
 
-
 class FollowLink(models.Model):
     userId=models.ForeignKey(Users,verbose_name=u"关注者",related_name=u"关注者")
     toId=models.ForeignKey(Users,verbose_name=u"被关注者",related_name=u"被关注者")
@@ -140,4 +191,22 @@ class userActive(models.Model):
 
     class Meta:
         verbose_name = "用户激活验证码"
+        verbose_name_plural = verbose_name
+
+
+class UserCollectionBooks(models.Model):
+    username = models.ForeignKey(Users, on_delete=models.CASCADE, verbose_name=u'用户')
+    book = models.ForeignKey(Books, on_delete=models.CASCADE, verbose_name=u'书籍')
+
+    class Meta:
+        verbose_name = "用户收藏书籍"
+        verbose_name_plural = verbose_name
+
+
+class UserCollectionArticles(models.Model):
+    username = models.ForeignKey(Users, on_delete=models.CASCADE, verbose_name=u'用户')
+    Articles = models.ForeignKey(Articles, on_delete=models.CASCADE, verbose_name=u'文章')
+
+    class Meta:
+        verbose_name = "用户收藏文章"
         verbose_name_plural = verbose_name

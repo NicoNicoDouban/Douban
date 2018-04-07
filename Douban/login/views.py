@@ -5,7 +5,9 @@ from .userForm import *
 from django.views.decorators.csrf import csrf_exempt
 from .emailVerify import *
 from Users.models import *
+from django.template import RequestContext
 from django.contrib.auth.password_validation import validate_password
+
 
 # Create your views here.
 
@@ -20,7 +22,6 @@ def userVerify(request, code):
         return HttpResponse('您已完成注册')
     else:
         return HttpResponse('注册失败')
-
 
 @csrf_exempt
 def userRegister(request):
@@ -57,7 +58,7 @@ def userLogin(request):
     if request.user.is_authenticated:
         logout(request)
         userform = LoginForm()
-        return render_to_response('Register.html', {'userform': userform})
+        return render_to_response('signin.html', {'userform': userform})
     else:
         if request.method == 'POST':
             button = request.POST.get('submit')
@@ -68,16 +69,14 @@ def userLogin(request):
                 if not user:
                     userform = LoginForm(request.POST)
                     userform.add_error('username', '用户名或密码错误！')
-                    return render_to_response('Register.html', {'userform': userform})
+                    return render_to_response('signin.html', {'userform': userform})
                 else:
                     login(request, user)
                     return HttpResponse('登陆成功')  # 跳转到主页面
             elif button == '忘记密码':
                 return render_to_response('ForgetPwd.html')
-
-        else:
-            userform = LoginForm()
-            return render_to_response('Register.html', {'userform': userform})
+        userform = LoginForm()
+        return render_to_response('signin.html', {'userform': userform})
 
 
 @csrf_exempt

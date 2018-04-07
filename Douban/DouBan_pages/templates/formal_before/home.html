@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>豆瓣人生，精彩人生</title>
+</head>
+<body>
+<a href="{% url 'DouBan_pages:search' %}" >搜索</a>
+<a href="{% url 'DouBan_pages:add_article' %}">添加文章</a>
+{% for i in books %}
+    <label>{ }</label>
+
+{% endfor %}
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<title>豆瓣首页</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'Douban_pages/css/d.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'Douban_pages/css/shouye.css' %}">
+</head>
+<body>
+	<div class="container">
+		<div class="head">
+		<div class="center">
+			<img src="{% static 'Douban_pages/imgs/logo.png' %}" class="douban_logo">
+			<ul class="head_list">
+				<a class="navi HOME" style="text-decoration:none;" href="{% url 'DouBan_pages:user_info' %}">HOME</a>
+				<a class="navi BOOK" style="text-decoration:none;">BOOK</a>
+				<a class="navi ACTIVITY" style="text-decoration:none;">ACTIVITY</a>
+				<a class="navi LOGIN" style="margin-right: 0px;text-decoration:none;" href="{% url "login" %}">LOGIN</a>
+			</ul>
+			<img src="{% static 'Douban_pages/imgs/phone.png' %}" class="phone">
+			<div class="head_search_div">
+                <form action="{% url 'DouBan_pages:search_result_article' %}" method="get">
+                    <input type="hidden" name="search_type" value="title">
+				<input type="text" name="search_text" class="head_search" placeholder="请输入关键字">
+                <button type="submit"><img src="{% static 'Douban_pages/imgs/search.png' %}" class="search_img"></button>
+                </form>
+			</div>
+			<div class="pop_window">
+				<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="pop_window_img">
+				<img src="{% static 'Douban_pages/imgs/skj.png' %}" class="close">
+			</div>
+		</div>
+	    </div>
+	    <div class="turn">
+	    	<img src="{% static 'Douban_pages/imgs/huh.png' %}" style="width: 100%;height: 646px;">
+	    </div>
+	    <div class="hot_book">
+	    	<div class="center">
+	    		<div class="fen">
+					<img src="{% static 'Douban_pages/imgs/can.png' %}" class="fen_line">
+					<h2>热门书籍</h2>
+			    </div>
+	    	</div>
+	    </div>
+	    <div class="center">
+	    	<div class="collect_book">
+				<div class="book_div">
+				<div class="book">
+					<img src="{% static 'Douban_pages/imgs/sjij.png' %}" class="cover">
+					<div class="white_background"></div>
+					<div class="book_intros">12文豪——围绕日本文学的冒险</div>
+					<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
+				</div>
+				<div class="book">
+					<img src="{% static 'Douban_pages/imgs/sjij.png' %}" class="cover">
+					<div class="white_background"></div>
+					<div class="book_intros">12文豪——围绕日本文学的冒险</div>
+					<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
+				</div>
+				<div class="book">
+					<img src="{% static 'Douban_pages/imgs/sjij.png' %}" class="cover">
+					<div class="white_background"></div>
+					<div class="book_intros">12文豪——围绕日本文学的冒险</div>
+					<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
+				</div>
+				<div class="book">
+					<img src="{% static 'Douban_pages/imgs/sjij.png' %}" class="cover">
+					<div class="white_background"></div>
+					<div class="book_intros">12文豪——围绕日本文学的冒险</div>
+					<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
+				</div>
+				<div class="book second_line">
+					<img src="{% static 'Douban_pages/imgs/sjij.png' %}" class="cover">
+					<div class="white_background"></div>
+					<div class="book_intros">12文豪——围绕日本文学的冒险</div>
+					<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
+				</div>
+				<div class="book second_line">
+					<img src="{% static 'Douban_pages/imgs/sjij.png' %}" class="cover">
+					<div class="white_background"></div>
+					<div class="book_intros">12文豪——围绕日本文学的冒险</div>
+					<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
+				</div>
+				<div class="book second_line">
+					<img src="{% static 'Douban_pages/imgs/sjij.png' %}" class="cover">
+					<div class="white_background"></div>
+					<div class="book_intros">12文豪——围绕日本文学的冒险</div>
+					<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
+				</div>
+				<div class="book second_line">
+					<img src="{% static 'Douban_pages/imgs/sjij.png' %}" class="cover">
+					<div class="white_background"></div>
+					<div class="book_intros">12文豪——围绕日本文学的冒险</div>
+					<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
+				</div>
+				<button class="all">ALL BOOKS
+					<img src="{% static 'Douban_pages/imgs/right_arrow.png' %}" class="arrow">
+				</button>
+				</div>
+	   	    </div>
+	   	</div>
+	   	<div class="hot_book">
+	    	<div class="center">
+	    		<div class="fen">
+					<img src="{% static 'Douban_pages/imgs/can.png' %}" class="fen_line">
+					<h2>热门文章</h2>
+			    </div>
+	    	</div>
+	    </div>
+	    <div class="picture">
+	    	<div class="center">
+	    		<div class="left_arrow">
+	    			<img src="{% static 'Douban_pages/imgs/huho.png' %}">
+	    		</div>
+	    		<div class="right_arrow">
+	    			<img src="{% static 'Douban_pages/imgs/skks.png' %}">
+	    		</div>
+	    		<div class="text_div">
+	    			<div class="text1">
+						<img src="{% static 'Douban_pages/imgs/dd141.jpg' %}" class="text1_img">
+						<div class="message">
+							<h2 class="book_name">北大荒</h2>
+							<h2 class="book_intro">静寂的天堂鸟</h2>
+							<img src="{% static 'Douban_pages/imgs/you.png' %}" style="width: 40px;position: absolute;bottom: 1px;right: 1px;">
+						</div>
+					</div>
+					<div class="text2">
+						<img src="{% static 'Douban_pages/imgs/dd141.jpg' %}" class="text1_img">
+						<div class="message">
+							<h2 class="book_name">奇幻的森林</h2>
+							<h2 class="book_intro">山的那边有夕阳在燃烧</h2>
+							<img src="{% static 'Douban_pages/imgs/you.png' %}" style="width: 40px;position: absolute;bottom: 1px;right: 1px;">
+						</div>
+					</div>
+	    		</div>
+				<div class="point">
+	    			<div class="circle"></div>
+	    			<div class="circle"></div>
+	    			<div class="circle"></div>
+	    			<div class="circle special" style="margin-right: 0px;"></div>
+	    		</div>
+	    	</div>
+	    </div>
+	    <div class="article">
+	    	<div class="center">
+	    		<div class="article_div">
+	    			<div class="article_left">
+	    				<h3>哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈</h3>
+	    				<h3>哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈</h3>
+	    			</div>
+	    			<div class="article_right">
+	    				<h3>哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈</h3>
+	    				<h3>哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈</h3>
+	    			</div>
+	    		</div>
+	    	</div>
+	    </div>
+	    {% include "base/footer.html" %}
+	</div>
+	<script type="text/javascript" src="{% static 'Douban_pages/js/jquery-3.3.1.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'Douban_pages/js/shouye.js' %}"></script>
+</body>
+</html>

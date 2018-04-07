@@ -74,7 +74,6 @@ class CommentFilterPubtime(admin.SimpleListFilter):
             ('3', u'今年'),
             ('4', u'今年之前')
         )
-
     def queryset(self, request, queryset):
         if self.value() == '0':
             start = datetime.now() - timedelta(days=1)
@@ -144,7 +143,7 @@ class ClickNumFilter(admin.SimpleListFilter):
 
 class LickNumFilter(admin.SimpleListFilter):
     title = u'点赞数'
-    parameter_name = 'like_num'
+    parameter_name = 'good_num'
 
     def lookups(self, request, model_admin):
         return (
@@ -155,33 +154,45 @@ class LickNumFilter(admin.SimpleListFilter):
 
     def queryset(self, request, queryset):
         if self.value() == '0':
-            return queryset.filter(like_num__gte=1000)
+            return queryset.filter(good_num__gte=1000)
         if self.value() == '1':
-            return queryset.filter(like_num__gte=500)
+            return queryset.filter(good_num__gte=500)
         if self.value() == '2':
-            return queryset.filter(like_num__gte=200)
+            return queryset.filter(good_num__gte=200)
 
 
 class UserAdmin(admin.ModelAdmin):
     list_display = (
-        'username', 'email', 'birthday', 'gender', 'follow_num', 'pub_time', 'address', 'image', 'is_active')
+        'username', 'email', 'birthday', 'gender',
+        'follow_num', 'pub_time', 'address', 'image', 'is_active')
     search_fields = ('username', 'email')
     fields = (
         'username',
-        'password', 'email', 'is_active', 'birthday', 'gender', 'follow_num', 'pub_time', 'address', 'image')
+        'password', 'signature', 'email', 'is_active', 'birthday', 'gender', 'address', 'image')
     list_per_page = 30
     ordering = ('-pub_time',)
     list_filter = ('gender', UserFilterPubtime, UserFilterBirthday)
+    list_editable = ('is_active',)
 
     def save_model(self, request, obj, form, change):
-        obj.set_password(request.user.password)
+        obj.user = request.user
+        if change:
+            obj_original = self.model.objects.get(pk=obj.pk)
+            if obj_original.password == form.cleaned_data['password']:
+                obj.password = obj_original.password
+            else:
+                obj.password = obj.user.password
+            print(obj_original.password)
+        else:
+            obj.password = obj.user.password
         obj.save()
 
 
 class ArticleAdmin(admin.ModelAdmin):
     list_display = ('title', 'author', 'pub_time', 'click_num', 'like_num')
     search_fields = ('title', 'author')
-    fields = ('title', 'author', 'pub_time', 'click_num', 'like_num', 'text')
+    fields = ('title', 'author', 'pub_time', 'text')
+    raw_id_fields = ('author',)
     list_per_page = 30
     ordering = ('-pub_time',)
     list_filter = (ArticleFilterPubtime, ClickNumFilter, LickNumFilter)
@@ -195,15 +206,17 @@ class ArticleAdmin(admin.ModelAdmin):
 
 
 class BookAdmin(admin.ModelAdmin):
-    list_display = ('name', 'author', 'publisher', 'like_num')
-    search_fields = ('name', 'author', 'publisher')
+    list_display = ('name', 'author', 'publisher', 'like_num', 'click_num')
+    search_fields = ('name', 'author', 'publisher', 'text')
+    fields = ('name', 'author', 'publisher', 'text', 'src')
     list_per_page = 30
     list_filter = (LickNumFilter,)
 
 
 class CommentsAdmin(admin.ModelAdmin):
     list_display = ('commenter_id', 'book_id', 'pub_time')
-    search_fields = ('commenter_id__username', 'book_id__name')
+    search_fields = ('commenter_id__username', 'book_id__name', 'text')
+    raw_id_fields = ('commenter_id', 'book_id')
     list_per_page = 30
     list_filter = (CommentFilterPubtime,)
 
@@ -217,19 +230,41 @@ class CommentsAdmin(admin.ModelAdmin):
 
 class GoodLinkAdmin(admin.ModelAdmin):
     list_display = ('userId', 'bookId', 'Time')
-    search_fields = ('userId__username', 'bookId__username')
+    search_fields = ('userId__username', 'bookId__name')
+    raw_id_fields = ('userId', 'bookId')
+    fk_field = ('userId',)
     list_per_page = 30
 
 
 class FollowLinkAdmin(admin.ModelAdmin):
     list_display = ('userId', 'toId')
     search_fields = ('userId__username', 'toId__username')
+    raw_id_fields = ('userId', 'toId')
     list_per_page = 30
 
 
+class CollectionBooksAdmin(admin.ModelAdmin):
+    list_display = ('username', 'book')
+    search_fields = ('username', 'book')
+    raw_id_fields = ('username', 'book')
+    list_per_page = 30
+
+
+class CollectionArticlesAdmin(admin.ModelAdmin):
+    list_display = ('username', 'Articles')
+    search_fields = ('username', 'Articles')
+    raw_id_fields = ('username', 'Articles')
+    list_per_page = 30
+
+
+admin.site.site_header = '豆瓣管理页面'
+admin.site.site_title = '豆瓣管理页面'
+admin.site.index_title = '豆瓣'
 admin.site.register(Users, UserAdmin)
 admin.site.register(Articles, ArticleAdmin)
 admin.site.register(Books, BookAdmin)
 admin.site.register(Comments, CommentsAdmin)
 admin.site.register(GoodLink, GoodLinkAdmin)
 admin.site.register(FollowLink, FollowLinkAdmin)
+admin.site.register(UserCollectionBooks, CollectionBooksAdmin)
+admin.site.register(UserCollectionArticles, CollectionArticlesAdmin)

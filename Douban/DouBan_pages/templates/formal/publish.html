@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<title>我发表过的文章</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'Douban_pages/css/d.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'Douban_pages/css/publish.css' %}">
+	     <meta charset='utf-8'>
+    <link rel="stylesheet" type="text/css" href="/ueditor/UE/third-party/SyntaxHighlighter/shCoreDefault.css">
+    <script type="text/javascript" src="/ueditor/UE/third-party/SyntaxHighlighter/shCore.js"></script>
+    <script type="text/javascript" src="/ueditor/UE/ueditor.config.js"></script>
+    <script type="text/javascript" src="/ueditor/UE/ueditor.all.min.js"></script>
+    <script type="text/javascript" src="/ueditor/UE/lang/zh-cn/zh-cn.js"></script>
+
+    <script type="text/javascript">
+    	var ue = UE.getEditor('editor');
+    	SyntaxHighlighter.all();
+    </script>
+</head>
+<body>
+	<div class="container">
+		<div class="head">
+		    <div class="center">
+		    	<img src="{% static 'Douban_pages/imgs/logo.png' %}" class="douban_logo">
+		    	<ul class="head_list">
+		    		<a class="navi HOME" style="text-decoration: none;">HOME</a>
+		    		<a class="navi WAITING" style="text-decoration: none;">WAITING</a>
+		    		<a class="navi INFORMATION" style="text-decoration: none;">INFORMATION</a>
+		    		<a class="navi COLLECTION" style="text-decoration: none;">COLLECTION</a>
+		    		<a class="navi LOGOUT" style="margin-right: 0px;text-decoration: none;">LOGOUT</a>
+		    	</ul>
+		    </div>
+	    </div>
+	    <div class="background">
+	    	<div class="user">
+	    		<h1 class="name">阿浦爱曼联的个人主页</h1>
+	    		<img src="{% static 'Douban_pages/imgs/h.jpg' %}" class="portrait">
+	    		<input type="" name="" value="我现在对脱单不抱希望了，我只想安静的一夜暴富" class="sign" readonly="readonly">
+	    		<img src="{% static 'Douban_pages/imgs/white.png' %}" class="white white1">
+	    	</div>
+	    </div>
+	    <div class="center">
+	    	<div class="fen">
+				<img src="{% static 'Douban_pages/imgs/can.png' %}" class="fen_line">
+				<h2>我发表过的文章</h2>
+			</div>
+			<div class="add">
+				<img src="{% static 'Douban_pages/imgs/gugi.png' %}" class="add_img">
+				<span class="add_text">(添加文章)</span>
+			</div>
+			<form class="form" action="{% url "DouBan_pages:add_article_result" %}" method="post">
+				<div class="kong">
+                 {% csrf_token %}
+                    <script id="editor" type="text/plain" class="kong"></script>
+                </div>
+				<button class="sp">发表</button>
+			</form>
+			<div class="article">
+
+				<div class="article_one article_div">
+					<img src="{% static 'Douban_pages/imgs/djjd.png' %}" class="article_img">
+					<h2 class="article_name">一个平凡的便利店能给你所有</h2>
+					<span class="article_date">发表于：2018年3月5日</span>
+					<div class="pop_windows">
+						<span>确定删除吗？</span>
+						<button class="confirm">确定</button>
+						<button class="cancle">取消</button>
+					</div>
+					<button class="delete2">删除</button>
+					<button class="edit">编辑</button>
+				</div>
+
+				<div class="page_turn4">
+                <form action="">
+					<button type="submit" name="" class="button home fourth_home">首页</button>
+					<button class="button one fourth_one">{{ index }}</button>
+                    {% for i in indexs %}
+					<button type="submit" name="{{ i }}" value="{{ i }}" class="button two fourth_two">{{ i }}</button>
+                    {% endfor %}
+					<button type="submit" name="next_page" class="button next fourth_next">下一页</button>
+					<button type="submit" name="last_page" class="button last fourth_next">尾页</button>
+                </form>
+				</div>
+			</div>
+	    </div>
+	</div>
+	{% include 'base/footer.html' %}
+	<script type="text/javascript" src="{% static 'Douban_pages/js/jquery-3.3.1.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'Douban_pages/js/publish.js' %}"></script>
+</body>
+</html>
