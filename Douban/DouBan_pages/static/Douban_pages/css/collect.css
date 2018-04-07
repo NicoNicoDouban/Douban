@@ -178,14 +178,14 @@
 .book_name{
 	color: #71CDD8;
 	position: absolute;
-	left: 10px;
+	left: 20px;
 	top: 17px;
 	font-size: 16px;
 	font-family: 'a';
 }
 .book_intro{
 	position: absolute;
-	left: 10px;
+	left: 20px;
 	top: 47px;
 	font-size: 16px;
 	font-family: 'a';
@@ -317,6 +317,16 @@
 	background-color:rgba(255, 255, 255, 0);
 	transition:0.8s;
 }
+.book_intro{
+	width: 160px;
+	position: absolute;
+	top: 190px;
+	left: 0px;
+	height: 51px;
+	background-color:rgba(255, 255, 255, 0.8);
+	transition: 0.8s;
+	padding: 20px;
+}
 .book_div{
 	width: 1085px;
 	height: 832px;
@@ -329,6 +339,9 @@
 }
 .book:hover .coverage{
 	opacity: 1;
+}
+.book:hover .book_intro{
+	opacity: 0;
 }
 .book:hover .white_background{
 	background-color:rgba(255, 255, 255, 0.8);

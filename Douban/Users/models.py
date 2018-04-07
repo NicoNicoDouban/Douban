@@ -3,7 +3,7 @@ from datetime import datetime,date
 import json
 # Create your models here.
 from django.contrib.auth.models import (BaseUserManager, AbstractBaseUser, PermissionsMixin,UserManager,AbstractUser)
-
+from  DouBan import settings
 # 序列化datetime和date
 class DateEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -67,6 +67,7 @@ class Users(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
     USERNAME_FIELD = 'email'  # 认证标识
     REQUIRED_FIELDS = ["username"]
+    defalut_avatar = '%s\\pictures\\defalut_avatar.jpg'%(settings.MEDIA_ROOT)
     username=models.CharField(max_length=20,verbose_name=u"昵称",default="user",null=True, unique=False)
     email = models.EmailField(verbose_name=u"邮箱",default="",null=False,unique=True)
     birthday = models.DateField(verbose_name=u"生日",default="2000-01-01")
@@ -74,8 +75,8 @@ class Users(AbstractBaseUser, PermissionsMixin):
     follow_num = models.IntegerField(verbose_name=u"被关注数",default=0)
     pub_time = models.DateTimeField(verbose_name=u"注册时间",default=datetime.now)
     address = models.CharField(max_length=100,verbose_name=u"用户地址", default=u"保密")
-    image = models.CharField(verbose_name=u"用户头像", default=u"image/default.png", max_length=100)
-
+    image = models.CharField(verbose_name=u"用户头像", default=defalut_avatar, max_length=100)
+    signature = models.CharField(verbose_name=u"个性签名", default=u"这个人很懒什么都没写", max_length=50)
     is_staff = models.BooleanField(
         ('staff status'),
         default=False,
@@ -177,6 +178,7 @@ class FollowLink(models.Model):
         verbose_name = "用户关注关联信息"
         verbose_name_plural = verbose_name
 
+
 class userActive(models.Model):
     username = models.ForeignKey(Users, on_delete=models.CASCADE, verbose_name=u"用户")
     activation_code = models.CharField(max_length=30, verbose_name=u"激活码")
@@ -190,7 +192,6 @@ class userActive(models.Model):
         verbose_name_plural = verbose_name
 
 
-<<<<<<< HEAD
 class UserCollectionBooks(models.Model):
     username = models.ForeignKey(Users, on_delete=models.CASCADE, verbose_name=u'用户')
     book = models.ForeignKey(Books, on_delete=models.CASCADE, verbose_name=u'用户')
@@ -207,5 +208,4 @@ class UserCollectionArticles(models.Model):
     class Meta:
         verbose_name = "用户收藏文章"
         verbose_name_plural = verbose_name
-=======
->>>>>>> d34ea75a686a9b4dacd1a89793df598fb2f207ea
+

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+{% load static %}
 <head>
 	<title>个人资料</title>
 	<meta charset="utf-8" />
@@ -23,7 +24,7 @@
 	    <div class="background">
 	    	<div class="user">
 	    		<h1 class="name">阿浦爱曼联的个人主页</h1>
-	    		<img src="{% static 'Douban_pages/imgs/h.jpg' %}" class="portrait">
+	    		<img src="../../media/" class="portrait">
 	    		<input type="" name="" value="{{ signature }}" class="sign" readonly="readonly">
 	    		<img src="{% static 'Douban_pages/imgs/white.png' %}" class="white white1">
 	    	</div>
@@ -37,17 +38,17 @@
 				<div class="message">
 					<div class="name_div div" style="margin-top: 0px;">
 						<img src="{% static 'Douban_pages/imgs/gigu.png.png' %}">
-						<input type="text" name="nick_name" class="input name_input" value="{{ nick_name }}" readonly="readonly">
+						<input type="text" name="nick_name" class="input name_input" value="{{ username }}" readonly="readonly">
 						<img src="{% static 'Douban_pages/imgs/white.png' %}" class="white white2">
 					</div>
 					<div class="gender_div div">
 						<img src="{% static 'Douban_pages/imgs/fugo.png' %}">
-						<input type="text" name="nick_name" class="input gender_input" value="{{ gender }}" readonly="readonly">
+						<input type="text" name="gender" class="input gender_input" value="{{ gender }}" readonly="readonly">
 						<img src="{% static 'Douban_pages/imgs/white.png' %}" class="white white3">
 					</div>
 					<div class="date_div div" >
 						<img src="{% static 'Douban_pages/imgs/ioi.png' %}">
-						<input type="text" name="" class="input date_input" value="{{ birthday|date:"Y-m-d" }}" readonly="readonly">
+						<input type="text" name="birthday" class="input date_input" value="{{ birthday|date:"Y-m-d" }}" readonly="readonly">
 						<img src="{% static 'Douban_pages/imgs/white.png' %}" class="white white4">
 					</div>
 				</div>

@@ -5,7 +5,7 @@
     <title>文章清单</title>
 </head>
 <body>
-<a href="{% url 'DouBan_pages:search' %}">返回搜索界面</a><br/>
+<a href="{% url 'home' %}">返回首页</a><br/>
 {% for i in context.search_result.objects %}
     标题:{{ i.title }} 作者:{{ i.writer }}<br/>
 {% endfor %}
