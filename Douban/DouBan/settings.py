@@ -82,13 +82,13 @@ WSGI_APPLICATION = 'DouBan.wsgi.application'
 
 DATABASES = {
     'default': {
-    'ENGINE': 'django.db.backends.mysql',
-    'NAME': 'douban',   #数据库名
-    'USER': 'root',    #用户名
-    'PASSWORD': '1234',
-    'HOST': '127.0.0.1',
-    'PORT': '3306',
-    'CHARSET': 'utf8',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'douban',   #数据库名
+        'USER': 'root',    #用户名
+        'PASSWORD': '1234',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+        'CHARSET': 'utf8',
     }
 }
 

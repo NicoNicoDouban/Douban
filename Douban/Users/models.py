@@ -1,8 +1,9 @@
 from django.db import models
 from datetime import datetime,date
 import json
-# Create your models here.
-from django.contrib.auth.models import (BaseUserManager, AbstractBaseUser, PermissionsMixin,UserManager,AbstractUser)
+from django.contrib.auth.password_validation import validate_password
+from django.contrib.auth.models import (
+    BaseUserManager, AbstractBaseUser, PermissionsMixin,UserManager,AbstractUser)
 from  DouBan import settings
 # 序列化datetime和date
 class DateEncoder(json.JSONEncoder):
@@ -23,10 +24,10 @@ class Users(AbstractUser):
         ('S', u'保密')
     )
     objects = UserManager()
-    USERNAME_FIELD = 'email'  # 认证标识
-    REQUIRED_FIELDS = []
+    #USERNAME_FIELD = 'email'  # 认证标识
+    #REQUIRED_FIELDS = ['username', ]
     #username=models.CharField(max_length=20,verbose_name=u"用户名",default="user",null=True, unique=True)
-    # password = models.CharField(max_length=20,verbose_name=u"密码",default="123456")
+    password = models.CharField(max_length=20,verbose_name=u"密码", validators=[validate_password])
     email = models.EmailField(verbose_name=u"邮箱",default="",null=False,unique=True)
     birthday = models.DateField(verbose_name=u"生日",default="2000-01-01")
     gender = models.CharField(max_length=1, verbose_name=u"性别",default="S", choices=Gender_Choice)
@@ -120,7 +121,7 @@ class Articles(models.Model):
     pub_time = models.DateTimeField(verbose_name=u"发表时间", default=datetime.now)
     click_num = models.IntegerField(verbose_name=u"点击数", default=0)
     text = models.TextField(verbose_name='文章内容', default="")
-    good_num = models.IntegerField(verbose_name=u"点赞数", default=0)
+    like_num = models.IntegerField(verbose_name=u"点赞数", default=0)
 
     class Meta:
         verbose_name = "文章信息"
@@ -136,7 +137,7 @@ class Books(models.Model):
     author_introduction = models.CharField(verbose_name=u'作者简介', max_length=50, default='暂无介绍')
     author_picture = models.CharField(verbose_name=u"作者照片", default="/media/book_image/defalut_author.png", max_length=100)
     publisher = models.CharField(verbose_name=u"出版社", max_length=30, default="")
-    good_num = models.IntegerField(verbose_name=u"点赞数", default=0)
+    like_num = models.IntegerField(verbose_name=u"点赞数", default=0)
     click_num = models.IntegerField(verbose_name=u"点击数", default=0)
     text = models.TextField(verbose_name=u"简介", default="暂无介绍")
     src = models.CharField(verbose_name=u"封面url地址", default="/media/book_image/defalut.png", max_length=100)
@@ -196,7 +197,7 @@ class userActive(models.Model):
 
 class UserCollectionBooks(models.Model):
     username = models.ForeignKey(Users, on_delete=models.CASCADE, verbose_name=u'用户')
-    book = models.ForeignKey(Books, on_delete=models.CASCADE, verbose_name=u'用户')
+    book = models.ForeignKey(Books, on_delete=models.CASCADE, verbose_name=u'书籍')
 
     class Meta:
         verbose_name = "用户收藏书籍"
@@ -205,7 +206,7 @@ class UserCollectionBooks(models.Model):
 
 class UserCollectionArticles(models.Model):
     username = models.ForeignKey(Users, on_delete=models.CASCADE, verbose_name=u'用户')
-    Articles = models.ForeignKey(Articles, on_delete=models.CASCADE, verbose_name=u'用户')
+    Articles = models.ForeignKey(Articles, on_delete=models.CASCADE, verbose_name=u'文章')
 
     class Meta:
         verbose_name = "用户收藏文章"

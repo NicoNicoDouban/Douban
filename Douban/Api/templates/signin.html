@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-{% load static %}
 <html>
+{% load static %}
 <head>
 	<title></title>
 	<link rel="stylesheet" type="text/css" href="{% static 'Douban_pages/css/d.css' %}">
@@ -16,14 +16,14 @@
 					<div class="register loginin">新用户注册</div>
 				</div>
 				<div class="main1">
-                    <form action="" method="post">
+                    <form action="{% url 'login' %}" method="post">
 					<div class="input_div">
 						<span class="username_span">用户名</span>
-						<input type="text" name="username" class="username main1_input" placeholder="请输入正确的邮箱地址">
+						<input type="text" name="username" class="username main1_input" placeholder="请输入正确的邮箱地址" required id="id_username">
 					</div>
 					<div class="input_div">
 						<span class="password_span">密码</span>
-						<input type="password" name="password" class="password main1_input" placeholder="请输入密码">
+						<input type="password" name="password" class="password main1_input" placeholder="请输入密码" required id="id_password">
 					</div>
 					<div class="input_div">
 						<span class="checkword_span">验证码</span>
@@ -49,9 +49,9 @@
 						<span class="password_span">密码</span>
 						<input type="password" name="password" class="password main1_input" placeholder="请输入密码">
 					</div>
-					
 					<button class="button back">欢迎注册</button>
 				</div>
+					<form action="{% url 'regist' %}" method="post">
 				<div class="main3">
 					<div class="input_div">
 						<span class="username_span">用户名</span>
@@ -68,6 +68,7 @@
 					</div>					
 					<button class="button back">欢迎注册</button>
 				</div>
+                    </form>
 			</div>
 		</div>
 		
