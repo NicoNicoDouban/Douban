@@ -2,21 +2,21 @@
 	font-family: 微软雅黑, sans-serif;}
 @font-face{
 	font-family: 'a';
-	src:url('../fonts./AAA.eot') /*format('embedded-opentype')*/,
-		url('../fonts./AAA.woff') /*format('truetype')*/,
-		url('../fonts./AAA.otf') /*format('opentype')*/,
-		url('../fonts./AAA.woff') ,
-		url('../fonts./AAA.svg') /*format('svg')*/;
+	src:url('../fonts/AAA.eot') /*format('embedded-opentype')*/,
+		url('../fonts/AAA.woff') /*format('truetype')*/,
+		url('../fonts/AAA.otf') /*format('opentype')*/,
+		url('../fonts/AAA.woff') ,
+		url('../fonts/AAA.svg') /*format('svg')*/;
     font-weight: normal;
     font-style: normal;
 }
 @font-face{
 	font-family: 'b';
-	src:url('../fonts./Helvetica Bold.eot') /*format('embedded-opentype')*/,
-		url('../fonts./Helvetica Bold.otf') /*format('truetype')*/,
-		url('../fonts./Helvetica Bold.svg') /*format('opentype')*/,
-		url('../fonts./Helvetica Bold.ttf') ,
-		url('../fonts./Helvetica Bold.woff') /*format('svg')*/;
+	src:url('../fonts/Helvetica Bold.eot') /*format('embedded-opentype')*/,
+		url('../fonts/Helvetica Bold.otf') /*format('truetype')*/,
+		url('../fonts/Helvetica Bold.svg') /*format('opentype')*/,
+		url('../fonts/Helvetica Bold.ttf') ,
+		url('../fonts/Helvetica Bold.woff') /*format('svg')*/;
     font-weight: normal;
     font-style: normal;
 }
@@ -60,7 +60,7 @@
 }
 .background{
 	height: 392px;
-	background-image: url("../imgs./uiiguh.png");
+	background-image: url("../imgs/uiiguh.png");
 	background-repeat: no-repeat;
 	width: 100%;
 }

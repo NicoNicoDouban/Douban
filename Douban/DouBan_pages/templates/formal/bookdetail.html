@@ -13,8 +13,8 @@
 		<div class="center">
 			<img src="{% static 'Douban_pages/imgs/logo.png' %}" class="douban_logo">
 			<ul class="head_list">
-				<a class="navi HOME" style="text-decoration: none;">HOME</a>
-				<a class="navi BOOK" style="text-decoration: none;">BOOK</a>
+				<a class="navi HOME" style="text-decoration: none;" href="{% url 'home' %}">HOME</a>
+				<a class="navi BOOK" style="text-decoration: none;" href="{% url 'DouBan_pages:search_result_book' %}">BOOK</a>
 				<a class="navi ACTIVITY" style="text-decoration: none;">ACTIVITY</a>
 				<a class="navi LOGIN" style="margin-right: 0px;text-decoration: none;" href="{% url 'logout' %}">LOGOUT</a>
 			</ul>
@@ -27,46 +27,50 @@
 	<div class="main">
 		<div class="center">
 			<div class="book_cover">
-				<img src="{% static 'Douban_pages/imgs/s29608420.jpg' %}" class="cover">
+				<img src="{{ book.src }}" class="cover">
 				<a href="#"><img src="{% static 'Douban_pages/imgs/share.png' %}" class="share"></a>
 				<a href="#"><img src="{% static 'Douban_pages/imgs/like.png' %}" class="like"></a>
 				<a href="#"><div class="pointview">我来发表评论</div></a>
 			</div>
 			<div class="book_review">
 				<div class="book_name_sign">
-					<h2 class="book_name">孤独梦想家</h2>
-					<span class="book_press">(湖北文艺出版社)</span>
-					<h3 class="book_sign">唤醒爱, 唯有爱</h3>
+					<h2 class="book_name">{{ book.name }}</h2>
+					<span class="book_press">({{ book.publisher }})</span>
+					<h3 class="book_sign">唤醒爱，唯有爱</h3>
 				</div>
 				<div class="review_content">
 					<div class="ranking">
 						<span class="ranking_time">时间</span>
 						<span class="ranking_hot">热度</span>
 					</div>
+                    {% if comment1 %}
 					<div class="pointview_one">
 						<div class="person_infor">
 							<img src="{% static 'Douban_pages/imgs/dd141.jpg' %}" class="portrait portrait_one">
-							<h4 class="name name_one">刘星</h4>
-							<h4 class="date date_one">2018.3.10</h4>
+							<h4 class="name name_one">{{ commenter1.username }}</h4>
+							<h4 class="date date_one">{{ comment1.pub_time|date:"Y-m-d" }}</h4>
 						</div>
 						<div class="content_div">
-							<div class="content_main"><p class="content_main_em content_main_em_one">哈哈哈哈哈或或哈或或哈或或或或哈或哈哈哈哈哈或或或或哈或或或或哈哈哈哈或或哈或或或或或哈或哈哈哈哈或或哈或或或或或哈或或或哈哈哈哈或或或哈或或或或或哈或或哈哈哈哈哈或或哈或或哈或或或或哈或哈哈哈</p></div>
+							<div class="content_main"><p class="content_main_em content_main_em_one">{{ comment1.text }}</p></div>
 							<img src="{% static 'Douban_pages/imgs/zan.png' %}" class="zan">
 							<span class="zan_number zan_number_one">(1)</span>
 						</div>
 					</div>
+                    {% endif %}
+                    {% if comment2 %}
 					<div class="pointview_two">
 						<div class="person_infor">
 							<img src="{% static 'Douban_pages/imgs/dd141.jpg' %}" class="portrait portrait_two">
-							<h4 class="name name_two">刘星</h4>
-							<h4 class="date date_two">2018.3.10</h4>
+							<h4 class="name name_two">{{ commenter2.username }}</h4>
+							<h4 class="date date_two">{{ comment2.pub_time|date:"Y-m-d" }}</h4>
 						</div>
 						<div class="content_div">
-							<div class="content_main"><p class="content_main_em content_main_em_two">哈哈哈哈哈或或哈或或哈或或或或哈或哈哈哈哈哈或或或或哈或或或或哈哈哈哈或或哈或或或或或哈或哈哈哈哈或或哈或或或或或哈或或或哈哈哈哈或或或哈或或或或或哈或或哈哈哈哈哈或或哈或或哈或或或或哈或哈哈哈</p></div>
+							<div class="content_main"><p class="content_main_em content_main_em_two">{{ comment2.text }}</p></div>
 							<img src="{% static 'Douban_pages/imgs/zan.png' %}" class="zan">
 							<span class="zan_number zan_number_two">(1)</span>
 						</div>
 					</div>
+                    {% endif %}
 				</div>
 			</div>
 		</div>
@@ -81,7 +85,7 @@
 				<h3>简介</h3>
 				<img src="{% static 'Douban_pages/imgs/you.png' %}" class="jianjieyou">
 				<div class="introduce_content">
-					<p class="introduce_content_p">哈哈哈哈哈或或哈或或哈或或或或哈或哈哈哈哈哈或或或或哈或或或或哈哈哈哈或或哈或或或或或哈或哈哈哈哈或或哈或或或或或哈或或或哈哈哈哈或或或哈或或或或或哈或或哈哈哈哈哈或或哈或或哈或或或或哈或哈哈哈</p>
+					<p class="introduce_content_p">{{ book.text }}</p>
 					<img src="{% static 'Douban_pages/imgs/zuo.png' %}" class="content_zuo">
 					<img src="{% static 'Douban_pages/imgs/you.png' %}" class="content_you">
 				</div>
@@ -90,18 +94,17 @@
 				<h3>作者</h3>
 				<img src="{% static 'Douban_pages/imgs/you.png' %}" class="jianjieyou">
 				<div class="author_picture">
-					<img src="{% static 'Douban_pages/imgs/dd141.jpg' %}" class="author_picture_one author_picture_">
-					<img src="{% static 'Douban_pages/imgs/dd141.jpg' %}" class="author_picture_two author_picture_">
-					<img src="{% static 'Douban_pages/imgs/dd141.jpg' %}" class="author_picture_three author_picture_">
+					<img src="{{ book.author_picture }}" class="author_picture_one author_picture_">
+					<img src="{{ book.author_picture }}" class="author_picture_two author_picture_">
+					<img src="{{ book.author_picture }}" class="author_picture_three author_picture_">
 				</div>
-				<div class="author_content"><p class="author_intro"><span class="author_name">戴维•巴尼特（David M. Barnett）</span>：英国新晋获奖作家，1970年出生于英国兰开夏郡，曾出版包括《雅努斯的房子》《另外两个故事》在内的多部小说。2017年，戴维•巴尼特推出温情疗愈新作《孤独梦想家》，作品一经出版，便空降各大销售排行榜，风靡英伦三岛，成为多家媒体的年度荐书，是几乎每个英国人都喜欢的年度疗愈畅销书。戴维•巴尼特也自此成为英国炙手可热的畅销作家。</p></div>
-			</div>
+				<div class="author_content"><p class="author_intro"><span class="author_name">{{ book.author }}</span>：{{ comment1.author_introduction }}
 			<div class="disscuss">
 				<img src="{% static 'Douban_pages/imgs/h.jpg' %}" class="user_picture">
-				<form>
-					<textarea class="user_disscuss" placeholder="#请在此处输入文字"></textarea> 
-					<button  class="user_share">发表评论</button>
-			</form>
+				<form action="{% url 'DouBan_pages:book_detail' book.id %}" method="post">
+					<textarea name="comment" class="user_disscuss" placeholder="#请在此处输入文字"></textarea>
+					<button type="submit" name="comment_submit" class="user_share">发表评论</button>
+			    </form>
 			</div>
 
 		</div>

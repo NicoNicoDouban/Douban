@@ -13,19 +13,19 @@
 		    <div class="center">
 		    	<img src="{% static 'Douban_pages/imgs/logo.png' %}" class="douban_logo">
 		    	<ul class="head_list">
-		    		<a class="navi HOME" style="text-decoration: none;">HOME</a>
-		    		<a class="navi WAITING" style="text-decoration: none;">WAITING</a>
+		    		<a class="navi HOME" style="text-decoration: none;" href="{% url 'home' %}">HOME</a>
+		    		<a class="navi WAITING" style="text-decoration: none;" href="{% url "DouBan_pages:my_publish" %}">WRITING</a>
 		    		<a class="navi INFORMATION" style="text-decoration: none;">INFORMATION</a>
 		    		<a class="navi COLLECTION" style="text-decoration: none;">COLLECTION</a>
-		    		<a class="navi LOGOUT" style="margin-right: 0px;text-decoration: none;">LOGOUT</a>
+		    		<a class="navi LOGOUT" style="margin-right: 0px;text-decoration: none;" href="{% url 'logout' %}">LOGOUT</a>
 		    	</ul>
 		    </div>
 	    </div>
 	    <div class="background">
 	    	<div class="user">
-	    		<h1 class="name">阿浦爱曼联的个人主页</h1>
-	    		<img src="../../media/" class="portrait">
-	    		<input type="" name="" value="{{ signature }}" class="sign" readonly="readonly">
+	    		<h1 class="name">{{ username }}的个人主页</h1>
+	    		<img src="{{ image }}" class="portrait">
+	    		<input type="" name="" value="{{ signature }}" class="sign" readonly="readonly" align="center">
 	    		<img src="{% static 'Douban_pages/imgs/white.png' %}" class="white white1">
 	    	</div>
 	    </div>
@@ -37,7 +37,7 @@
 				</div>
 				<div class="message">
 					<div class="name_div div" style="margin-top: 0px;">
-						<img src="{% static 'Douban_pages/imgs/gigu.png.png' %}">
+						<img src="{% static 'Douban_pages/imgs/gigu.png' %}">
 						<input type="text" name="nick_name" class="input name_input" value="{{ username }}" readonly="readonly">
 						<img src="{% static 'Douban_pages/imgs/white.png' %}" class="white white2">
 					</div>
@@ -56,7 +56,7 @@
 	    </div>
 	</div>
 	{% include 'base/footer.html' %}
-	<script type="text/javascript" src="./js/jquery-3.3.1.min.js"></script>
-	<script type="text/javascript" src="./js/userinfo.js"></script>
+	<script type="text/javascript" src="{% static 'Douban_pages/js/jquery-3.3.1.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'Douban_pages/js/userinfo.js' %}"></script>
 </body>
 </html>

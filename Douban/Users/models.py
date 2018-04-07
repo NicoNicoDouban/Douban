@@ -67,7 +67,6 @@ class Users(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
     USERNAME_FIELD = 'email'  # 认证标识
     REQUIRED_FIELDS = ["username"]
-    defalut_avatar = '%s\\pictures\\defalut_avatar.jpg'%(settings.MEDIA_ROOT)
     username=models.CharField(max_length=20,verbose_name=u"昵称",default="user",null=True, unique=False)
     email = models.EmailField(verbose_name=u"邮箱",default="",null=False,unique=True)
     birthday = models.DateField(verbose_name=u"生日",default="2000-01-01")
@@ -75,7 +74,7 @@ class Users(AbstractBaseUser, PermissionsMixin):
     follow_num = models.IntegerField(verbose_name=u"被关注数",default=0)
     pub_time = models.DateTimeField(verbose_name=u"注册时间",default=datetime.now)
     address = models.CharField(max_length=100,verbose_name=u"用户地址", default=u"保密")
-    image = models.CharField(verbose_name=u"用户头像", default=defalut_avatar, max_length=100)
+    image = models.CharField(verbose_name=u"用户头像", default='/media/pictures/defalut_avatar.png', max_length=100)
     signature = models.CharField(verbose_name=u"个性签名", default=u"这个人很懒什么都没写", max_length=50)
     is_staff = models.BooleanField(
         ('staff status'),
@@ -134,11 +133,13 @@ class Articles(models.Model):
 class Books(models.Model):
     name = models.CharField(verbose_name=u"图书名", max_length=30, default="")
     author = models.CharField(verbose_name=u"作者名", max_length=50, default="")
+    author_introduction = models.CharField(verbose_name=u'作者简介', max_length=50, default='暂无介绍')
+    author_picture = models.CharField(verbose_name=u"作者照片", default="/media/book_image/defalut_author.png", max_length=100)
     publisher = models.CharField(verbose_name=u"出版社", max_length=30, default="")
     good_num = models.IntegerField(verbose_name=u"点赞数", default=0)
     click_num = models.IntegerField(verbose_name=u"点击数", default=0)
     text = models.TextField(verbose_name=u"简介", default="暂无介绍")
-    src = models.CharField(verbose_name=u"封面url地址", default="image/default.png", max_length=100)
+    src = models.CharField(verbose_name=u"封面url地址", default="/media/book_image/defalut.png", max_length=100)
 
     class Meta:
         verbose_name = "图书信息"
@@ -209,7 +210,3 @@ class UserCollectionArticles(models.Model):
     class Meta:
         verbose_name = "用户收藏文章"
         verbose_name_plural = verbose_name
-<<<<<<< HEAD
-
-=======
->>>>>>> 8a7b50593c4cda22ae7ad63273e3c24b99cca382
