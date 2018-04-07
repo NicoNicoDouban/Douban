@@ -136,6 +136,7 @@ class Books(models.Model):
     author = models.CharField(verbose_name=u"作者名", max_length=50, default="")
     publisher = models.CharField(verbose_name=u"出版社", max_length=30, default="")
     good_num = models.IntegerField(verbose_name=u"点赞数", default=0)
+    click_num = models.IntegerField(verbose_name=u"点击数", default=0)
     text = models.TextField(verbose_name=u"简介", default="暂无介绍")
     src = models.CharField(verbose_name=u"封面url地址", default="image/default.png", max_length=100)
 
@@ -203,9 +204,12 @@ class UserCollectionBooks(models.Model):
 
 class UserCollectionArticles(models.Model):
     username = models.ForeignKey(Users, on_delete=models.CASCADE, verbose_name=u'用户')
-    Articles = models.ForeignKey(Books, on_delete=models.CASCADE, verbose_name=u'用户')
+    Articles = models.ForeignKey(Articles, on_delete=models.CASCADE, verbose_name=u'用户')
 
     class Meta:
         verbose_name = "用户收藏文章"
         verbose_name_plural = verbose_name
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8a7b50593c4cda22ae7ad63273e3c24b99cca382
