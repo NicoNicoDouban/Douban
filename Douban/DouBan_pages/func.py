@@ -61,14 +61,14 @@ class Search:
         返回热门文章
         :return: 搜索结果字典 'search_result'里有要的结果， 'search_correct'是搜索的正确性
         """
-        articles = Articles.objects.order_by('good_num').all()
+        articles = Articles.objects.order_by('like_num').all()
         return {
             'search_result': self.__objects_list(articles),
             'search_correct': True,
         }
 
     def good_book(self):
-        books = Books.objects.order_by('good_num').all()
+        books = Books.objects.order_by('like_num').all()
         return {
             'search_result': self.__objects_list(books),
             'search_correct': True,

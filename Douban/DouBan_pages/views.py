@@ -10,8 +10,8 @@ search = Search(1)
 
 
 def home_page(request):
-    article_list = Articles.objects.order_by('good_num').all()
-    book_list = Books.objects.order_by('good_num').all()
+    article_list = Articles.objects.order_by('like_num').all()
+    book_list = Books.objects.order_by('like_num').all()
     context = {}
     context = {
         'article1': article_list[0],
