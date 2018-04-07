@@ -18,7 +18,7 @@ class Search:
         """
         对图书进行搜索
         :param search_text: 搜索的文本内容
-        :param search_type: 搜索类型，分为name， writer， 两种
+        :param search_type: 搜索类型，分为name， author， 两种
         :return: 搜索结果字典 'search_result'里有要的结果， 'search_correct'是搜索的正确性
         search_result里的东西{'objects': 返回的内容, 'page_error': 搜索问题提示信息, 'index': 页码, 'index_all': 所有页面数
         """
@@ -26,7 +26,7 @@ class Search:
         search_result = None
         if search_type == 'name':
             search_result = Books.objects.filter(name__contains=search_text)
-        elif search_type == 'writer':
+        elif search_type == 'author':
             search_result = Books.objects.filter(author__contains=search_text)
         context = {
             'search_result': self.__objects_list(search_result),
@@ -38,7 +38,7 @@ class Search:
         """
         根据文章搜索
         :param search_text: 搜索文本内容
-        :param search_type: 搜索类型：title， text，writer
+        :param search_type: 搜索类型：title， text，author
         :return: 搜索结果字典 'search_result'里有要的结果， 'search_correct'是搜索的正确性
         search_result里的东西{'objects': 返回的内容, 'page_error': 搜索问题提示信息, 'index': 页码, 'index_all': 所有页面数
         """
@@ -48,7 +48,7 @@ class Search:
             search_result = Articles.objects.filter(title__contains=search_text)
         elif search_type == 'text':
             search_result = Articles.objects.filter(text__contains=search_text)
-        elif search_type == 'writer':
+        elif search_type == 'author':
             search_result = Articles.objects.filter(writer__nick_name__contains=search_text)
         context = {
             'search_result': self.__objects_list(search_result),
@@ -81,7 +81,7 @@ class Search:
         :param search_type:
         :return:
         """
-        if search_type != 'name' and search_type != 'writer':
+        if search_type != 'name' and search_type != 'author':
             return False
         if len(search_text) > 30:
             return False
@@ -96,7 +96,7 @@ class Search:
         :param search_type:
         :return:
         """
-        if search_type != 'title' and search_type != 'writer' and search_type != 'text':
+        if search_type != 'title' and search_type != 'author' and search_type != 'text':
             return False
         if len(search_text) > 10:
             return False

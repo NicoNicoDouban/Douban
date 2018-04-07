@@ -75,8 +75,9 @@ class Users(AbstractBaseUser, PermissionsMixin):
     follow_num = models.IntegerField(verbose_name=u"被关注数",default=0)
     pub_time = models.DateTimeField(verbose_name=u"注册时间",default=datetime.now)
     address = models.CharField(max_length=100,verbose_name=u"用户地址", default=u"保密")
-    image = models.ImageField(verbose_name=u"用户头像", default='pictures/defalut_avatar.jpg', max_length=100, upload_to='pictures/')
-    signature = models.CharField(verbose_name=u"个性签名", default="这个人很懒，还什么都没说", max_length=30)
+    image = models.ImageField(verbose_name=u"用户头像", default='/media/pictures/defalut_avatar.png', max_length=100,
+                              upload_to='media/pictures/')
+    signature = models.CharField(verbose_name=u"个性签名", default=u"这个人很懒什么都没写", max_length=50)
     is_staff = models.BooleanField(
         ('staff status'),
         default=False,
@@ -115,6 +116,8 @@ class Users(AbstractBaseUser, PermissionsMixin):
         return json.dumps(d, cls=DateEncoder)
 
 # score=models.FloatField(verbose_name=u"评分",default=0)
+
+
 class Articles(models.Model):
     title = models.CharField(max_length=20,verbose_name=u"标题", default="一篇文章")
     author = models.ForeignKey(Users,verbose_name=u"文章作者")
@@ -134,11 +137,14 @@ class Articles(models.Model):
 class Books(models.Model):
     name = models.CharField(verbose_name=u"图书名", max_length=30, default="")
     author = models.CharField(verbose_name=u"作者名", max_length=50, default="")
+    author_introduction = models.CharField(verbose_name=u'作者简介', max_length=50, default='暂无介绍')
+    author_picture = models.CharField(verbose_name=u"作者照片", default="/media/book_image/defalut_author.png", max_length=100)
     publisher = models.CharField(verbose_name=u"出版社", max_length=30, default="")
     like_num = models.IntegerField(verbose_name=u"点赞数", default=0)
     click_num = models.IntegerField(verbose_name=u"点击数", default=0)
     text = models.TextField(verbose_name=u"简介", default="暂无介绍")
-    src = models.ImageField(verbose_name=u"封面url地址", default="pictures/defalut_avatar.jpg", upload_to='pictures/')
+    src = models.ImageField(verbose_name=u"封面url地址", default='/media/pictures/defalut_avatar.png', max_length=100,
+                              upload_to='media/pictures/')
 
     class Meta:
         verbose_name = "图书信息"

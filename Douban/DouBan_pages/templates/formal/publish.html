@@ -23,19 +23,19 @@
 		    <div class="center">
 		    	<img src="{% static 'Douban_pages/imgs/logo.png' %}" class="douban_logo">
 		    	<ul class="head_list">
-		    		<a class="navi HOME" style="text-decoration: none;">HOME</a>
-		    		<a class="navi WAITING" style="text-decoration: none;">WAITING</a>
-		    		<a class="navi INFORMATION" style="text-decoration: none;">INFORMATION</a>
+		    		<a class="navi HOME" style="text-decoration: none;" href="{% url 'home' %}">HOME</a>
+		    		<a class="navi WAITING" style="text-decoration: none;" href="{% url "DouBan_pages:my_publish" %}">WRITING</a>
+		    		<a class="navi INFORMATION" style="text-decoration: none;" href="{% url 'DouBan_pages:user_info' %}">INFORMATION</a>
 		    		<a class="navi COLLECTION" style="text-decoration: none;">COLLECTION</a>
-		    		<a class="navi LOGOUT" style="margin-right: 0px;text-decoration: none;">LOGOUT</a>
+		    		<a class="navi LOGOUT" style="margin-right: 0px;text-decoration: none;" href="{% url 'logout' %}">LOGOUT</a>
 		    	</ul>
 		    </div>
 	    </div>
 	    <div class="background">
 	    	<div class="user">
-	    		<h1 class="name">阿浦爱曼联的个人主页</h1>
-	    		<img src="{% static 'Douban_pages/imgs/h.jpg' %}" class="portrait">
-	    		<input type="" name="" value="我现在对脱单不抱希望了，我只想安静的一夜暴富" class="sign" readonly="readonly">
+	    		<h1 class="name">{{ username }}的个人主页</h1>
+	    		<img src="{{ image }}" class="portrait">
+	    		<input type="" name="" value="{{ signature }}" class="sign" readonly="readonly">
 	    		<img src="{% static 'Douban_pages/imgs/white.png' %}" class="white white1">
 	    	</div>
 	    </div>
@@ -56,29 +56,87 @@
 				<button class="sp">发表</button>
 			</form>
 			<div class="article">
-
+                {% if p1 %}
 				<div class="article_one article_div">
 					<img src="{% static 'Douban_pages/imgs/djjd.png' %}" class="article_img">
-					<h2 class="article_name">一个平凡的便利店能给你所有</h2>
-					<span class="article_date">发表于：2018年3月5日</span>
-					<div class="pop_windows">
+					<h2 class="article_name">{{ p1.title }}</h2>
+					<span class="article_date">发表于：{{ p1.pub_time|date:"Y-m-d" }}</span>
+                    <div class="pop_windows">
+                        <form action="{% url 'DouBan_pages:my_publish' %}" method="post">
+                            {% csrf_token %}
 						<span>确定删除吗？</span>
-						<button class="confirm">确定</button>
+                            <input type="hidden" name="passage_id" value="{{ p1.id }}">
+						<button type="submit" name="delete" value="delete" class="confirm">确定</button>
 						<button class="cancle">取消</button>
+                        </form>
+					</div>
+
+					<button class="delete2">删除</button>
+					<button class="edit">编辑</button>
+				</div>
+                {% endif %}
+                {% if p2 %}
+				<div class="article_two article_div">
+					<img src="{% static 'Douban_pages/imgs/djjd.png' %}" class="article_img">
+					<h2 class="article_name">{{ p2.title }}</h2>
+					<span class="article_date">发表于：{{ p2.pub_time|date:"Y-m-d" }}</span>
+					<div class="pop_windows">
+                        <form action="{% url 'DouBan_pages:my_publish' %}" method="post">
+                            {% csrf_token %}
+						<span>确定删除吗？</span>
+                            <input type="hidden" name="passage_id" value="{{ p2.id }}">
+						<button type="submit" name="delete" value="delete" class="confirm">确定</button>
+						<button class="cancle">取消</button>
+                        </form>
 					</div>
 					<button class="delete2">删除</button>
 					<button class="edit">编辑</button>
 				</div>
+                {% endif %}
+                {% if p3 %}
+				<div class="article_three article_div">
+					<img src="{% static 'Douban_pages/imgs/djjd.png' %}" class="article_img">
+					<h2 class="article_name">{{ p3.title }}</h2>
+					<span class="article_date">发表于：{{ p3.pub_time|date:"Y-m-d" }}</span>
+					<div class="pop_windows">
+                        <form action="{% url 'DouBan_pages:my_publish' %}" method="post">
+                            {% csrf_token %}
+						<span>确定删除吗？</span>
+                            <input type="hidden" name="passage_id" value="{{ p3.id }}">
+						<button type="submit" name="delete" value="delete" class="confirm">确定</button>
+						<button class="cancle">取消</button>
+                        </form>
+					</div>
+					<button class="delete2">删除</button>
+					<button class="edit">编辑</button>
+				</div>
+                {% endif %}
+                {% if p4 %}
+				<div class="article_four article_div">
+					<img src="{% static 'Douban_pages/imgs/djjd.png' %}" class="article_img">
+					<h2 class="article_name">{{ p4.title }}</h2>
+					<span class="article_date">发表于：{{ p4.pub_time|date:"Y-m-d" }}</span>
+					<div class="pop_windows">
+                        <form action="{% url 'DouBan_pages:my_publish' %}" method="post">
+                            {% csrf_token %}
+						<span>确定删除吗？</span>
+                            <input type="hidden" name="passage_id" value="{{ p4.id }}">
+						<button type="submit" name="delete" value="delete" class="confirm">确定</button>
+						<button class="cancle">取消</button>
+                        </form>
+					</div>
+					<button class="delete2">删除</button>
+					<button class="edit">编辑</button>
 
+				</div>
+                {% endif %}
 				<div class="page_turn4">
-                <form action="">
-					<button type="submit" name="" class="button home fourth_home">首页</button>
-					<button class="button one fourth_one">{{ index }}</button>
-                    {% for i in indexs %}
-					<button type="submit" name="{{ i }}" value="{{ i }}" class="button two fourth_two">{{ i }}</button>
-                    {% endfor %}
-					<button type="submit" name="next_page" class="button next fourth_next">下一页</button>
-					<button type="submit" name="last_page" class="button last fourth_next">尾页</button>
+                <form action="{% url 'DouBan_pages:my_publish' %}" method="get">
+					<button type="submit" name="first" value="first" class="button home fourth_home">首页</button>
+					<button type="submit" name="now" value="{{ index }}" class="button one fourth_one">{{ index }}</button>
+					<button type="submit" name="next" value="{{ next_index }}" class="button two fourth_two">{{ next_index }}</button>
+					<button type="submit" name="next_page" value="{{ next_index }}" class="button next fourth_next">下一页</button>
+					<button type="submit" name="last_page" value="last" class="button last fourth_next">尾页</button>
                 </form>
 				</div>
 			</div>
