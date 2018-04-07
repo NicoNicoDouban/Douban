@@ -1,5 +1,5 @@
 from random import Random
-#from .models import userActive
+from Users.models import userActive
 from django.http import HttpResponse
 from django.core.mail import send_mail, BadHeaderError
 
@@ -16,9 +16,9 @@ def createCode():
     return code
 
 
-def saveCode(user):
+def saveCode(user, status):
     code = createCode()
-    #userActive.objects.create(username=user, activation_code=code)
+    userActive.objects.create(username=user, activation_code=code, status=status)
     return code
 
 
