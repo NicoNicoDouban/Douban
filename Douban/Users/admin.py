@@ -206,7 +206,7 @@ class ArticleAdmin(admin.ModelAdmin):
 
 
 class BookAdmin(admin.ModelAdmin):
-    list_display = ('name', 'author', 'publisher', 'like_num', 'click_num')
+    list_display = ('name', 'author', 'publisher', 'like_num', 'click_num', 'src')
     search_fields = ('name', 'author', 'publisher', 'text')
     fields = ('name', 'author', 'publisher', 'text', 'src')
     list_per_page = 30
