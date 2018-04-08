@@ -15,17 +15,20 @@
 		    	<ul class="head_list">
 		    		<a class="navi HOME" style="text-decoration: none;" href="{% url 'home' %}">HOME</a>
 		    		<a class="navi WAITING" style="text-decoration: none;" href="{% url "DouBan_pages:my_publish" %}">WRITING</a>
-		    		<a class="navi INFORMATION" style="text-decoration: none;">INFORMATION</a>
-		    		<a class="navi COLLECTION" style="text-decoration: none;">COLLECTION</a>
+		    		<a class="navi INFORMATION" style="text-decoration: none;" herf="{% url "DouBan_pages:user_info" user_info_query.id %}">INFORMATION</a>
+		    		<a class="navi COLLECTION" style="text-decoration: none;" href="{% url "DouBan_pages:collection" %}">COLLECTION</a>
 		    		<a class="navi LOGOUT" style="margin-right: 0px;text-decoration: none;" href="{% url 'logout' %}">LOGOUT</a>
 		    	</ul>
 		    </div>
 	    </div>
+        <form name="formtest1" action="{% url 'DouBan_pages:user_info' user_info_query.id %}" method="post">
+{#            <form id="formtest" action="{% url 'home' %}" method="post">#}
+            {% csrf_token %}
 	    <div class="background">
 	    	<div class="user">
 	    		<h1 class="name">{{ username }}的个人主页</h1>
 	    		<img src="{{ image }}" class="portrait">
-	    		<input type="" name="" value="{{ signature }}" class="sign" readonly="readonly" align="center">
+	    		<input type="text" name="signature" value="{{ signature }}" class="sign" style="text-align: center;" readonly="readonly" align="center">
 	    		<img src="{% static 'Douban_pages/imgs/white.png' %}" class="white white1">
 	    	</div>
 	    </div>
@@ -38,7 +41,7 @@
 				<div class="message">
 					<div class="name_div div" style="margin-top: 0px;">
 						<img src="{% static 'Douban_pages/imgs/gigu.png' %}">
-						<input type="text" name="nick_name" class="input name_input" value="{{ username }}" readonly="readonly">
+						<input type="text" name="username" class="input name_input" value="{{ username }}" readonly="readonly">
 						<img src="{% static 'Douban_pages/imgs/white.png' %}" class="white white2">
 					</div>
 					<div class="gender_div div">
@@ -51,12 +54,19 @@
 						<input type="text" name="birthday" class="input date_input" value="{{ birthday|date:"Y-m-d" }}" readonly="readonly">
 						<img src="{% static 'Douban_pages/imgs/white.png' %}" class="white white4">
 					</div>
+{#                        <input type="submit" name="submit" value="提交">#}
 				</div>
 	    	</div>
 	    </div>
+
+        </form>
 	</div>
+
 	{% include 'base/footer.html' %}
 	<script type="text/javascript" src="{% static 'Douban_pages/js/jquery-3.3.1.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'Douban_pages/js/userinfo.js' %}"></script>
+    <script type="text/javascript">
+        //document.formtest1.submit();
+    </script>
 </body>
 </html>

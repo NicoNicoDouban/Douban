@@ -1,40 +1,43 @@
 <!DOCTYPE html>
+{% load static %}
 <html>
 <head>
 	<title>个人</title>
 	<meta charset="utf-8" />
-	<link rel="stylesheet" type="text/css" href="./css./d.css">
-	<link rel="stylesheet" type="text/css" href="./css./collect.css">
+	<link rel="stylesheet" type="text/css" href="{% static "Douban_pages/css/d.css" %}">
+	<link rel="stylesheet" type="text/css" href="{% static "Douban_pages/css/collect.css" %}">
 </head>
 <body>
+<form action="{% url "DouBan_pages:collection" %}" method="post">
+{% csrf_token %}
 	<div class="container">
 		<div class="head">
 		    <div class="center">
-		    	<img src="./imgs./logo.png" class="douban_logo">
+		    	<img src="{% static "Douban_pages/imgs/logo.png" %}" class="douban_logo">
 		    	<ul class="head_list">
-		    		<a class="navi HOME" style="text-decoration: none;">HOME</a>
-		    		<a class="navi WAITING" style="text-decoration: none;">WRITING</a>
-		    		<a class="navi INFORMATION" style="text-decoration: none;">INFORMATION</a>
-		    		<a class="navi COLLECTION" style="text-decoration: none;">COLLECTION</a>
-		    		<a class="navi LOGOUT" style="margin-right: 0px;text-decoration: none;">LOGOUT</a>
+		    		<a class="navi HOME" style="text-decoration: none;" href="{% url 'home' %}">HOME</a>
+		    		<a class="navi WAITING" style="text-decoration: none;" href="{% url 'DouBan_pages:my_publish' %}">WRITING</a>
+		    		<a class="navi INFORMATION" style="text-decoration: none;" href="{% url "DouBan_pages:user_info" user.id %}">INFORMATION</a>
+		    		<a class="navi COLLECTION" style="text-decoration: none;" href="{% url "DouBan_pages:collection" %}">COLLECTION</a>
+		    		<a class="navi LOGOUT" style="margin-right: 0px;text-decoration: none;" href="{% url "logout" %}">LOGOUT</a>
 		    	</ul>
 		    </div>
 	    </div>
 	    <div class="background">
 	    	<div class="user">
-	    		<h1 class="name">阿浦爱曼联的个人主页</h1>
-	    		<img src="./imgs./h.jpg" class="portrait">
-	    		<input type="" name="" value="我现在对脱单不抱希望了，我只想安静的一夜暴富" class="sign" readonly="readonly">
-	    		<img src="./imgs./white.png" class="white white1">
+	    		<h1 class="name">{{ user.username }}的个人主页</h1>
+	    		<img src="{{ user.image }}" class="portrait">
+	    		<input type="text" name="first"  value="{{ user.signature }}" class="sign" readonly="readonly">
+	    		<img src="{% static "Douban_pages/imgs/white.png" %}" class="white white1">
 	    	</div>
 	    </div>
 	    <div class="center">
 	    	<div class="fen">
-				<img src="./imgs./can.png" class="fen_line">
+				<img src="{% static "Douban_pages/imgs/can.png" %}" class="fen_line">
 				<h2>我收藏的文章</h2>
 			</div>
 			<div style="height: 860px;">
-			<div class="text picture_text">
+			<!--<div class="text picture_text">
 				<div class="text1">
 					<img src="./imgs./dd141.jpg" class="text1_img">
 					<div class="hidden">
@@ -64,120 +67,107 @@
 					<button class="button next first_next">下一页</button>
 					<button class="button last first_last">尾页</button>
 				</div>
-			</div>
+			</div>-->
 			<div class="text no_text">
+                {% for i in articles %}
 				<div class="text_div first" style="margin-top: 20px;">
-					<h3 class="subject">哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈</h3>
-					<img src="./imgs./shan.png" class="delete">
+					<a><h3 class="subject">{{ i.title }}</h3></a>
+					<input type="submit" name="delete" src="{% static "Douban_pages/imgs/shan.png" %}" class="delete">
 				</div>
-				<div class="text_div">
-					<h3 class="subject">哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈</h3>
-					<img src="./imgs./shan.png" class="delete">
-				</div>
+                {% endfor %}
 				<div class="page_turn2">
-					<button class="button home second_home">首页</button>
-					<button class="button one second_one">1</button>
-					<button class="button two second_two">2</button>
-					<button class="button next second_next">下一页</button>
-					<button class="button last">尾页</button>
-				</div>
+					<button type="submit" name="first_page1" value="first_page" class="button home second_home">首页</button>
+					<button type="submit" name="now1" value="{{ index1 }}" class="button one second_one">{{ index1 }}</button>
+					<button type="submit" name="next_index1" value="{{ next_index1 }}" class="button two second_two">{{ next_index1 }}</button>
+					<button type="submit" name="next_page1" value="next_page1" class="button next second_next">下一页</button>
+                    <button type="submit" name="last_page1" value="last_page1" class="button last first_last">尾页</button>
+                </div>
 			</div>
 			</div>
 			<div class="fen">
-				<img src="./imgs./can.png" class="fen_line">
-				<h2>我收藏的文章</h2>
+				<img src="{% static "DouBan_pages/imgs/can.png" %}" class="fen_line">
+				<h2>我收藏的图书</h2>
 			</div>
 			<div class="collect_book">
 				<div class="book_div">
-				<a class="book">
-					<img src="./imgs./sjij.png" class="cover">
+                    {% if book1 %}
+				<a class="book" href="{% url 'DouBan_pages:book_detail' book1.id %}">
+					<img src="{{ book1.src }}" class="cover">
 					<div class="white_background"></div>
-					<img src="./imgs./hahs.png" class="coverage">
+					<div class="book_intros">{{ book1.text }}</div>
+					<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 				</a>
-				<a class="book">
-					<img src="./imgs./sjij.png" class="cover">
+                    {% endif %}
+                    {% if book2 %}
+				<a class="book" href="{% url 'DouBan_pages:book_detail' book2.id %}">
+					<img src="{{ book2.src }}" class="cover">
 					<div class="white_background"></div>
-					<img src="./imgs./hahs.png" class="coverage">
+					<div class="book_intros">{{ book2.text }}</div>
+					<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 				</a>
-				<a class="book">
-					<img src="./imgs./sjij.png" class="cover">
+                    {% endif %}
+                    {% if book3 %}
+				<a class="book" href="{% url 'DouBan_pages:book_detail' book3.id %}">
+					<img src="{{ book3.src }}" class="cover">
 					<div class="white_background"></div>
-					<img src="./imgs./hahs.png" class="coverage">
+					<div class="book_intros">{{ book3.text }}</div>
+					<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 				</a>
-				<a class="book">
-					<img src="./imgs./sjij.png" class="cover">
+                    {% endif %}
+                    {% if book4 %}
+				<a class="book" href="{% url 'DouBan_pages:book_detail' book4.id %}">
+					<img src="{{ book4.src }}" class="cover">
 					<div class="white_background"></div>
-					<img src="./imgs./hahs.png" class="coverage">
+					<div class="book_intros">{{ book4.text }}</div>
+					<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 				</a>
-				<a class="book second_line">
-					<img src="./imgs./sjij.png" class="cover">
+                    {% endif %}
+                    {% if book5 %}
+				<a class="book second_line" href="{% url 'DouBan_pages:book_detail' book5.id %}">
+					<img src="{{ book5.src }}" class="cover">
 					<div class="white_background"></div>
-					<img src="./imgs./hahs.png" class="coverage">
+					<div class="book_intros">{{ book5.text }}</div>
+					<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 				</a>
-				<a class="book second_line">
-					<img src="./imgs./sjij.png" class="cover">
+                    {% endif %}
+                    {% if book6 %}
+				<a class="book second_line" href="{% url 'DouBan_pages:book_detail' book6.id %}">
+					<img src="{{ book6.src }}" class="cover">
 					<div class="white_background"></div>
-					<img src="./imgs./hahs.png" class="coverage">
+					<div class="book_intros">{{ book6.text }}</div>
+					<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 				</a>
-				<a class="book second_line">
-					<img src="./imgs./sjij.png" class="cover">
+                    {% endif %}
+                    {% if book7 %}
+				<a class="book second_line" href="{% url 'DouBan_pages:book_detail' book7.id %}">
+					<img src="{{ book7.src }}" class="cover">
 					<div class="white_background"></div>
-					<img src="./imgs./hahs.png" class="coverage">
+					<div class="book_intros">{{ book7.text }}</div>
+					<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 				</a>
-				<a class="book second_line">
-					<img src="./imgs./sjij.png" class="cover">
+                    {% endif %}
+                    {% if book8 %}
+				<a class="book second_line" href="{% url 'DouBan_pages:book_detail' book8.id %}">
+					<img src="{{ book8.src }}" class="cover">
 					<div class="white_background"></div>
-					<img src="./imgs./hahs.png" class="coverage">
+					<div class="book_intros">{{ book8.text }}</div>
+					<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 				</a>
+                    {% endif %}
 				<div class="page_turn3">
-					<button class="button home third_home">首页</button>
-					<button class="button one third_one">1</button>
-					<button class="button two third_two">2</button>
-					<button class="button next third_next">下一页</button>
-					<button class="button last third_next">尾页</button>
+					<button type="submit" name="first_page2" value="first_page2" class="button home third_home">首页</button>
+					<button type="submit" name="now2" value="{{ index2 }}" class="button one third_one">{{ index2 }}</button>
+					<button type="submit" name="next_index2" value="{{ next_index2 }}" class="button two third_two">{{ next_index2 }}</button>
+					<button type="submit" name="next_page2" value="next_page2" class="button next third_next">下一页</button>
+					<button type="submit" name="last_page2" value="last_page2" class="button last third_next">尾页</button>
 				</div>
 				</div>
 			</div>		
 	    </div>
-        <div class="spread">
-		<div class="center">
-			<div style="width: 480px;position: relative;height: 200px;margin:auto;">
-				<div class="spread_div" style="margin-right: 110px;">
-					<a href="#" class="spread_media spread_blog">
-						<img src="./imgs./blog2.png" style="position: absolute;left: 23px;top:20px;">
-						<span class="label" style="left:23px;">BLOG</span>
-					</a>
-				</div>
-				<div class="spread_div" style="margin-right: 100px;">
-					<a href="#" class="spread_media spread_wechat">
-						<img src="./imgs./wechat2.png" style="position: absolute;left:28px;top:28px;">
-						<span class="label">WECHAT</span>
-					</a>
-				</div>
-				<div class="spread_div">
-					<a href="#" class="spread_media spread_moment">
-						<img src="./imgs./moment2.png" style="position: absolute;left: 28px;top:28px;">
-						<span class="label" style="left:10px;">MOMENT</span>
-					</a>
-			 	</div>
-			</div>
-		</div>
+        {% include 'base/footer.html' %}
 	</div>
-	<div class="foot">
-		<div class="center">
-			<ul class="foot_menu">
-				<li>关于我们</li>
-				<li>加入我们</li>
-				<li>合作伙伴</li>
-				<li>广告服务</li>
-				<li style="margin-right: 0px;">常见问题</li>
-			</ul>
-			<p class="copyright">© 2005－2018 douban.com, all rights reserved 北京豆网科技有限公司</p>
-		</div>
-		
-	</div>
-	</div>
-	<script type="text/javascript" src="./js/jquery-3.3.1.min.js"></script>
-	<script type="text/javascript" src="./js/collect.js"></script>
+	<script type="text/javascript" src="{% static "Douban_pages/js/jquery-3.3.1.min.js" %}"></script>
+	<script type="text/javascript" src="{% static "Douban_pages/js/collect.js" %}"></script>
+</form>
 </body>
 </html>

@@ -14,7 +14,7 @@
 			<ul class="head_list">
 				<a class="navi HOME" style="text-decoration:none;" href="{% url 'home' %}">HOME</a>
 				<a class="navi BOOK" style="text-decoration:none;" href="{% url 'DouBan_pages:search_result_book' %}">BOOK</a>
-				<a class="navi ACTIVITY" style="text-decoration:none;" href="{% url "DouBan_pages:user_info" %}" >YOUR SPACE</a>
+				<a class="navi ACTIVITY" style="text-decoration:none;" href="{% url "DouBan_pages:search_result_article" %}"  >ARTICLE</a>
 				<a class="navi LOGIN" style="margin-right: 0px;text-decoration:none;" href="{% url "login" %}">LOGIN</a>
 			</ul>
 			<img src="{% static 'Douban_pages/imgs/phone.png' %}" class="phone">
@@ -111,7 +111,7 @@
 			    </div>
 	    	</div>
 	    </div>
-	    <div class="picture">
+	    <!--<div class="picture">
 	    	<div class="center">
 	    		<div class="left_arrow">
 	    			<img src="{% static 'Douban_pages/imgs/huho.png' %}">
@@ -144,19 +144,19 @@
 	    			<div class="circle special" style="margin-right: 0px;"></div>
 	    		</div>
 	    	</div>
-	    </div>
+	    </div>-->
 	    <div class="article">
 	    	<div class="center">
 	    		<div class="article_div">
 	    			<div class="article_left">
                         <!--只能放14条-->
                         {% for i in article_left %}
-	    				<a href="{% url 'DouBan_pages:book_detail' i.id %}" style="text-decoration: none"><h3>{{ i.title }}</h3></a>
+	    				<a href="{% url 'DouBan_pages:article_detail' i.id %}" style="text-decoration: none"><h3>{{ i.title }}</h3></a>
                         {% endfor %}
                     </div>
 	    			<div class="article_right">
 	    				 {% for i in article_right %}
-	    				<a href="{% url 'DouBan_pages:book_detail' i.id %}" style="text-decoration: none"><h3>{{ i.title }}</h3></a>
+	    				<a href="{% url 'DouBan_pages:article_detail' i.id %}" style="text-decoration: none"><h3>{{ i.title }}</h3></a>
                         {% endfor %}
 	    			</div>
 	    		</div>

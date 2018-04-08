@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>书本列表页</title>
+	<link rel="stylesheet" type="text/css" href="{% static "Douban_pages/css/d.css" %}">
+	<link rel="stylesheet" type="text/css" href="{% static "Douban_pages/css/booklist.css" %}">
+	<link rel="stylesheet" type="text/css" href="{% static "Douban_pages/css/jquery.mCustomScrollbar.css" %}">
+</head>
+<body>
+	<div class="container">
+		<div class="head">
+			<div class="center">
+				<img src="{% static "Douban_pages/imgs/logo.png" %}" class="douban_logo">
+				<ul class="head_list">
+					<a class="navi HOME" style="text-decoration: none;" href="{% url 'home' %}">HOME</a>
+					<a class="navi BOOK" style="text-decoration: none;" href="{% url 'DouBan_pages:search_result_book' %}">BOOK</a>
+					<a class="navi ACTIVITY" style="text-decoration: none;" href="{% url 'DouBan_pages:search_result_article' %}">ACTIVITY</a>
+					<a class="navi LOGIN" style="margin-right: 0px;text-decoration: none;" href="{% url 'logout' %}">LOGIN</a>
+				</ul>
+				<div class="head_search_div">
+					<input type="" name="" class="head_search" placeholder="请输入关键字">
+					<a href=""><img src="{% static "Douban_pages/imgs/search.png" %}" class="search_img"></a>
+				</div>
+			</div>
+		</div>
+		<div class="new_book">
+			<div class="center">
+				<div class="fen">
+					<img src="{% static "Douban_pages/imgs/can.png" %}" class="fen_line">
+					<h2>每日新书</h2>
+				</div>
+				<div class="book_div">
+					<ul>
+						<li>
+							<a class="book">
+								<img src="{% static "Douban_pages/imgs/s29608420.jpg" %}" class="book_img">
+								<div class="white_background"></div>
+								<img src="{% static "Douban_pages/imgs/hahs.png" %}" class="coverage">
+							</a>
+							<div class="book_intro">
+								<h2 class="book_name">孤独梦想家</h2>
+								<p class="book_sum">
+									英] 戴维·巴尼特
+								</p>
+							</div>
+						</li>
+						<li>
+							<a class="book">
+								<img src="{% static "Douban_pages/imgs/s29608420.jpg" %}" class="book_img">
+								<div class="white_background"></div>
+								<img src="./imgs./hahs.png" class="coverage">	
+							</a>
+							<div class="book_intro">
+								<h2 class="book_name">孤独梦想家</h2>
+								<p class="book_sum">
+									英] 戴维·巴尼特
+								</p>
+							</div>
+						</li>
+						<li>
+							<a class="book">
+								<img src="./imgs./s29608420.jpg" class="book_img">
+								<div class="white_background"></div>
+								<img src="./imgs./hahs.png" class="coverage">	
+							</a>
+							<div class="book_intro">
+								<h2 class="book_name">孤独梦想家</h2>
+								<p class="book_sum">
+									英] 戴维·巴尼特
+								</p>
+							</div>
+						</li>
+						<li style="margin-right: 0px;">
+							<a class="book">
+								<img src="./imgs./s29608420.jpg" class="book_img">
+								<div class="white_background"></div>
+								<img src="./imgs./hahs.png" class="coverage">	
+							</a>
+							<div class="book_intro">
+								<h2 class="book_name">孤独梦想家</h2>
+								<p class="book_sum">
+									英] 戴维·巴尼特
+								</p>
+							</div>
+						</li>
+					</ul>
+					<div class="point">
+	    				<div class="circle"></div>
+	    				<div class="circle"></div>
+	    				<div class="circle"></div>
+	    				<div class="circle special" style="margin-right: 0px;"></div>
+	    		    </div>
+				</div>
+			</div>
+		</div>
+		<div class="new_classify">
+			<div class="center">
+				<div class="fen">
+					<img src="./imgs./can.png" class="fen_line">
+					<h2>书本分类</h2>
+				</div>
+				<div class="book_cl">
+					<div class="class1">
+						<div class="class_img">
+							<h2>推理<span>悬疑</span></h2>
+							<img src="./imgs./li.png">
+						</div>
+						<img src="./imgs./cs.png" class="sep">
+						<div class="ph">
+							<p>
+								推理小说是以推理方式解开故事谜题 (大多数是找出杀人凶手) 的一种小说，通常故事都含有凶杀案与侦探，亦有部分并非以凶杀为主要剧情走。诸如找寻失物或是找寻事件的谜底等。
+							</p>
+						</div>
+					</div>
+					<div class="class1">
+						<div class="class_img">
+							<h2>推理<span>悬疑</span></h2>
+							<img src="./imgs./li.png">
+						</div>
+						<img src="./imgs./cs.png" class="sep">
+						<div class="ph">
+							<p>
+								推理小说是以推理方式解开故事谜题 (大多数是找出杀人凶手) 的一种小说，通常故事都含有凶杀案与侦探，亦有部分并非以凶杀为主要剧情走。诸如找寻失物或是找寻事件的谜底等。
+							</p>
+						</div>
+					</div>
+					<div class="class1">
+						<div class="class_img">
+							<h2>推理<span>悬疑</span></h2>
+							<img src="./imgs./li.png">
+						</div>
+						<img src="./imgs./cs.png" class="sep">
+						<div class="ph">
+							<p>
+								推理小说是以推理方式解开故事谜题 (大多数是找出杀人凶手) 的一种小说，通常故事都含有凶杀案与侦探，亦有部分并非以凶杀为主要剧情走。诸如找寻失物或是找寻事件的谜底等。
+							</p>
+						</div>
+					</div>
+					<div class="class1" style="margin-right: 0px;">
+						<div class="class_img">
+							<h2>推理<span>悬疑</span></h2>
+							<img src="./imgs./li.png">
+						</div>
+						<img src="./imgs./cs.png" class="sep">
+						<div class="ph">
+							<p>
+								推理小说是以推理方式解开故事谜题 (大多数是找出杀人凶手) 的一种小说，通常故事都含有凶杀案与侦探，亦有部分并非以凶杀为主要剧情走。诸如找寻失物或是找寻事件的谜底等。
+							</p>
+						</div>
+					</div>
+					<div class="class1 second_line" >
+						<div class="class_img">
+							<h2>推理<span>悬疑</span></h2>
+							<img src="./imgs./li.png">
+						</div>
+						<img src="./imgs./cs.png" class="sep">
+						<div class="ph">
+							<p>
+								推理小说是以推理方式解开故事谜题 (大多数是找出杀人凶手) 的一种小说，通常故事都含有凶杀案与侦探，亦有部分并非以凶杀为主要剧情走。诸如找寻失物或是找寻事件的谜底等。
+							</p>
+						</div>
+					</div>
+					<div class="class1 second_line">
+						<div class="class_img">
+							<h2>推理<span>悬疑</span></h2>
+							<img src="./imgs./li.png">
+						</div>
+						<img src="./imgs./cs.png" class="sep">
+						<div class="ph">
+							<p>
+								推理小说是以推理方式解开故事谜题 (大多数是找出杀人凶手) 的一种小说，通常故事都含有凶杀案与侦探，亦有部分并非以凶杀为主要剧情走。诸如找寻失物或是找寻事件的谜底等。
+							</p>
+						</div>
+					</div>
+					<div class="class1 second_line">
+						<div class="class_img">
+							<h2>推理<span>悬疑</span></h2>
+							<img src="./imgs./li.png">
+						</div>
+						<img src="./imgs./cs.png" class="sep">
+						<div class="ph">
+							<p>
+								推理小说是以推理方式解开故事谜题 (大多数是找出杀人凶手) 的一种小说，通常故事都含有凶杀案与侦探，亦有部分并非以凶杀为主要剧情走。诸如找寻失物或是找寻事件的谜底等。
+							</p>
+						</div>
+					</div>
+					<div class="class1 second_line" style="margin-right: 0px;">
+						<div class="class_img">
+							<h2>推理<span>悬疑</span></h2>
+							<img src="./imgs./li.png">
+						</div>
+						<img src="./imgs./cs.png" class="sep">
+						<div class="ph">
+							<p>
+								推理小说是以推理方式解开故事谜题 (大多数是找出杀人凶手) 的一种小说，通常故事都含有凶杀案与侦探，亦有部分并非以凶杀为主要剧情走。诸如找寻失物或是找寻事件的谜底等。
+							</p>
+						</div>
+					</div>
+					<div class="book_cl_right content_2">
+						<img src="./imgs./skj.png" class="delete_right">
+						<div class="right_right ">
+							<div class="detail">
+								<a class="book">
+									<img src="./imgs./s29608420.jpg" class="book_img">
+									<div class="white_background"></div>
+									<img src="./imgs./hahs.png" class="coverage">	
+								</a>
+								<div class="book_intro">
+									<h2 class="book_name">孤独梦想家</h2>
+									<p class="book_sum">
+									英] 戴维·巴尼特
+									</p>
+								</div>
+							</div>
+							<div class="detail">
+								<a class="book">
+									<img src="./imgs./s29608420.jpg" class="book_img">
+									<div class="white_background"></div>
+									<img src="./imgs./hahs.png" class="coverage">	
+								</a>
+								<div class="book_intro">
+									<h2 class="book_name">孤独梦想家</h2>
+									<p class="book_sum">
+									英] 戴维·巴尼特
+									</p>
+								</div>
+							</div>
+							<div class="detail third_detail">
+								<a class="book">
+									<img src="./imgs./s29608420.jpg" class="book_img">
+									<div class="white_background"></div>
+									<img src="./imgs./hahs.png" class="coverage">	
+								</a>
+								<div class="book_intro">
+									<h2 class="book_name">孤独梦想家</h2>
+									<p class="book_sum">
+									英] 戴维·巴尼特
+									</p>
+								</div>
+							</div>
+							<div class="detail">
+								<a class="book">
+									<img src="./imgs./s29608420.jpg" class="book_img">
+									<div class="white_background"></div>
+									<img src="./imgs./hahs.png" class="coverage">	
+								</a>
+								<div class="book_intro">
+									<h2 class="book_name">孤独梦想家</h2>
+									<p class="book_sum">
+									英] 戴维·巴尼特
+									</p>
+								</div>
+							</div>
+							<div class="detail">
+								<a class="book">
+									<img src="./imgs./s29608420.jpg" class="book_img">
+									<div class="white_background"></div>
+									<img src="./imgs./hahs.png" class="coverage">	
+								</a>
+								<div class="book_intro">
+									<h2 class="book_name">孤独梦想家</h2>
+									<p class="book_sum">
+									英] 戴维·巴尼特
+									</p>
+								</div>
+							</div>
+							<div class="detail third_detail">
+								<a class="book">
+									<img src="./imgs./s29608420.jpg" class="book_img">
+									<div class="white_background"></div>
+									<img src="./imgs./hahs.png" class="coverage">	
+								</a>
+								<div class="book_intro">
+									<h2 class="book_name">孤独梦想家</h2>
+									<p class="book_sum">
+									英] 戴维·巴尼特
+									</p>
+								</div>
+							</div>
+							<div class="detail">
+								<a class="book">
+									<img src="./imgs./s29608420.jpg" class="book_img">
+									<div class="white_background"></div>
+									<img src="./imgs./hahs.png" class="coverage">	
+								</a>
+								<div class="book_intro">
+									<h2 class="book_name">孤独梦想家</h2>
+									<p class="book_sum">
+									英] 戴维·巴尼特
+									</p>
+								</div>
+							</div>
+							<div class="detail">
+								<a class="book">
+									<img src="./imgs./s29608420.jpg" class="book_img">
+									<div class="white_background"></div>
+									<img src="./imgs./hahs.png" class="coverage">	
+								</a>
+								<div class="book_intro">
+									<h2 class="book_name">孤独梦想家</h2>
+									<p class="book_sum">
+									英] 戴维·巴尼特
+									</p>
+								</div>
+							</div>
+							<div class="detail third_detail">
+								<a class="book">
+									<img src="./imgs./s29608420.jpg" class="book_img">
+									<div class="white_background"></div>
+									<img src="./imgs./hahs.png" class="coverage">	
+								</a>
+								<div class="book_intro">
+									<h2 class="book_name">孤独梦想家</h2>
+									<p class="book_sum">
+									英] 戴维·巴尼特
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="spread">
+		<div class="center">
+			<div style="width: 480px;position: relative;height: 200px;margin:auto;">
+				<div class="spread_div" style="margin-right: 110px;">
+					<a href="#" class="spread_media spread_blog">
+						<img src="./imgs./blog2.png" style="position: absolute;left: 23px;top:20px;">
+						<span class="label" style="left:23px;">BLOG</span>
+					</a>
+				</div>
+				<div class="spread_div" style="margin-right: 100px;">
+					<a href="#" class="spread_media spread_wechat">
+						<img src="./imgs./wechat2.png" style="position: absolute;left:28px;top:28px;">
+						<span class="label">WECHAT</span>
+					</a>
+				</div>
+				<div class="spread_div">
+					<a href="#" class="spread_media spread_moment">
+						<img src="./imgs./moment2.png" style="position: absolute;left: 28px;top:28px;">
+						<span class="label" style="left:10px;">MOMENT</span>
+					</a>
+			 	</div>
+			</div>
+		</div>
+	</div>
+	<div class="foot">
+		<div class="center">
+			<ul class="foot_menu">
+				<li>关于我们</li>
+				<li>加入我们</li>
+				<li>合作伙伴</li>
+				<li>广告服务</li>
+				<li style="margin-right: 0px;">常见问题</li>
+			</ul>
+			<p class="copyright">© 2005－2018 douban.com, all rights reserved 北京豆网科技有限公司</p>
+		</div>
+		
+	</div>
+	</div>
+	<script src="http://www.jq22.com/jquery/1.9.1/jquery.min.js"></script>
+	
+	<script type="text/javascript" src="./js/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script type="text/javascript" src="./js/booklist.js"></script>
+	<script>
+
+		(function($){
+
+			$(window).load(function(){
+
+				$(".content_2").mCustomScrollbar({
+
+					scrollInertia:150
+
+				});
+				
+			});
+			timer=setTimeout(function(){$(".mCSB_scrollTools").css({"display":"block"})},200)
+			
+
+		})(jQuery);
+
+	</script>
+</body>
+</html>

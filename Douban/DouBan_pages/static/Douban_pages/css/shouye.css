@@ -285,9 +285,6 @@
 	top: 17px;
 	font-size: 16px;
 	font-family: 'a';
-	overflow: hidden;
-	text-overflow:ellipsis;
-	white-space: nowrap;
 }
 .book_intro{
 	position: absolute;
@@ -295,9 +292,6 @@
 	top: 47px;
 	font-size: 16px;
 	font-family: 'a';
-	overflow: hidden;
-	text-overflow:ellipsis;
-	white-space: nowrap;
 }
 .text2{
 	position: relative;
@@ -316,7 +310,6 @@
 	float: left;
 	font-size: 20px;
 	color: #00AFDB;
-	overflow: hidden;
 }
 .article_left h3{
 	margin-top: 20px;
@@ -331,7 +324,6 @@
 	float: right;
 	font-size: 20px;
 	color: #00AFDB;
-	overflow: hidden;
 }
 .article_right h3{
 	margin-top: 20px;

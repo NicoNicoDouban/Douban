@@ -25,8 +25,8 @@
 		    	<ul class="head_list">
 		    		<a class="navi HOME" style="text-decoration: none;" href="{% url 'home' %}">HOME</a>
 		    		<a class="navi WAITING" style="text-decoration: none;" href="{% url "DouBan_pages:my_publish" %}">WRITING</a>
-		    		<a class="navi INFORMATION" style="text-decoration: none;" href="{% url 'DouBan_pages:user_info' %}">INFORMATION</a>
-		    		<a class="navi COLLECTION" style="text-decoration: none;">COLLECTION</a>
+		    		<a class="navi INFORMATION" style="text-decoration: none;" href="{% url 'DouBan_pages:user_info' user.id %}">INFORMATION</a>
+		    		<a class="navi COLLECTION" style="text-decoration: none;" href="{% url "DouBan_pages:collection" %}">COLLECTION</a>
 		    		<a class="navi LOGOUT" style="margin-right: 0px;text-decoration: none;" href="{% url 'logout' %}">LOGOUT</a>
 		    	</ul>
 		    </div>
@@ -48,12 +48,15 @@
 				<img src="{% static 'Douban_pages/imgs/gugi.png' %}" class="add_img">
 				<span class="add_text">(添加文章)</span>
 			</div>
-			<form class="form" action="{% url "DouBan_pages:add_article_result" %}" method="post">
+			<form class="form" action="{% url "DouBan_pages:my_publish" %}" method="post">
+                标题：<input type="text" name="title">
 				<div class="kong">
                  {% csrf_token %}
-                    <script id="editor" type="text/plain" class="kong"></script>
+                    <textarea name="text" placeholder="请在此处写上文章内容" class="kong" ></textarea>
+                    <!--<script id="editor" type="text/plain" class="kong">
+                    </script>-->
                 </div>
-				<button class="sp">发表</button>
+				<button type="submit" name="add_article" value="add_article" class="sp">发表</button>
 			</form>
 			<div class="article">
                 {% if p1 %}
@@ -70,9 +73,10 @@
 						<button class="cancle">取消</button>
                         </form>
 					</div>
-
+                    <form action="{% url "DouBan_pages:my_publish" %}">
 					<button class="delete2">删除</button>
-					<button class="edit">编辑</button>
+					<button type="submit" name="edit" value="edit" class="edit">编辑</button>
+                    </form>
 				</div>
                 {% endif %}
                 {% if p2 %}
@@ -132,7 +136,7 @@
                 {% endif %}
 				<div class="page_turn4">
                 <form action="{% url 'DouBan_pages:my_publish' %}" method="get">
-					<button type="submit" name="first" value="first" class="button home fourth_home">首页</button>
+					<button type="submit" name="first" value="first_page" class="button home fourth_home">首页</button>
 					<button type="submit" name="now" value="{{ index }}" class="button one fourth_one">{{ index }}</button>
 					<button type="submit" name="next" value="{{ next_index }}" class="button two fourth_two">{{ next_index }}</button>
 					<button type="submit" name="next_page" value="{{ next_index }}" class="button next fourth_next">下一页</button>

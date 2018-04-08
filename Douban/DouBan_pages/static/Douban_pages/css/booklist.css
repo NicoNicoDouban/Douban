@@ -37,7 +37,7 @@
 	height: 20px;
 	position: absolute;
 	right: 320px;
-	top: 50px;
+	top: 55px;
 }
 .navi{
 	float: left;
@@ -190,23 +190,50 @@
 .book_cl{
 	width: 100%;
 	height: 947px;
-}
-.book_cl_left{
-	height: 947px;
-	width: 270px;
-	float:left;
-	background-color: yellow;
+	position: relative;
 }
 .book_cl_right{
-	height: 947px;
-	width: 886px;
+	box-shadow: -2px 1px 5px rgb(207,207,207);
 	float: right;
-	overflow: auto;
-	background-color: blue;
+	visibility:hidden;
+	float: right;
+	position: absolute;
+	top:-3000px;
+}
+.content_2{height:800px;width: 886px;}
+
+.delete_right{
+	position: absolute;
+	top: 10px;
+	right: 0px;
+	cursor: pointer;
+}
+.detail{
+	margin-left:36px;
+	margin-right: 57px;
+	float: left;
+	margin-top: 20px;
+	margin-bottom: 46px;
+}
+.third_detail{
+	margin-right: 0px;
+}
+.class1{
+	width: 270px;
+	height: 450px;
+	margin-right: 40px;
+	float: left;
+	transition: 0.8s;
+	margin-top: 1px;
+	position: relative;
+}
+.second_line{
+	margin-top: 44px;
 }
 .class_img{
 	width: 270px;
 	height: 250px;
+	cursor: pointer;
 	box-shadow:0px 0px 16px rgba(0,0,0,0.11)
 }
 .class_img h2{
@@ -214,6 +241,7 @@
 	font-size: 48px;
 	padding-top: 40px;
 	text-align: center;
+	width: 
 }
 .class_img h2 span{
 	font-family: 'a';
@@ -227,4 +255,71 @@
 .sep{
 	margin:30px auto 0 auto;
 	display: block;
+}
+.ph{
+	height: 135px;
+	font-size: 14px;
+	padding: 10px;
+	margin-top: 30px;
+	line-height: 22px;
+}
+.spread{
+	height: 200px;
+}
+.spread_div{
+	height: 200px;
+	width: 90px;
+	float: left;
+	position: relative;
+}
+.spread_media{
+	width: 90px;
+	height: 90px;
+	border-radius: 50%;
+	background-color: #E8F409;
+	position: absolute;
+	top: 35px;
+}
+.spread_media:hover{
+	background-color: #F7BDCA;
+}
+.spread_media:hover span{
+	color: #F7BDCA; 
+}
+.label{
+	font-size: 16px;
+	position: absolute;
+	color: #71CDD8;
+	top: 104px;
+	left: 13px;
+}
+.label:hover{
+	color: #F7BDCA;
+}
+.foot{
+	height: 146px;
+	width: 100%;
+	background-color: #AAE1E8;
+	position: relative;
+}
+.foot_menu{
+	width: 100%;
+	position: absolute;
+	top: 30px;
+}
+.foot_menu li{
+	width: 20%;
+	text-align: center;
+	float: left;
+	color: white;
+	font-size: 20px;
+	letter-spacing: 3px;
+	cursor: pointer;
+}
+.copyright{
+	padding-top: 88px;
+	color: white;
+	text-align: center;
+	font-size: 16px;
+	letter-spacing: 2px;
 }

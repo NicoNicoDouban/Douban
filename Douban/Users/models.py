@@ -5,6 +5,7 @@ from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser, PermissionsMixin,UserManager,AbstractUser)
 from  DouBan import settings
+
 # 序列化datetime和date
 class DateEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -75,7 +76,8 @@ class Users(AbstractBaseUser, PermissionsMixin):
     follow_num = models.IntegerField(verbose_name=u"被关注数",default=0)
     pub_time = models.DateTimeField(verbose_name=u"注册时间",default=datetime.now)
     address = models.CharField(max_length=100,verbose_name=u"用户地址", default=u"保密")
-    image = models.CharField(verbose_name=u"用户头像", default='/media/pictures/defalut_avatar.png', max_length=100)
+    image = models.ImageField(verbose_name=u"用户头像", default='/media/pictures/defalut_avatar.png', max_length=100,
+                              upload_to='media/pictures/')
     signature = models.CharField(verbose_name=u"个性签名", default=u"这个人很懒什么都没写", max_length=50)
     is_staff = models.BooleanField(
         ('staff status'),
@@ -115,6 +117,8 @@ class Users(AbstractBaseUser, PermissionsMixin):
         return json.dumps(d, cls=DateEncoder)
 
 # score=models.FloatField(verbose_name=u"评分",default=0)
+
+
 class Articles(models.Model):
     title = models.CharField(max_length=20,verbose_name=u"标题", default="一篇文章")
     author = models.ForeignKey(Users,verbose_name=u"文章作者")
@@ -140,7 +144,9 @@ class Books(models.Model):
     like_num = models.IntegerField(verbose_name=u"点赞数", default=0)
     click_num = models.IntegerField(verbose_name=u"点击数", default=0)
     text = models.TextField(verbose_name=u"简介", default="暂无介绍")
-    src = models.CharField(verbose_name=u"封面url地址", default="/media/book_image/defalut.png", max_length=100)
+    src = models.ImageField(verbose_name=u"封面url地址", default='/media/pictures/defalut_avatar.png', max_length=100,
+                              upload_to='media/pictures/')
+    type = models.CharField(verbose_name=u'图书分类', max_length=10, default=u'其他')
 
     class Meta:
         verbose_name = "图书信息"
@@ -152,7 +158,7 @@ class Books(models.Model):
 
 class Comments(models.Model):
     commenter_id = models.ForeignKey(Users,verbose_name=u"评论者")
-    book_id = models.ForeignKey(Books,verbose_name=u"图书")
+    book_id = models.ForeignKey(Books, verbose_name=u"图书")
     pub_time = models.DateTimeField(verbose_name=u"发表时间")
     text = models.TextField(verbose_name='评论内容', default="")
 

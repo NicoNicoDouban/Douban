@@ -1,6 +1,6 @@
 $(".white1").click(function(){
 	$(".sign").removeAttr("readonly");
-	
+
 })
 $(document).click(function(){
     $(".sign").attr("readonly","readonly");

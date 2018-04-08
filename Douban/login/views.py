@@ -27,9 +27,9 @@ def userVerify(request, code):
 def userRegister(request):
     if request.method == 'POST':
         userform = RegistForm(request.POST)
-        username = request.POST['username']
         password = request.POST['password']
         email = request.POST['email']
+        username = email
         isuser = Users.objects.filter(username=username)
         if not isuser:
             isEmail = Users.objects.filter(email=email)
