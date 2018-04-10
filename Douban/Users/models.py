@@ -60,6 +60,7 @@ class Users(AbstractUser):
 
 '''
 
+
 class Users(AbstractBaseUser, PermissionsMixin):
     Gender_Choice = (
         ('F', u'女'),
@@ -136,6 +137,16 @@ class Articles(models.Model):
 
 
 class Books(models.Model):
+    BookType = (
+        ('0', u'推理悬疑'),
+        ('1', u'科学真实'),
+        ('2', u'社会民生'),
+        ('3', u'世界未来'),
+        ('4', u'宇宙天体'),
+        ('5', u'历史讲古'),
+        ('6', u'美丽文学'),
+        ('7', u'其他神秘')
+    )
     name = models.CharField(verbose_name=u"图书名", max_length=30, default="")
     author = models.CharField(verbose_name=u"作者名", max_length=50, default="")
     author_introduction = models.CharField(verbose_name=u'作者简介', max_length=50, default='暂无介绍')
@@ -146,7 +157,7 @@ class Books(models.Model):
     text = models.TextField(verbose_name=u"简介", default="暂无介绍")
     src = models.ImageField(verbose_name=u"封面url地址", default='/media/pictures/defalut_avatar.png', max_length=100,
                               upload_to='media/pictures/')
-    type = models.CharField(verbose_name=u'图书分类', max_length=10, default=u'其他')
+    type = models.CharField(verbose_name=u'图书分类', max_length=3, default=u'其他', choices=BookType)
 
     class Meta:
         verbose_name = "图书信息"
