@@ -35,7 +35,7 @@
 	    	<div class="user">
 	    		<h1 class="name">{{ username }}的个人主页</h1>
 	    		<img src="{{ image }}" class="portrait">
-	    		<input type="" name="" value="{{ signature }}" class="sign" readonly="readonly">
+	    		<input type="" name="" value="{{ signature }}" class="sign" style="text-align: center" readonly="readonly">
 	    		<img src="{% static 'Douban_pages/imgs/white.png' %}" class="white white1">
 	    	</div>
 	    </div>
@@ -52,9 +52,11 @@
                 标题：<input type="text" name="title">
 				<div class="kong">
                  {% csrf_token %}
-                    <textarea name="text" placeholder="请在此处写上文章内容" class="kong" ></textarea>
-                    <!--<script id="editor" type="text/plain" class="kong">
-                    </script>-->
+{#                    <textarea name="text" placeholder="请在此处写上文章内容" class="kong" ></textarea>#}
+                    <textarea name="text" placeholder="请在此处写上文章内容" class="kong">
+                        <script id="editor" type="text/plain" class="kong">
+                        </script>
+                    </textarea>
                 </div>
 				<button type="submit" name="add_article" value="add_article" class="sp">发表</button>
 			</form>

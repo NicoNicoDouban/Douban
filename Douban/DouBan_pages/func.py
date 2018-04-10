@@ -1,7 +1,9 @@
 from Users.models import Articles, Books
 from . import setting
+from DouBan import settings
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-import re
+import re, os
+from django.utils import timezone
 
 
 class Search:
@@ -167,3 +169,52 @@ def page_turning(request, objects, page_items, context):
     context['next_index'] = str(min(index + 1, all_index))
     context['next_index_2'] = str(min(index + 2, all_index))
     return context
+
+
+def is_login(request):
+    '''
+    如未登入，返回False,若登入返回用户id
+    :param request:
+    :return:
+    '''
+    user = request.user
+    if user is None:
+        return False
+    else:
+        return user.id
+
+
+def test_user_info(user):
+    flag = 0
+    context = {
+        'error': '',
+    }
+    if len(user.signature) == 0 and len(user.signature) > 20:
+        context['error'] += '个性签名长度不正确</br>'
+        flag = 1
+    if user.gender != 'S' or user.gender != 'F' or user.gender != 'S':
+        context['error'] += '性别不正确'
+        flag = 1
+    if not re.match(r"(\d{4}-\d{1,2}-\d{1,2})",user.birthday):
+        context['error'] += '生日格式不正确'
+        flag = 1
+    if flag:
+        context['flag'] = True
+        return context
+    else:
+        context['flag'] = False
+        return context
+
+
+def add_image(request):
+    MEDIA_ROOT = os.path.join(settings.BASE_DIR, "media")
+    if request.method == "POST":
+        f1 = request.FILES.get('image_file')
+        f1_save_name = str(timezone.now()) + f1.name.split('.')[1]
+        fname = '%s\\pictures\\%s' % (MEDIA_ROOT, f1_save_name)
+        with open(fname, 'wb') as pic:
+            for c in f1.chunks():
+                pic.write(c)
+        return 'media/pictures/%s' % f1_save_name
+    else:
+        return False

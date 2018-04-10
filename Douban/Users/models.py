@@ -144,7 +144,7 @@ class Books(models.Model):
     like_num = models.IntegerField(verbose_name=u"点赞数", default=0)
     click_num = models.IntegerField(verbose_name=u"点击数", default=0)
     text = models.TextField(verbose_name=u"简介", default="暂无介绍")
-    src = models.ImageField(verbose_name=u"封面url地址", default='/media/pictures/defalut_avatar.png', max_length=100,
+    src = models.ImageField(verbose_name=u"封面url地址", default='/media/book_image/defalut.png', max_length=100,
                               upload_to='media/pictures/')
     type = models.CharField(verbose_name=u'图书分类', max_length=10, default=u'其他')
 

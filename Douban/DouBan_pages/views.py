@@ -1,7 +1,8 @@
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect, reverse
-from Users.models import Articles, Users, Books, Comments, UserCollectionArticles, UserCollectionBooks
+from Users.models import Articles, Users, Books, Comments, UserCollectionArticles, UserCollectionBooks, GoodLink
 import django.contrib.auth as login
-from .func import Search, page_turning
+from django.db.models import Q
+from .func import Search, page_turning, test_user_info, is_login, add_image
 from DouBan import settings
 import os
 import time
@@ -22,11 +23,33 @@ def home_page(request):
         'article2_text_10': article_list[0].text[0:min(len(article_list[1].text), 10)],
         'article_left': article_list[0:1],
         'article_right': article_list[1:2],
+        'login': 1,
+        'no_login': 0,
     }
     count = 1
-    for i in book_list[0: min(len(book_list), 8)]:
+    for i in book_list[0: min(book_list.count(), 8)]:
+       # i.src = '/media/'+str(i.src)
         context['book'+str(count)] = i
         count += 1
+    # 内容赋值结束
+
+    # 判断是是否图书未上架
+    if book_list.count() < 8:
+        c = book_list.count() + 1
+        while(c <= 8):
+            context['book' + str(c)] = {
+                'id': 0,
+                'src': '/media/book_image/defalut.png',
+                'text': '暂时未上架图书',
+            }
+            c += 1
+
+    if is_login(request):
+        context['no_login'] = 0
+        context['login'] = 1
+    else:
+        context['no_login'] = 1
+        context['login'] = 0
     return render(request, 'formal/shouye.html', context)
 
 
@@ -70,10 +93,6 @@ def search_result_book(request):
     return render(request, 'formal_before/search_result_book.html', {"context": context, "error": error})
 
 
-def self_home(request):
-    self_info = Users.objects.get(id)
-
-
 def add_article(request):
     return render(request, 'formal_before/add_article.html')
 
@@ -84,10 +103,6 @@ def add_article_result(request):
     return render(request, 'formal_before/article_detail.html', context)
 
 
-def book_detail(request):
-    pass
-
-
 def test(request):
     return render(request, 'formal/fourtofour.html')
 
@@ -96,12 +111,35 @@ def user_info(request, user_info_id):
     user_id = 2
     user = Users.objects.get(id=user_id)
     # 修改个人信息
+    error = {
+        'flag': False,
+    }
+    # 个人信息修改
     if request.method == 'POST' and int(user_info_id) == int(user_id):
-        user.signature = request.POST.get('signature')
-        user.username = request.POST.get('username')
-        user.gender = request.POST.get('gender')
-        user.birthday = request.POST.get('birthday')
-        user.save()
+        if request.POST.get('type') == 'image':
+            MEDIA_ROOT = os.path.join(settings.BASE_DIR, "media")
+            if request.method == "POST":
+                f1 = request.FILES.get('image_file')
+                f1_save_name = str(timezone.now()) + f1.name.split('.')[1]
+                fname = '%s\\pictures\\%s' % (MEDIA_ROOT, f1_save_name)
+                with open(fname, 'wb') as pic:
+                    for c in f1.chunks():
+                        pic.write(c)
+                user.image = 'media/pictures/%s' % f1_save_name
+                user.save()
+
+            # image = add_image(request)
+            # if image:
+            #     user.image = image
+            #     user.save()
+        else:
+            user.signature = request.POST.get('signature')
+            user.username = request.POST.get('username')
+            user.gender = request.POST.get('gender')
+            user.birthday = request.POST.get('birthday')
+            error = test_user_info(user)
+            if not error['flag']:
+                user.save()
         '''try:
             user_id = request.user.id
         except:
@@ -109,6 +147,7 @@ def user_info(request, user_info_id):
         '''
     user_info_query = Users.objects.get(id=user_info_id)
     context = {
+        'error': error,
         'user_info_query': user_info_query,
         'signature': user_info_query.signature,
         'username': user_info_query.username,
@@ -117,6 +156,9 @@ def user_info(request, user_info_id):
         'image': user_info_query.image,
         'user': user,
     }
+    # 判断是否本人
+    if user.id == user_info_id:
+        context['is_user_self'] = True
     return render(request, 'formal/userinfo.html', context)
 
 
@@ -175,25 +217,13 @@ def my_publish(request):
     return render(request, 'formal/publish.html', context)
 
 
-def add_image(request):
-    MEDIA_ROOT = os.path.join(settings.BASE_DIR, "media")
-    if request.method == "POST":
-        f1 = request.FILES['pic1']
-        fname = '%s\\pictures\\%s' % (MEDIA_ROOT, f1.name)
-        with open(fname, 'wb') as pic:
-            for c in f1.chunks():
-                pic.write(c)
-        return HttpResponse("ok")
-    else:
-        return HttpResponse("error")
-
-
-def add_image_page(request):
-    return render(request, 'formal_before/add_image.html')
-
-
 def book_details(request, book_id):
     user_id = 2
+    # 检测登入
+    # if not is_login(request):
+    #     return HttpResponseRedirect(reverse('login'))
+
+    # 获得评论
     if not request.POST.get('comment_submit') is None:
         comment_text = request.POST.get('comment')
         comment = Comments(
@@ -203,8 +233,11 @@ def book_details(request, book_id):
             pub_time=timezone.now(),
         )
         comment.save()
+    # 内容处理
     index = 1
     book = Books.objects.get(id=book_id)
+    book.click_num = book.click_num + 1
+    book.save()
     comments = Comments.objects.filter(book_id=book_id)
     all_index = int(len(comments) / 2) + 1
     if comments.count() % 2 == 0:
@@ -216,7 +249,7 @@ def book_details(request, book_id):
             'comment2': None,
         }
     elif comments.count() == 1:
-        context={
+        context = {
             'book': book,
             'comment1': comments[min((index - 1) * 2, all_index - 1)],
         }
@@ -230,6 +263,18 @@ def book_details(request, book_id):
         context['commenter1'] = context['comment1'].commenter_id
         context['commenter2'] = context['comment2'].commenter_id
     context['user'] = Users.objects.get(id=user_id)
+
+    #点赞处理
+
+
+    # 判断是否收藏
+    like = GoodLink.objects.filter(Q(userId=context['user'].id) | Q(bookId=book.id))
+    if like.count() == 0:
+        context['like'] = 0
+        context['no_like'] = 1
+    else:
+        context['like'] = 1
+        context['no_like'] = 0
     return render(request, 'formal/bookdetail.html', context)
 
 
@@ -314,3 +359,15 @@ def collection(request):
         context['book' + str(count)] = i
         count += 1
     return render(request, 'formal/collect.html', context)
+
+
+def book_list(request):
+    books = Books.objects.order_by('click_num')
+    context = {
+        'book1': books[0],
+        'book2': books[1],
+        'book3': books[2],
+        'book4': books[3],
+    }
+
+    return render(request, 'formal/booklist.html', context)

@@ -31,6 +31,12 @@ urlpatterns = [
     url(r'^ueditor/', include('ueditor.urls')),
     url(r'logout/', logout, name='logout'),
     url(r'^media/pictures/(.+)/$', my_image),
-    url(r'^media/(?P<path>.*)', django.views.static.serve, {'document_root': DouBan.settings.BASE_DIR+'/media'}),
+    url(r'^media/(?P<path>.*)', django.views.static.serve,
+        {'document_root': DouBan.settings.BASE_DIR+'/media'}),
+    url(r'^ueditor/UE/(?P<path>.*)', django.views.static.serve,
+        {'document_root': DouBan.settings.BASE_DIR+'/ueditor/UE'}),
+    url(r'^css/(?P<path>.*)', django.views.static.serve,
+        {'document_root': DouBan.settings.BASE_DIR+ '/Douban_pages/static/Douban_pages'}),
+    # url(r'^media/media/(?P<path>.*)', django.views.static.serve, {'document_root': DouBan.settings.BASE_DIR+'/media'}),
     # url(r'^active/(.+)/$', userVerify)
 ]

@@ -27,7 +27,17 @@
 	    <div class="background">
 	    	<div class="user">
 	    		<h1 class="name">{{ username }}的个人主页</h1>
-	    		<img src="{{ image }}" class="portrait">
+
+                <form name="picture" action="{% url 'DouBan_pages:user_info' user_info_query.id %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <img src="{{ image }}" class="portrait">
+{#                    {% if is_user_self %}#}
+                    <input type="hidden" name="type" value="image">
+                    更换头像:<input type="file" id="btn_file" name="image_file" value="选择头像" />
+                    <input type="submit" value="保存">
+{#                    {% endif %}#}
+                    <br/>
+                </form>
 	    		<input type="text" name="signature" value="{{ signature }}" class="sign" style="text-align: center;" readonly="readonly" align="center">
 	    		<img src="{% static 'Douban_pages/imgs/white.png' %}" class="white white1">
 	    	</div>
@@ -54,7 +64,9 @@
 						<input type="text" name="birthday" class="input date_input" value="{{ birthday|date:"Y-m-d" }}" readonly="readonly">
 						<img src="{% static 'Douban_pages/imgs/white.png' %}" class="white white4">
 					</div>
-{#                        <input type="submit" name="submit" value="提交">#}
+                    {% if is_user_self %}
+                        <input type="submit" name="submit" class="submit" >
+                    {% endif %}
 				</div>
 	    	</div>
 	    </div>

@@ -131,17 +131,16 @@ a{
 .text{
 	width:578px;
 	height:853px;
-	margin: auto;
 }
 .picture_text{
 	float: left;
 	box-shadow:5px 0px 9px rgba(0,0,0,0.28);
 }
 .no_text{
+	float: right;
 	box-shadow:5px 0px 9px rgba(0,0,0,0.28);
 	padding-top: 1px;
 	position: relative;
-	margin: auto;
 }
 .text1{
 	width: 541px;

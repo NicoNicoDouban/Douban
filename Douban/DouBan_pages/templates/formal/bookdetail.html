@@ -14,8 +14,8 @@
 			<img src="{% static 'Douban_pages/imgs/logo.png' %}" class="douban_logo">
 			<ul class="head_list">
 				<a class="navi HOME" style="text-decoration: none;" href="{% url 'home' %}">HOME</a>
-				<a class="navi BOOK" style="text-decoration: none;" href="{% url 'DouBan_pages:search_result_book' %}">BOOK</a>
-				<a class="navi ACTIVITY" style="text-decoration: none;">ACTIVITY</a>
+				<a class="navi BOOK" style="text-decoration: none;" href="{% url 'DouBan_pages:book_list' %}">BOOK</a>
+				<a class="navi ACTIVITY" style="text-decoration: none;">ARTICLE</a>
 				<a class="navi LOGIN" style="margin-right: 0px;text-decoration: none;" href="{% url 'logout' %}">LOGOUT</a>
 			</ul>
 			<div class="head_search_div">
@@ -27,11 +27,19 @@
 	<div class="main">
 		<div class="center">
 			<div class="book_cover">
-                <form name="formtest" action="{% url "DouBan_pages:test" %}" method="post">
+                <form name="formtest" action="{% url 'DouBan_pages:book_detail' book.id %}" method="post">
                     {% csrf_token %}
+                    <input type="hidden" value="like" name="like">
 				<img src="{{ book.src }}" class="cover">
 				<a href="#"><img src="{% static 'Douban_pages/imgs/share.png' %}" class="share"></a>
-				<img src="{% static 'Douban_pages/imgs/like.png' %}" class="like" onclick="document.formtest.submit()">
+                    {% if no_like %}
+                        <input type="hidden" name="like_or_not" value="no_like">
+				    <img src="{% static 'Douban_pages/imgs/like.png' %}" class="like" onclick="document.formtest.submit()">
+                    {% endif %}
+                    {% if like %}
+                        <input type="hidden" name="like_or_not" value="like">
+                    <img src="{% static 'Douban_pages/imgs/like1.png' %}" class="like" onclick="document.formtest.submit()">
+                    {% endif %}
                 <a href="#"><div class="pointview">我来发表评论</div></a>
                 </form>
 			</div>
@@ -44,7 +52,7 @@
 				<div class="review_content">
 					<div class="ranking">
 						<span class="ranking_time">时间</span>
-						<span class="ranking_hot">热度</span>
+{#						<span class="ranking_hot">热度</span>#}
 					</div>
                     {% if comment1 %}
 					<div class="pointview_one">
@@ -117,6 +125,9 @@
         </div>
 
 	</div>{% include 'base/footer.html' %}
-    </div>
+    </div><script src="http://www.jq22.com/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="{% static "Douban_pages/js/jquery.mCustomScrollbar.concat.min.js" %}"></script>
+	<script type="text/javascript" src="{% static "Douban_pages/js/bookdetail.js" %}"></script>
+
 </body>
 </html>

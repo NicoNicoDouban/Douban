@@ -34,7 +34,7 @@
 				<div class="main_left">
 					<div class="left_head">
 						<h1 class="text_head">{{ article.title }}</h1>
-						<img src="{{ author.image }}" class="user_img">
+						<a href="{% url 'DouBan_pages:user_info' author.id %}"><img src="{{ author.image }}" class="user_img"></a>
 						<span class="user_name">{{ author.username }}</span>
 						<span class="date">{{ article.pub_time|date:'Y-m-d' }}</span>
 					</div>
