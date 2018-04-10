@@ -27,10 +27,13 @@
 	<div class="main">
 		<div class="center">
 			<div class="book_cover">
+                <form name="formtest" action="{% url "DouBan_pages:test" %}" method="post">
+                    {% csrf_token %}
 				<img src="{{ book.src }}" class="cover">
 				<a href="#"><img src="{% static 'Douban_pages/imgs/share.png' %}" class="share"></a>
-				<a href="#"><img src="{% static 'Douban_pages/imgs/like.png' %}" class="like"></a>
-				<a href="#"><div class="pointview">我来发表评论</div></a>
+				<img src="{% static 'Douban_pages/imgs/like.png' %}" class="like" onclick="document.formtest.submit()">
+                <a href="#"><div class="pointview">我来发表评论</div></a>
+                </form>
 			</div>
 			<div class="book_review">
 				<div class="book_name_sign">
@@ -46,28 +49,28 @@
                     {% if comment1 %}
 					<div class="pointview_one">
 						<div class="person_infor">
-							<img src="{% static 'Douban_pages/imgs/dd141.jpg' %}" class="portrait portrait_one">
+                            <a href="{% url "DouBan_pages:user_info" commenter1.id %}"><img src="{{ commenter1.image }}" class="portrait portrait_one"></a>
 							<h4 class="name name_one">{{ commenter1.username }}</h4>
 							<h4 class="date date_one">{{ comment1.pub_time|date:"Y-m-d" }}</h4>
 						</div>
 						<div class="content_div">
 							<div class="content_main"><p class="content_main_em content_main_em_one">{{ comment1.text }}</p></div>
-							<img src="{% static 'Douban_pages/imgs/zan.png' %}" class="zan">
-							<span class="zan_number zan_number_one">(1)</span>
+							<!--<img src="{% static 'Douban_pages/imgs/zan.png' %}" class="zan">-->
+							<span class="zan_number zan_number_one">({{ comment1.pub_time|date:"Y-m-d" }})</span>
 						</div>
 					</div>
                     {% endif %}
                     {% if comment2 %}
 					<div class="pointview_two">
 						<div class="person_infor">
-							<img src="{% static 'Douban_pages/imgs/dd141.jpg' %}" class="portrait portrait_two">
+                            <a href="{% url "DouBan_pages:user_info" commenter2.id %}"><img src="{{ commenter2.image }}" class="portrait portrait_two"></a>
 							<h4 class="name name_two">{{ commenter2.username }}</h4>
 							<h4 class="date date_two">{{ comment2.pub_time|date:"Y-m-d" }}</h4>
 						</div>
 						<div class="content_div">
 							<div class="content_main"><p class="content_main_em content_main_em_two">{{ comment2.text }}</p></div>
-							<img src="{% static 'Douban_pages/imgs/zan.png' %}" class="zan">
-							<span class="zan_number zan_number_two">(1)</span>
+							<!--<img src="{% static 'Douban_pages/imgs/zan.png' %}" class="zan">-->
+							<span class="zan_number zan_number_two">({{ comment1.pub_time|date:"Y-m-d" }})</span>
 						</div>
 					</div>
                     {% endif %}
@@ -100,8 +103,9 @@
 				</div>
 				<div class="author_content"><p class="author_intro"><span class="author_name">{{ book.author }}</span>：{{ comment1.author_introduction }}
 			<div class="disscuss">
-				<img src="{% static 'Douban_pages/imgs/h.jpg' %}" class="user_picture">
-				<form action="{% url 'DouBan_pages:book_detail' book.id %}" method="post">
+				<img src="{{ user.image }}" class="user_picture">
+				<form name="formname" action="{% url 'DouBan_pages:book_detail' book.id %}" method="post">
+                    {% csrf_token %}
 					<textarea name="comment" class="user_disscuss" placeholder="#请在此处输入文字"></textarea>
 					<button type="submit" name="comment_submit" class="user_share">发表评论</button>
 			    </form>
@@ -110,7 +114,9 @@
 		</div>
 
 	</div>
-	{% include 'base/footer.html' %}
-	</div>
+        </div>
+
+	</div>{% include 'base/footer.html' %}
+    </div>
 </body>
 </html>

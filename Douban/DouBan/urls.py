@@ -31,8 +31,11 @@ urlpatterns = [
     url(r'^ueditor/', include('ueditor.urls')),
     url(r'logout/', logout, name='logout'),
     url(r'^media/pictures/(.+)/$', my_image),
+<<<<<<< HEAD
     url(r'^captcha/', include('captcha.urls')),
     url(r'^forget', login.forget_pwd, name='forget'),
+=======
+>>>>>>> 0d0b9f63ef5a002c1c62592eaf2b40ab840afaf7
     url(r'^media/(?P<path>.*)', django.views.static.serve, {'document_root': DouBan.settings.BASE_DIR+'/media'}),
     # url(r'^active/(.+)/$', userVerify)
 ]

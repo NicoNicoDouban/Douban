@@ -5,6 +5,7 @@ from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser, PermissionsMixin,UserManager,AbstractUser)
 from  DouBan import settings
+
 # 序列化datetime和date
 class DateEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -145,6 +146,7 @@ class Books(models.Model):
     text = models.TextField(verbose_name=u"简介", default="暂无介绍")
     src = models.ImageField(verbose_name=u"封面url地址", default='/media/pictures/defalut_avatar.png', max_length=100,
                               upload_to='media/pictures/')
+    type = models.CharField(verbose_name=u'图书分类', max_length=10, default=u'其他')
 
     class Meta:
         verbose_name = "图书信息"
@@ -156,7 +158,7 @@ class Books(models.Model):
 
 class Comments(models.Model):
     commenter_id = models.ForeignKey(Users,verbose_name=u"评论者")
-    book_id = models.ForeignKey(Books,verbose_name=u"图书")
+    book_id = models.ForeignKey(Books, verbose_name=u"图书")
     pub_time = models.DateTimeField(verbose_name=u"发表时间")
     text = models.TextField(verbose_name='评论内容', default="")
 

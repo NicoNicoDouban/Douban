@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<title>文章详情</title>
+	<link rel="stylesheet" type="text/css" href="{% static "Douban_pages/css/d.css" %}">
+	<link rel="stylesheet" type="text/css" href="{% static "Douban_pages/css/textdetail.css" %}">
+	<link rel="stylesheet" type="text/css" href="{% static "Douban_pages/css/jquery.mCustomScrollbar.css"%}">
+</head>
+</head>
+<body>
+	<div class="container">
+		<a href="#head" class="tiao">
+			<img src="{% static "Douban_pages/imgs/arrow_61.7.png"%}" class="arrow">
+		</a>
+		<div class="head" id="head">
+			<div class="center">
+				<img src="{% static "Douban_pages/imgs/logo.png"%}" class="douban_logo">
+				<ul class="head_list">
+					<a class="navi HOME" style="text-decoration: none;" href="{% url "home" %}">HOME</a>
+					<a class="navi BOOK" style="text-decoration: none;" href="{% url "DouBan_pages:search_result_book" %}">BOOK</a>
+					<a class="navi ARTICLE" style="text-decoration: none;" href="">ARTICLE</a>
+					<a class="navi LOGIN" style="margin-right: 0px;text-decoration: none;" href="{% url "logout"%}">LOGIN</a>
+				</ul>
+				<div class="head_search_div">
+					<input type="" name="" class="head_search" placeholder="请输入关键字">
+					<a href=""><img src="{% static "Douban_pages/imgs/search.png"%}" class="search_img"></a>
+				</div>
+			</div>
+		</div>
+		<div class="blue_fen" ></div>
+		<div class="main">
+			<div class="center">
+				<div class="main_left">
+					<div class="left_head">
+						<h1 class="text_head">{{ article.title }}</h1>
+						<img src="{{ author.image }}" class="user_img">
+						<span class="user_name">{{ author.username }}</span>
+						<span class="date">{{ article.pub_time|date:'Y-m-d' }}</span>
+					</div>
+					<div class="left_text">
+						<p>
+                            {{ article.text }}
+                        </p>
+					</div>
+					<div class="left_copyright">
+						<p>© 本文版权归 <span>{{ author.username }}</span> 所有，任何形式转载请联系作者。</p>
+						<p>© 了解版权计划</p>
+					</div>
+				</div>
+				<div class="main_right">
+					<div class="right_head">
+						<h2 class="right_name">{{ author.username }}其他的文章</h2>
+					</div>
+					<div class="right_main content_2">
+                        {% for i in article_list %}
+						<a style="text-decoration: none;" href="{% url "DouBan_pages:article_detail" i.id %}"><h3 class="right_text_name">{{ i.title }}
+						</h3></a>
+                        {% endfor %}
+					    <!--<a style="text-decoration: none;"><h3 class="right_text_name">胡金铨武侠江湖中的斗争风波从Ayawawa到蚕食女性的生态链儿童社交心理学看展游
+						</h3></a>
+						<a style="text-decoration: none;"><h3 class="right_text_name">胡金铨武侠江湖中的斗争风波从Ayawawa到蚕食女性的生态链儿童社交心理学看展游
+						</h3></a>
+						<a style="text-decoration: none;"><h3 class="right_text_name">胡金铨武侠江湖中的斗争风波从Ayawawa到蚕食女性的生态链儿童社交心理学看展游
+						</h3></a>
+						<a style="text-decoration: none;"><h3 class="right_text_name">胡金铨武侠江湖中的斗争风波从Ayawawa到蚕食女性的生态链儿童社交心理学看展游
+						</h3></a>
+						<a style="text-decoration: none;"><h3 class="right_text_name">胡金铨武侠江湖中的斗争风波从Ayawawa到蚕食女性的生态链儿童社交心理学看展游
+						</h3></a>
+						<a style="text-decoration: none;"><h3 class="right_text_name">胡金铨武侠江湖中的斗争风波从Ayawawa到蚕食女性的生态链儿童社交心理学看展游
+						</h3></a>
+						<a style="text-decoration: none;"><h3 class="right_text_name">胡金铨武侠江湖中的斗争风波从Ayawawa到蚕食女性的生态链儿童社交心理学看展游
+						</h3></a>
+						<a style="text-decoration: none;"><h3 class="right_text_name">胡金铨武侠江湖中的斗争风波从Ayawawa到蚕食女性的生态链儿童社交心理学看展游
+						</h3></a>
+						<a style="text-decoration: none;"><h3 class="right_text_name">胡金铨武侠江湖中的斗争风波从Ayawawa到蚕食女性的生态链儿童社交心理学看展游
+						</h3></a>
+						<a style="text-decoration: none;"><h3 class="right_text_name">胡金铨武侠江湖中的斗争风波从Ayawawa到蚕食女性的生态链儿童社交心理学看展游
+						</h3></a>-->
+					</div>
+				</div>	
+		 	</div>
+		</div>
+		{% include 'base/footer.html' %}
+	<script src="http://www.jq22.com/jquery/1.9.1/jquery.min.js"></script>
+	
+	<script type="text/javascript" src="{% static "Douban_pages/js/jquery.mCustomScrollbar.concat.min.js" %}"></script>
+	<script type="text/javascript" src="{% static "Douban_pages/js/booklist.js" %}"></script>
+	<script>
+
+		(function($){
+
+			$(window).load(function(){
+
+				$(".content_2").mCustomScrollbar({
+
+					scrollInertia:150
+
+				});
+				
+			});
+			timer=setTimeout(function(){$(".mCSB_scrollTools").css({"display":"block"})},200)
+			
+
+		})(jQuery);
+
+	</script>
+</body>
+</html>

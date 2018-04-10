@@ -30,6 +30,7 @@ def userVerify(request, code):
 def userRegister(request):
     if request.method == 'POST':
         userform = RegistForm(request.POST)
+<<<<<<< HEAD
         if userform.is_valid():
             email = request.POST['username']
             password = request.POST['password']
@@ -68,6 +69,26 @@ def userRegister(request):
                         return HttpResponse('您已完成注册')
                     else:
                         return HttpResponse('注册失败')
+=======
+        password = request.POST['password']
+        email = request.POST['email']
+        username = email
+        isuser = Users.objects.filter(username=username)
+        if not isuser:
+            isEmail = Users.objects.filter(email=email)
+            if(isEmail):
+                userform.add_error('email', '邮箱已被注册')
+                return render_to_response('Register.html', {'userform': userform})
+            user = Users.objects.create_user(username=username, password=password, email=email, is_active=False)
+            code = createCode()
+            try:
+                send_email(username, code, email)
+            except:
+                userform.add_error('email', '邮箱无效')
+                return render_to_response('Register.html', {'userform': userform})
+            userActive.objects.create(username=user, activation_code=code, status='r')
+            return HttpResponse('请去邮箱激活账号')  # 跳转到主页面
+>>>>>>> 0d0b9f63ef5a002c1c62592eaf2b40ab840afaf7
         else:
             # 错误信息
             return render_to_response('signin.html', {'userform': userform})

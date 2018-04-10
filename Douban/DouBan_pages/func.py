@@ -3,6 +3,7 @@ from . import setting
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 import re
 
+
 class Search:
     index = 1
     page_items = 5
@@ -61,14 +62,14 @@ class Search:
         返回热门文章
         :return: 搜索结果字典 'search_result'里有要的结果， 'search_correct'是搜索的正确性
         """
-        articles = Articles.objects.order_by('good_num').all()
+        articles = Articles.objects.order_by('like_num').all()
         return {
             'search_result': self.__objects_list(articles),
             'search_correct': True,
         }
 
     def good_book(self):
-        books = Books.objects.order_by('good_num').all()
+        books = Books.objects.order_by('like_num').all()
         return {
             'search_result': self.__objects_list(books),
             'search_correct': True,
@@ -131,3 +132,38 @@ class Search:
         context['index'] = str(self.index)
         context['index_all'] = str(p.num_pages)
         return context
+
+
+def page_turning(request, objects, page_items, context):
+    """
+    分页器，要求传入的request中有first_page，now，next_page，last_page
+    返回context 有 all_index，next_index，next_index_2,index四项
+    :param request: 请求
+    :param objects: 分页项，为queryset
+    :param page_items: 每页项数
+    :param context: 被添加入的字典
+    :return: context 有 all_index，next_index，next_index_2,index四项
+    """
+    objects_num = objects.count()
+    all_index = int(objects_num / page_items) + 1
+    if objects_num % page_items == 0:
+        all_index -= 1
+    if objects_num == 0:
+        all_index += 1
+    index = 1
+    if not request.GET.get('first_page') is None:
+        index = 1
+    if not request.GET.get('now') is None:
+        index = int(request.GET.get('now'))
+    if not request.GET.get('next') is None:
+        index = int(request.GET.get('next'))
+    if not request.GET.get('next_page') is None:
+        index = int(request.GET.get('next_page'))
+    if not request.GET.get('last_page') is None:
+        index = int(all_index)
+
+    context['index'] = index
+    context['all_index'] = all_index
+    context['next_index'] = str(min(index + 1, all_index))
+    context['next_index_2'] = str(min(index + 2, all_index))
+    return context
