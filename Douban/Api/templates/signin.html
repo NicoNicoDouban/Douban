@@ -17,9 +17,10 @@
 				</div>
 				<div class="main1">
                     <form action="{% url 'login' %}" method="post">
+                        {{ userform.errors }}
 					<div class="input_div">
 						<span class="username_span">用户名</span>
-						<input type="text" name="username" class="username main1_input" placeholder="请输入正确的邮箱地址" required id="id_username">
+						<input type="text" name="username" class="username main1_input" placeholder="请输入正确的邮箱地址" required id="id_username" value="{{ username }}">
 					</div>
 					<div class="input_div">
 						<span class="password_span">密码</span>
@@ -27,15 +28,18 @@
 					</div>
 					<div class="input_div">
 						<span class="checkword_span">验证码</span>
-						<input type="text" name="verification" class="checkword main1_input">
-						<img src="{% static 'Douban_pages/imgs/dd141.jpg' %}" class="checkimg">
+						<input type="text" autocomplete="off" id="id_reg_captcha_1" name="captcha_1" class="checkword main1_input">
+						<img src="{{ imgage_url }}" class="checkimg" alt="captcha">
+                        <input id="id_reg_captcha_0" name="captcha_0" type="hidden" value="{{ hashkey }}">  
 					</div>
 
-					<button type="submit" class="button wel">欢迎回来</button>
+					<button type="submit" class="button wel" name="submit" value="欢迎回来">欢迎回来</button>
 					<a class="forget" style="text-decoration: none;">忘记密码？</a>
                     </form>
 				</div>
 				<div class="main2">
+                    <form method="post" action="{% url 'regist' %}" >
+                        {{ userform.errorlist }}
 					<div class="input_div">
 						<span class="username_span">用户名</span>
 						<input type="text" name="username" class="username main1_input" placeholder="请输入正确的邮箱地址">
@@ -43,16 +47,18 @@
 					<div class="input_div">
 						<span class="checkword_span">验证码</span>
 						<input type="text" name="verification" class="checkword main2_input" placeholder="请输入验证码">
-						<a href="" class="send">发送验证码</a>
+                        <button class="send" type="submit" name="submit" value="send">发送验证码</button>
 					</div>
 					<div class="input_div">
 						<span class="password_span">密码</span>
 						<input type="password" name="password" class="password main1_input" placeholder="请输入密码">
 					</div>
-					<button class="button back">欢迎注册</button>
+					<button class="button back" type="submit" name="submit" value="regist">欢迎注册</button>
+                        </form>
 				</div>
-					<form action="{% url 'regist' %}" method="post">
+					<form action="{% url 'forget' %}" method="post">
 				<div class="main3">
+                    {{ userform.errorlist }}
 					<div class="input_div">
 						<span class="username_span">用户名</span>
 						<input type="text" name="username" class="username main1_input" placeholder="请输入正确的邮箱地址">
@@ -60,13 +66,13 @@
 					<div class="input_div">
 						<span class="checkword_span">验证码</span>
 						<input type="text" name="verification" class="checkword main2_input" placeholder="请输入验证码">
-						<a href="" class="send">发送验证码</a>
+                        <button class="send" name="submit" value="send">发送验证码</button>
 					</div>
 					<div class="input_div">
 						<span class="password_span">新密码</span>
-						<input type="password" name="" class="password main1_input" placeholder="请输入密码">
+						<input type="password" name="password" class="password main1_input" placeholder="请输入密码">
 					</div>					
-					<button class="button back">欢迎注册</button>
+					<button class="button back" name="submit" value="change" type="submit">更改密码</button>
 				</div>
                     </form>
 			</div>

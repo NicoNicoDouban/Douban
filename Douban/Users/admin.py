@@ -182,7 +182,6 @@ class UserAdmin(admin.ModelAdmin):
                 obj.password = obj_original.password
             else:
                 obj.password = obj.user.password
-            print(obj_original.password)
         else:
             obj.password = obj.user.password
         obj.save()
