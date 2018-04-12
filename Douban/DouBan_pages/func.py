@@ -2,7 +2,7 @@ from Users.models import Articles, Books
 from . import setting
 from DouBan import settings
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-import re, os
+import re, os, time
 from django.utils import timezone
 
 
@@ -195,7 +195,7 @@ def test_user_info(user):
     if user.gender != 'S' or user.gender != 'F' or user.gender != 'S':
         context['error'] += '性别不正确'
         flag = 1
-    if not re.match(r"(\d{4}-\d{1,2}-\d{1,2})",user.birthday):
+    if not re.match(r"(\d{4}-\d{1,2}-\d{1,2})", str(user.birthday)):
         context['error'] += '生日格式不正确'
         flag = 1
     if flag:
@@ -206,15 +206,26 @@ def test_user_info(user):
         return context
 
 
-def add_image(request):
+def add_figure(request):
     MEDIA_ROOT = os.path.join(settings.BASE_DIR, "media")
     if request.method == "POST":
-        f1 = request.FILES.get('image_file')
-        f1_save_name = str(timezone.now()) + f1.name.split('.')[1]
-        fname = '%s\\pictures\\%s' % (MEDIA_ROOT, f1_save_name)
+        picture = request.FILES['pic1']
+        last_name = picture.name.split('.')[len(picture.name.split('.'))-1]
+        time_tag = str(time.time())
+        fname = '%s\\pictures\\%s' % (MEDIA_ROOT, time_tag + '.' + last_name)
         with open(fname, 'wb') as pic:
-            for c in f1.chunks():
+            for c in picture.chunks():
                 pic.write(c)
-        return 'media/pictures/%s' % f1_save_name
+        return 'media/pictures/' + time_tag + '.' + last_name
     else:
         return False
+
+
+def test_article(article):
+    if article.title == '' or article.title is None:
+        return '标题不能为空'
+    if len(article.title) >= 10:
+        return '标题不能超过10个字'
+    if article.text == '' or article.text is None:
+        return '文章内容不能为空'
+    return False

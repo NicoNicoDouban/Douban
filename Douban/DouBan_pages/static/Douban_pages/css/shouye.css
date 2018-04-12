@@ -36,8 +36,16 @@
 	width: 430px;
 	height: 20px;
 	position: absolute;
-	right: 320px;
+	right: 390px;
 	top: 56px;
+}
+.change{
+	position: absolute;
+	height: 53px;
+	width: 53px;
+	top: 40px;
+	right: 340px;
+	border-radius: 50%;
 }
 .navi{
 	float: left;
@@ -65,6 +73,7 @@
 	top: -310px;
 	background-color: white;
 	border:3px solid  #FEDFE1 ;
+	z-index: 10000;
 }
 .pop_window_img{
 	width: 200px;
@@ -217,7 +226,7 @@
 	position: relative;
 	right: 40px;
 }
-.arrow{
+.arrow1{
 	position: absolute;
 	right: 35px;
 	top: 33px;

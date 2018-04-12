@@ -3,18 +3,26 @@
 <html>
 <head>
 	<title>豆瓣首页</title>
+    <meta charset="utf-8" />
 	<link rel="stylesheet" type="text/css" href="{% static 'Douban_pages/css/d.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'Douban_pages/css/shouye.css' %}">
+    <meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="{% static 'Douban_pages/css/normalize.css' %}" />
+	<!-- <link rel="stylesheet" type="text/css" href="./css/htmleaf-demo.css"> -->
+	<link href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="{% static 'Douban_pages/css/main.css' %}">
 </head>
 <body>
-	<div class="container">
+	<div class="container1">
 		<div class="head">
 		<div class="center">
 			<img src="{% static 'Douban_pages/imgs/logo.png' %}" class="douban_logo">
 			<ul class="head_list">
 				<a class="navi HOME" style="text-decoration:none;" href="{% url 'home' %}">HOME</a>
 				<a class="navi BOOK" style="text-decoration:none;" href="{% url 'DouBan_pages:book_list' %}">BOOK</a>
-				<a class="navi ACTIVITY" style="text-decoration:none;" href="{% url "DouBan_pages:search_result_article" %}"  >ARTICLE</a>
+				<a class="navi ACTIVITY" style="text-decoration:none;" href="{% url 'DouBan_pages:search' %}"  >ARTICLE</a>
                 {% if login %}
                 <a class="navi LOGIN" style="margin-right: 0px;text-decoration:none;" href="{% url "logout" %}">LOGOUT</a>
                 {% endif %}
@@ -22,10 +30,14 @@
 				<a class="navi LOGIN" style="margin-right: 0px;text-decoration:none;" href="{% url "login" %}">LOGIN</a>
                 {% endif %}
 			</ul>
-			<img src="{% static 'Douban_pages/imgs/phone.png' %}" class="phone">
+            {% if login %}
+            <a href="{% url 'DouBan_pages:user_info' user_id %}"><img src="{{ user_image }}" class="change"></a>
+			{% endif %}
+            <img src="{% static 'Douban_pages/imgs/phone.png' %}" class="phone">
 			<div class="head_search_div">
-                <form action="{% url 'DouBan_pages:search_result_article' %}" method="get">
+                <form action="{% url 'DouBan_pages:search' %}" method="get">
                     <input type="hidden" name="search_type" value="title">
+                    <input type="hidden" name="is_book" value="book">
 				<input type="text" name="search_text" class="head_search" placeholder="请输入关键字">
                 <button type="submit"><img src="{% static 'Douban_pages/imgs/search.png' %}" class="search_img"></button>
                 </form>
@@ -36,9 +48,44 @@
 			</div>
 		</div>
 	    </div>
-	    <div class="turn">
-	    	<img src="{% static 'Douban_pages/imgs/huh.png' %}" style="width: 100%;height: 646px;">
-	    </div>
+	    <div class="container">
+		<div class="trent-slider">
+			<div class="t-slide current-t-slide">
+				<img src="{% static 'Douban_pages/imgs/0.png' %}" alt="" />
+			</div>
+			<div class="t-slide">
+				<img src="{% static 'Douban_pages/imgs/1.png' %}" alt="" />
+			</div>
+			<div class="t-slide">
+				<img src="{% static 'Douban_pages/imgs/2.png' %}" alt="" />
+			</div>
+			<div class="t-slide">
+				<img src="{% static 'Douban_pages/imgs/3.png' %}" alt="" />
+			</div>
+			<div class="t-slider-controls">
+				<div class="arrow right-arrow">
+					<div class="arrow-container">
+						<div class="arrow-icon"><i class="fa fa-chevron-right" aria-hidden="true"></i></div>
+					</div>
+				</div>
+				<div class="arrow left-arrow">
+					<div class="arrow-container">
+						<div class="arrow-icon"><i class="fa fa-chevron-left" aria-hidden="true"></i></div>
+					</div>
+				</div>
+				<div class="t-load-bar">
+					<div class="inner-load-bar"></div>
+				</div>
+				<div class="t-dots-container">
+					<div class="t-slide-dots-wrap">
+						<div class="t-slide-dots">
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
 	    <div class="hot_book">
 	    	<div class="center">
 	    		<div class="fen">
@@ -50,64 +97,88 @@
 	    <div class="center">
 	    	<div class="collect_book">
 				<div class="book_div">
-                     %}
-				<a class="book" href="
-				{% if book1.id %}
-                    {% url 'DouBan_pages:book_detail' book1.id %}
+				{% if book1.id == 0 %}
+                    <a class="book"  href="{% url 'home' %}" >
+                {% else %}
+                    <a class="book"  href="{% url 'DouBan_pages:book_detail' book1.id %}" >
                {% endif %}
-                ">
 					<img src="{{ book1.src }}" class="cover">
 					<div class="white_background"></div>
 					<div class="book_intros">{{ book1.text }}</div>
 					<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 				</a>
-				<a class="book" href="{% url 'DouBan_pages:book_detail' book2.id %}">
+				{% if book2.id == 0 %}
+                    <a class="book"  href="{% url 'home' %}" >
+                    {% else %}
+                    <a class="book"  href="{% url 'DouBan_pages:book_detail' book2.id %}" >
+               {% endif %}
 					<img src="{{ book2.src }}" class="cover">
 					<div class="white_background"></div>
 					<div class="book_intros">{{ book2.text }}</div>
 					<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 				</a>
-				<a class="book" href="{% url 'DouBan_pages:book_detail' book3.id %}">
+				{% if book1.id == 0 %}
+                    <a class="book"  href="{% url 'home' %}" >
+                {% else %}
+                    <a class="book"  href="{% url 'DouBan_pages:book_detail' book3.id %}" >
+               {% endif %}
 					<img src="{{ book3.src }}" class="cover">
 					<div class="white_background"></div>
 					<div class="book_intros">{{ book3.text }}</div>
 					<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 				</a>
-				<a class="book" href="{% url 'DouBan_pages:book_detail' book4.id %}">
+				{% if book1.id == 0 %}
+                    <a class="book"  href="{% url 'home' %}" >
+                {% else %}
+                    <a class="book"  href="{% url 'DouBan_pages:book_detail' book4.id %}" >
+               {% endif %}
 					<img src="{{ book4.src }}" class="cover">
 					<div class="white_background"></div>
 					<div class="book_intros">{{ book4.text }}</div>
 					<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 				</a>
-				<a class="book second_line" href="{% url 'DouBan_pages:book_detail' book5.id %}">
+				{% if book5.id == 0 %}
+                    <a class="book second_line" href="{% url 'home' %}">
+				{% else %}
+                    <a class="book second_line" href="{% url 'DouBan_pages:book_detail' book5.id %}">
+                {% endif %}
 					<img src="{{ book5.src }}" class="cover">
 					<div class="white_background"></div>
 					<div class="book_intros">{{ book5.text }}</div>
 					<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 				</a>
-				<a class="book second_line" href="{% url 'DouBan_pages:book_detail' book6.id %}">
+				{% if book6.id == 0 %}
+                    <a class="book second_line" href="{% url 'home' %}">
+				{% else %}
+                    <a class="book second_line" href="{% url 'DouBan_pages:book_detail' book6.id %}">
+                {% endif %}
 					<img src="{{ book6.src }}" class="cover">
 					<div class="white_background"></div>
 					<div class="book_intros">{{ book6.text }}</div>
 					<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 				</a>
-				<a class="book second_line" href="{% url 'DouBan_pages:book_detail' book7.id %}">
+                {% if book7.id == 0 %}
+                    <a class="book second_line" href="{% url 'home' %}">
+				{% else %}
+                    <a class="book second_line" href="{% url 'DouBan_pages:book_detail' book7.id %}">
+                {% endif %}
 					<img src="{{ book7.src }}" class="cover">
 					<div class="white_background"></div>
 					<div class="book_intros">{{ book7.text }}</div>
 					<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 				</a>
 				<a class="book second_line" href="
-				{% if book8.id %}
-                    {% url 'DouBan_pages:book_detail' book8.id %}
-               {% endif %}
-                ">
+				{% if book8.id == 0 %}
+                    <a class="book second_line" href="{% url 'home' %}">
+				{% else %}
+                    <a class="book second_line" href="{% url 'DouBan_pages:book_detail' book8.id %}">
+                {% endif %}
 					<img src="{{ book8.src }}" class="cover">
 					<div class="white_background"></div>
 					<div class="book_intros">{{ book8.text }}</div>
 					<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 				</a>
-                <form action="{% url 'DouBan_pages:search_result_book' %}" method="get">
+                <form action="{% url 'DouBan_pages:search' %}" method="get">
                         <input type="hidden" name="search_text" value="">
                         <input type="hidden" name="search_type" value="name">
                     <button type="submit" class="all">ALL BOOKS
@@ -125,40 +196,40 @@
 			    </div>
 	    	</div>
 	    </div>
-	    <!--<div class="picture">
-	    	<div class="center">
-	    		<div class="left_arrow">
-	    			<img src="{% static 'Douban_pages/imgs/huho.png' %}">
-	    		</div>
-	    		<div class="right_arrow">
-	    			<img src="{% static 'Douban_pages/imgs/skks.png' %}">
-	    		</div>
-	    		<div href="{% url 'DouBan_pages:book_detail' article1.id %}" class="text_div">
-	    			<a class="text1">
-						<img src="/media/book_image/defalut.png" class="text1_img">
-						<div class="message">
-							<h2 class="book_name">{{ article1.title }}</h2>
-							<h2 class="book_intro">{{ article1.text|striptags }}</h2>
-							<img src="{% static 'Douban_pages/imgs/you.png' %}" style="width: 40px;position: absolute;bottom: 1px;right: 1px;">
-						</div>
-					</a>
-					<a href="{% url 'DouBan_pages:book_detail' article2.id %}" class="text2">
-						<img src="/media/book_image/defalut.png" class="text1_img">
-						<div class="message">
-							<h2 class="book_name">{{ article2.title }}</h2>
-							<h2 class="book_intro">{{ article2.text|striptags }}</h2>
-							<img src="{% static 'Douban_pages/imgs/you.png' %}" style="width: 40px;position: absolute;bottom: 1px;right: 1px;">
-						</div>
-					</a>
-	    		</div>
-				<div class="point">
-	    			<div class="circle"></div>
-	    			<div class="circle"></div>
-	    			<div class="circle"></div>
-	    			<div class="circle special" style="margin-right: 0px;"></div>
-	    		</div>
-	    	</div>
-	    </div>-->
+{#	    <div class="picture">#}
+{#	    	<div class="center">#}
+{#	    		<div class="left_arrow">#}
+{#	    			<img src="{% static 'Douban_pages/imgs/huho.png' %}">#}
+{#	    		</div>#}
+{#	    		<div class="right_arrow">#}
+{#	    			<img src="{% static 'Douban_pages/imgs/skks.png' %}">#}
+{#	    		</div>#}
+{#	    		<div href="{% url 'DouBan_pages:book_detail' article1.id %}" class="text_div">#}
+{#	    			<a class="text1">#}
+{#						<img src="/media/book_image/defalut.png" class="text1_img">#}
+{#						<div class="message">#}
+{#							<h2 class="book_name">{{ article1.title }}</h2>#}
+{#							<h2 class="book_intro">{{ article1.text|striptags }}</h2>#}
+{#							<img src="{% static 'Douban_pages/imgs/you.png' %}" style="width: 40px;position: absolute;bottom: 1px;right: 1px;">#}
+{#						</div>#}
+{#					</a>#}
+{#					<a href="{% url 'DouBan_pages:book_detail' article2.id %}" class="text2">#}
+{#						<img src="/media/book_image/defalut.png" class="text1_img">#}
+{#						<div class="message">#}
+{#							<h2 class="book_name">{{ article2.title }}</h2>#}
+{#							<h2 class="book_intro">{{ article2.text|striptags }}</h2>#}
+{#							<img src="{% static 'Douban_pages/imgs/you.png' %}" style="width: 40px;position: absolute;bottom: 1px;right: 1px;">#}
+{#						</div>#}
+{#					</a>#}
+{#	    		</div>#}
+{#				<div class="point">#}
+{#	    			<div class="circle"></div>#}
+{#	    			<div class="circle"></div>#}
+{#	    			<div class="circle"></div>#}
+{#	    			<div class="circle special" style="margin-right: 0px;"></div>#}
+{#	    		</div>#}
+{#	    	</div>#}
+{#	    </div>#}
 	    <div class="article">
 	    	<div class="center">
 	    		<div class="article_div">
@@ -178,7 +249,13 @@
 	    </div>
 	    {% include "base/footer.html" %}
 	</div>
+    <script src="http://www.jq22.com/jquery/1.9.1/jquery.min.js"></script>
 	<script type="text/javascript" src="{% static 'Douban_pages/js/jquery-3.3.1.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'Douban_pages/js/shouye.js' %}"></script>
+    <script>
+        window.jQuery || document.write('<script src="js/jquery-1.11.0.min.js"><\/script>')
+    </script>
+	<script src="{% static 'Douban_pages/js/main.js' %}"></script>
 </body>
+
 </html>

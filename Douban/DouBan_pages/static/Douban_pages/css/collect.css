@@ -311,6 +311,10 @@ a{
 	transition:0.8s;
 	opacity: 0;
 }
+.cover{
+	width: 200px;
+	height: 280px;
+}
 .white_background{
 	width: 200px;
 	height: 280px;

@@ -3,6 +3,7 @@
 <html>
 <head>
 	<title>文章详情</title>
+    <script type="text/javascript" src="{% static "Douban_pages/ckeditor/ckeditor.js"%}" ></script>
 	<link rel="stylesheet" type="text/css" href="{% static "Douban_pages/css/d.css" %}">
 	<link rel="stylesheet" type="text/css" href="{% static "Douban_pages/css/textdetail.css" %}">
 	<link rel="stylesheet" type="text/css" href="{% static "Douban_pages/css/jquery.mCustomScrollbar.css"%}">
@@ -18,8 +19,8 @@
 				<img src="{% static "Douban_pages/imgs/logo.png"%}" class="douban_logo">
 				<ul class="head_list">
 					<a class="navi HOME" style="text-decoration: none;" href="{% url "home" %}">HOME</a>
-					<a class="navi BOOK" style="text-decoration: none;" href="{% url "DouBan_pages:search_result_book" %}">BOOK</a>
-					<a class="navi ARTICLE" style="text-decoration: none;" href="">ARTICLE</a>
+					<a class="navi BOOK" style="text-decoration: none;" href="{% url 'DouBan_pages:book_list' %}"">BOOK</a>
+					<a class="navi ARTICLE" style="text-decoration: none;" href="{% url 'DouBan_pages:search' %}">ARTICLE</a>
 					<a class="navi LOGIN" style="margin-right: 0px;text-decoration: none;" href="{% url "logout"%}">LOGIN</a>
 				</ul>
 				<div class="head_search_div">
@@ -34,13 +35,16 @@
 				<div class="main_left">
 					<div class="left_head">
 						<h1 class="text_head">{{ article.title }}</h1>
-						<a href="{% url 'DouBan_pages:user_info' author.id %}"><img src="{{ author.image }}" class="user_img"></a>
+						<a href="{% url 'DouBan_pages:user_info' author.id %}"><img src="/{{ author.image }}" class="user_img"></a>
 						<span class="user_name">{{ author.username }}</span>
 						<span class="date">{{ article.pub_time|date:'Y-m-d' }}</span>
 					</div>
 					<div class="left_text">
-						<p>
-                            {{ article.text }}
+						<p>{{ article.text|safe }}
+{#                        <textarea name="text" placeholder="请在此处写上文章内容" class="kong"> {{ article.text|safe }}#}
+{#                    </textarea>#}
+{#                    <script type="text/javascript">CKEDITOR.replace('text')</script><br/>#}
+
                         </p>
 					</div>
 					<div class="left_copyright">
@@ -50,7 +54,7 @@
 				</div>
 				<div class="main_right">
 					<div class="right_head">
-						<h2 class="right_name">{{ author.username }}其他的文章</h2>
+						<h2 class="right_name">{{ author.username }}的文章</h2>
 					</div>
 					<div class="right_main content_2">
                         {% for i in article_list %}

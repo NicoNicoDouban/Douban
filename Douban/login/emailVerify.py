@@ -26,8 +26,7 @@ def send_email(username, code, mail):
     try:
         send_mail(
             '豆瓣（伪）',
-            '亲爱的'+username+',您好！\n豆瓣已经收到了您的注册信息。请点击以下确认链接，完成激活\nhttp://127.0.0.1:8000/active/{0}'.format(code),
-            '1549274402@qq.com',
+            '亲爱的'+username+',您好！\n豆瓣已经收到了您的忘记密码请求。请复制以下验证码，完成修改密码\n' + code,
             [mail],
             fail_silently=False,
         )

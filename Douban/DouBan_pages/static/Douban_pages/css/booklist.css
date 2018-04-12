@@ -199,6 +199,8 @@
 	float: right;
 	position: absolute;
 	top:-3000px;
+	width: 881px;
+	height: 900px;
 }
 .content_2{height:800px;width: 886px;}
 
@@ -208,7 +210,7 @@
 	right: 0px;
 	cursor: pointer;
 }
-.detail{
+.a{
 	margin-left:36px;
 	margin-right: 57px;
 	float: left;
@@ -322,4 +324,75 @@
 	text-align: center;
 	font-size: 16px;
 	letter-spacing: 2px;
+}
+.page_turn{
+	height: 44px;
+	position: absolute;
+	right: 50px;
+	bottom: 20px;
+}
+.button{
+	border:2px solid #CCCCCC;
+	background-color: white;
+	outline: none;
+	color: #CCCCCC;
+	letter-spacing: 1px;
+	margin-left: 4px;
+	cursor: pointer;
+}
+.button:hover{
+	border:none;
+	color: white;
+	background-color: #F7BDCA;
+}
+.home{
+	width: 70px;
+	height: 40px;
+	margin-left: 130px;
+}
+.home:hover{
+	width: 70px;
+	height: 40px;
+}
+.next{
+	width: 70px;
+	height: 40px;
+}
+.next:hover{
+	width: 70px;
+	height: 40px;
+}
+.one{
+	height: 40px;
+	width: 40px;
+}
+.two{
+	height: 40px;
+	width: 40px;
+}
+.one:hover{
+	height: 40px;
+	width: 40px;
+}
+.two:hover{
+	height: 40px;
+	width: 40px;
+}
+.last{
+	height: 40px;
+	width: 70px;
+}
+.last:hover{
+	height: 40px;
+	width: 70px;
+}
+.t-dot{
+	background-color: yellow;
+}
+.t-slider-controls{
+	position: relative;
+}
+.t-dots-container{
+	position: absolute;
+	top: 400px;
 }

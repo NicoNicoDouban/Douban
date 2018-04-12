@@ -78,12 +78,44 @@
 	margin-bottom: 50px;
 	text-align: center;
 }
+.pop{
+	height: 100px;
+	width: 150px;
+	display: none;
+	position: absolute;
+	top: 140px;
+	right: 40px;
+}
+.tri{
+	position: absolute;
+	top: 40px;
+	left: 1px;
+}
+.block{
+	position: absolute;
+	height: 100px;
+	width: 140px;
+	border:1px solid grey;
+	border-radius: 10px;
+	background-color:rgba(255,255,255,0.5);
+	right: 0px;
+}
+.block button{
+	width: 70px;
+	height: 30px;
+	margin: 15px auto 0px auto;
+	display: block;
+	border-radius: 3px;
+	background-color: white;
+	border:1px solid #F7BDCA;
+}
 .portrait{
 	display: block;
 	margin:auto;
 	width: 134px;
 	height: 134px;
 	border-radius: 50%;
+	cursor: pointer;
 }
 .sign{
 	outline: none;
@@ -127,8 +159,20 @@
 }
 .message{
 	width: 260px;
-	height: 180px;
+	height: 270px;
 	margin:100px auto 0 auto;
+}
+.save{
+	margin: 30px auto 0px auto;
+	width: 140px;
+	height: 59px;
+	background-color: #00AFDB;
+	border:none;
+	outline: none;
+	border-radius: 10px;
+	display: none;
+	color: white;
+	letter-spacing: 2px;
 }
 .div{
 	margin-top: 30px;

@@ -17,7 +17,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 import login.views  as login
 from DouBan_pages.views import home_page, logout
-from Users.views import my_image
+from Users.views import my_image, test
 import django.views.static
 import DouBan.settings
 
@@ -28,15 +28,11 @@ urlpatterns = [
     url(r'^douban/', include('DouBan_pages.urls', namespace='DouBan_pages')),
     url(r'^regist/$', login.userRegister, name='regist'),
     url(r'^login/$', login.userLogin, name='login'),
-    url(r'^ueditor/', include('ueditor.urls')),
+    url(r'^ueditor/', include('DjangoUeditor.urls')),
     url(r'logout/', logout, name='logout'),
     url(r'^media/pictures/(.+)/$', my_image),
-    url(r'^media/(?P<path>.*)', django.views.static.serve,
-        {'document_root': DouBan.settings.BASE_DIR+'/media'}),
-    url(r'^ueditor/UE/(?P<path>.*)', django.views.static.serve,
-        {'document_root': DouBan.settings.BASE_DIR+'/ueditor/UE'}),
-    url(r'^css/(?P<path>.*)', django.views.static.serve,
-        {'document_root': DouBan.settings.BASE_DIR+ '/Douban_pages/static/Douban_pages'}),
-    # url(r'^media/media/(?P<path>.*)', django.views.static.serve, {'document_root': DouBan.settings.BASE_DIR+'/media'}),
+    url(r'^captcha/', include('captcha.urls')),
+    url(r'^forget', login.forget_pwd, name='forget'),
+    url(r'^media/(?P<path>.*)', django.views.static.serve, {'document_root': DouBan.settings.BASE_DIR+r'/media/'}),
     # url(r'^active/(.+)/$', userVerify)
 ]

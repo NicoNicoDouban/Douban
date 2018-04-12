@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
+{% load static %}
 <head>
 	<title>搜索列表页</title>
+    <meta charset="utf-8" />
 	<link rel="stylesheet" type="text/css" href="{% static 'Douban_pages/css/d.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'Douban_pages/css/search.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'Douban_pages/css/jquery.mCustomScrollbar.css.css' %}">
@@ -10,21 +12,21 @@
 <div class="container">
 	<div class="head" id="head">
 		<div class="center">
-			<img src="./imgs./logo.png" class="douban_logo">
+			<img src="{% static 'Douban_pages/imgs/logo.png' %}" class="douban_logo">
 			<ul class="head_list">
-				<a class="navi HOME" style="text-decoration: none;" href="{% url 'hoem' %}">HOME</a>
+				<a class="navi HOME" style="text-decoration: none;" href="{% url 'home' %}">HOME</a>
 				<a class="navi BOOK" style="text-decoration: none;" href="{% url 'DouBan_pages:book_list' %}">BOOK</a>
 				<a class="navi ARTICLE" style="text-decoration: none;" href="{% url 'DouBan_pages:search' %}">ARTICLE</a>
 				<a class="navi LOGIN" style="margin-right: 0px;text-decoration: none;" href="{% url 'logout' %}">LOGIN</a>
 			</ul>
 			<div class="head_search_div">
 				<input type="" name="" class="head_search" placeholder="请输入关键字">
-				<a href=""><img src="./imgs./search.png" class="search_img"></a>
+				<a href="{% url 'DouBan_pages:search' %}"><img src="{% static 'Douban_pages/imgs/search.png' %}" class="search_img"></a>
 			</div>
 		</div>
 	</div>
 	<div class="img">
-		<img src="./imgs./shh.png" class="img_img">
+		<img src="{% static 'Douban_pages/imgs/shh.png' %}" class="img_img">
 		<div class="center">
 			<div class="fun">
 				<h2 class="h1">来豆瓣</h2>
@@ -48,58 +50,58 @@
 				<div class="bluefen"></div>
 				<div class="detail_main_text">
 					<div class="text_">
-					    <img src="./imgs./djjd.png" class="text_img">
+					    <img src="{% static 'Douban_pages/imgs/djjd.png' %}" class="text_img">
 					    <div class="i">
 					    	<h2 class="text_name">一个平凡的便利店可以给你所有</h2>
 					    	<h3 class="text_author">每扇君的日记</h3>
 					    	<p class="text_detail">普通平淡的日常工作与生活 “我明天开始在便利店上班。” 当我在餐桌上告诉家人</p>
 
 					    </div>
-					    <a><img src="./imgs./eye.png" class="eye"></a>
+					    <a><img src="{% static 'Douban_pages/imgs/eye.png' %}" class="eye"></a>
 					    <span class="num">22</span>
 					</div>
 					<div class="text_">
-					    <img src="./imgs./djjd.png" class="text_img">
+					    <img src="{% static 'Douban_pages/imgs/djjd.png' %}" class="text_img">
 					    <div class="i">
 					    	<h2 class="text_name">一个平凡的便利店可以给你所有</h2>
 					    	<h3 class="text_author">每扇君的日记</h3>
 					    	<p class="text_detail">普通平淡的日常工作与生活 “我明天开始在便利店上班。” 当我在餐桌上告诉家人</p>
 
 					    </div>
-					    <a><img src="./imgs./eye.png" class="eye"></a>
+					    <a><img src="{% static 'Douban_pages/imgs/eye.png' %}" class="eye"></a>
 					    <span class="num">22</span>
 					</div>
 					<div class="text_">
-					    <img src="./imgs./djjd.png" class="text_img">
+					    <img src="{% static 'Douban_pages/imgs/djjd.png' %}" class="text_img">
 					    <div class="i">
 					    	<h2 class="text_name">一个平凡的便利店可以给你所有</h2>
 					    	<h3 class="text_author">每扇君的日记</h3>
 					    	<p class="text_detail">普通平淡的日常工作与生活 “我明天开始在便利店上班。” 当我在餐桌上告诉家人</p>
 
 					    </div>
-					    <a><img src="./imgs./eye.png" class="eye"></a>
+					    <a><img src="{% static 'Douban_pages/imgs/eye.png' %}" class="eye"></a>
 					    <span class="num">22</span>
 					</div>
 					<div class="text_">
-					    <img src="./imgs./djjd.png" class="text_img">
+					    <img src="{% static 'Douban_pages/imgs/djjd.png' %}" class="text_img">
 					    <div class="i">
 					    	<h2 class="text_name">一个平凡的便利店可以给你所有</h2>
 					    	<h3 class="text_author">每扇君的日记</h3>
 					    	<p class="text_detail">普通平淡的日常工作与生活 “我明天开始在便利店上班。” 当我在餐桌上告诉家人</p>
 
 					    </div>
-					    <a><img src="./imgs./eye.png" class="eye"></a>
+					    <a><img src="{% static 'Douban_pages/imgs/eye.png' %}" class="eye"></a>
 					    <span class="num">22</span>
 					</div>
 					<div class="text_">
-					    <img src="./imgs./djjd.png" class="text_img">
+					    <img src="{% static 'Douban_pages/imgs/djjd.png' %}" class="text_img">
 					    <div class="i">
 					    	<h2 class="text_name">一个平凡的便利店可以给你所有</h2>
 					    	<h3 class="text_author">每扇君的日记</h3>
 					    	<p class="text_detail">普通平淡的日常工作与生活 “我明天开始在便利店上班。” 当我在餐桌上告诉家人</p>
 
 					    </div>
-					    <a><img src="./imgs./eye.png" class="eye"></a>
+					    <a><img src="{% static 'Douban_pages/imgs/eye.png' %}" class="eye"></a>
 					    <span class="num">22</span>
 					</div>
 					<div class="page_turn">
@@ -115,9 +117,9 @@
 						<div class="right_right ">
 							<div class="a">
 								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+									<img src="{% static 'Douban_pages/imgs/s29608420.jpg' %}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">	
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
 									<h2 class="book_name">孤独梦想家</h2>
@@ -205,23 +207,11 @@
 
 		</div>
 	</div>
-	<div class="foot">
-		<div class="center">
-			<ul class="foot_menu">
-				<li>关于我们</li>
-				<li>加入我们</li>
-				<li>合作伙伴</li>
-				<li>广告服务</li>
-				<li style="margin-right: 0px;">常见问题</li>
-			</ul>
-			<p class="copyright">© 2005－2018 douban.com, all rights reserved 北京豆网科技有限公司</p>
-		</div>
-		
-	</div>
+	{% include 'base/footer.html' %}
 </div>
 	<script src="http://www.jq22.com/jquery/1.9.1/jquery.min.js"></script>
 	
-	<script type="text/javascript" src="./js/jquery.mCustomScrollbar.concat.min.js"></script>
-	<script type="text/javascript" src="./js/search.js"></script>
+	<script type="text/javascript" src="{% static 'Douban_pages/js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'Douban_pages/js/search.js' %}"></script>
 </body>
 </html>

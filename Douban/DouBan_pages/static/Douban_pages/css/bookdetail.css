@@ -170,6 +170,67 @@
 	width: 100%;
 	position: relative;
 }
+.page_turn{
+	height: 44px;
+	position: absolute;
+	right: 50px;
+	bottom: 20px;
+}
+.button{
+	border:2px solid #CCCCCC;
+	background-color: white;
+	outline: none;
+	color: #CCCCCC;
+	letter-spacing: 1px;
+	margin-left: 4px;
+	cursor: pointer;
+}
+.button:hover{
+	border:none;
+	color: white;
+	background-color: #F7BDCA;
+}
+.home{
+	width: 70px;
+	height: 40px;
+	margin-left: 130px;
+}
+.home:hover{
+	width: 70px;
+	height: 40px;
+}
+.next{
+	width: 70px;
+	height: 40px;
+}
+.next:hover{
+	width: 70px;
+	height: 40px;
+}
+.one{
+	height: 40px;
+	width: 40px;
+}
+.two{
+	height: 40px;
+	width: 40px;
+}
+.one:hover{
+	height: 40px;
+	width: 40px;
+}
+.two:hover{
+	height: 40px;
+	width: 40px;
+}
+.last{
+	height: 40px;
+	width: 70px;
+}
+.last:hover{
+	height: 40px;
+	width: 70px;
+}
 .ranking_time,.ranking_hot{
 	font-size: 20px;
 	color: black;
@@ -184,7 +245,7 @@
 	color:#71CDD8;
 }
 .pointview_one{
-	margin-top: 72px;
+	margin-top: 20px;
 }
 .person_infor{
 	float: left;

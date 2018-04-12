@@ -5,7 +5,7 @@ from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser, PermissionsMixin,UserManager,AbstractUser)
 from  DouBan import settings
-
+from DjangoUeditor.models import UEditorField
 # 序列化datetime和date
 class DateEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -60,6 +60,7 @@ class Users(AbstractUser):
 
 '''
 
+
 class Users(AbstractBaseUser, PermissionsMixin):
     Gender_Choice = (
         ('F', u'女'),
@@ -76,7 +77,7 @@ class Users(AbstractBaseUser, PermissionsMixin):
     follow_num = models.IntegerField(verbose_name=u"被关注数",default=0)
     pub_time = models.DateTimeField(verbose_name=u"注册时间",default=datetime.now)
     address = models.CharField(max_length=100,verbose_name=u"用户地址", default=u"保密")
-    image = models.ImageField(verbose_name=u"用户头像", default='/media/pictures/defalut_avatar.png', max_length=100,
+    image = models.ImageField(verbose_name=u"用户头像", default='media/pictures/defalut_avatar.png', max_length=100,
                               upload_to='media/pictures/')
     signature = models.CharField(verbose_name=u"个性签名", default=u"这个人很懒什么都没写", max_length=50)
     is_staff = models.BooleanField(
@@ -124,7 +125,7 @@ class Articles(models.Model):
     author = models.ForeignKey(Users,verbose_name=u"文章作者")
     pub_time = models.DateTimeField(verbose_name=u"发表时间", default=datetime.now)
     click_num = models.IntegerField(verbose_name=u"点击数", default=0)
-    text = models.TextField(verbose_name='文章内容', default="")
+    text = UEditorField('内容', toolbars="full", filePath='media/file/', imagePath='media/pictures/', upload_settings={"imageMaxSize": 120400}, settings={},)
     like_num = models.IntegerField(verbose_name=u"点赞数", default=0)
 
     class Meta:
@@ -136,6 +137,16 @@ class Articles(models.Model):
 
 
 class Books(models.Model):
+    BookType = (
+        ('0', u'推理悬疑'),
+        ('1', u'科学真实'),
+        ('2', u'社会民生'),
+        ('3', u'世界未来'),
+        ('4', u'宇宙天体'),
+        ('5', u'历史讲古'),
+        ('6', u'美丽文学'),
+        ('7', u'其他神秘')
+    )
     name = models.CharField(verbose_name=u"图书名", max_length=30, default="")
     author = models.CharField(verbose_name=u"作者名", max_length=50, default="")
     author_introduction = models.CharField(verbose_name=u'作者简介', max_length=50, default='暂无介绍')
@@ -146,7 +157,7 @@ class Books(models.Model):
     text = models.TextField(verbose_name=u"简介", default="暂无介绍")
     src = models.ImageField(verbose_name=u"封面url地址", default='/media/book_image/defalut.png', max_length=100,
                               upload_to='media/pictures/')
-    type = models.CharField(verbose_name=u'图书分类', max_length=10, default=u'其他')
+    type = models.CharField(verbose_name=u'图书分类', max_length=3, default=u'其他', choices=BookType)
 
     class Meta:
         verbose_name = "图书信息"
@@ -171,17 +182,18 @@ class Comments(models.Model):
 
 
 class GoodLink(models.Model):
-    userId=models.ForeignKey(Users,verbose_name=u"点赞者")
-    bookId=models.ForeignKey(Books,verbose_name=u"图书")
+    userId = models.ForeignKey(Users, verbose_name=u"点赞者")
+    bookId = models.ForeignKey(Books, verbose_name=u"图书")
     Time = models.DateTimeField(verbose_name=u"点赞时间")
 
     class Meta:
         verbose_name = "图书点赞关联信息"
         verbose_name_plural = verbose_name
 
+
 class FollowLink(models.Model):
-    userId=models.ForeignKey(Users,verbose_name=u"关注者",related_name=u"关注者")
-    toId=models.ForeignKey(Users,verbose_name=u"被关注者",related_name=u"被关注者")
+    userId = models.ForeignKey(Users,verbose_name=u"关注者",related_name=u"关注者")
+    toId = models.ForeignKey(Users,verbose_name=u"被关注者",related_name=u"被关注者")
 
     class Meta:
         verbose_name = "用户关注关联信息"
