@@ -200,7 +200,7 @@ class FollowLink(models.Model):
 
 
 class userActive(models.Model):
-    username = models.ForeignKey(Users, on_delete=models.CASCADE, verbose_name=u"用户")
+    email = models.EmailField(verbose_name=u"用户")
     activation_code = models.CharField(max_length=30, verbose_name=u"激活码")
     status = models.CharField(max_length=1, default='r', verbose_name=u"状态")
 

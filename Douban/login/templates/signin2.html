@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<html>
+    {% load static %}
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="{% static 'Douban_pages/css/d.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'Douban_pages/css/signin2.css' %}">
+</head>
+<body>
+	<div class="container">
+		<div class="center">
+			<img src="{% static 'Douban_pages/imgs/logo2.png' %}" class="douban">
+			<div class="form">
+				<div class="selete">
+					<a href="{% url 'login' %}"><div class="register in">用户登录</div></a>
+					<a><div class="register loginin">新用户注册</div></a>
+				</div>
+				<div class="main2">
+                    <form method="post" action="{% url 'regist' %}" >
+					<div class="input_div">
+						<span class="username_span">邮箱</span>
+						<input type="text" name="username" class="username main1_input" placeholder="请输入正确的邮箱地址" value="{{ username }}" required="">
+                        <div class="wrong">{{ userform.username.errors }}</div>
+					</div>
+					<div class="input_div">
+						<span class="checkword_span">验证码</span>
+						<input type="text" name="verification" class="checkword main2_input" placeholder="请输入验证码" value="{{ verification }}">
+                        <div class="wrong">{{ userform.verification.errors }}</div>
+                        <button class="send" type="submit" name="submit" value="send">发送验证码</button>
+					</div>
+					<div class="input_div">
+						<span class="password_span">密码</span>
+						<input type="password" name="password" class="password main1_input" placeholder="请输入密码" value="{{ password }}">
+                        <div class="wrong">{{ userform.password.errors }}</div>
+					</div>
+					<button class="button back" type="submit" name="submit" value="regist">欢迎注册</button>
+                        </form>
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+	<script type="text/javascript" src="{% static 'Douban_pages/js/jquery-3.3.1.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'Douban_pages/js/signin.js' %}"></script>
+</body>
+</html>

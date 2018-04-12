@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-{% load static %}
+    {% load static %}
 <head>
 	<title></title>
 	<link rel="stylesheet" type="text/css" href="{% static 'Douban_pages/css/d.css' %}">
@@ -28,9 +28,9 @@
 					</div>
 					<div class="input_div">
 						<span class="checkword_span">验证码</span>
-						<input type="text" autocomplete="off" id="id_reg_captcha_1" name="captcha_1" class="checkword main1_input">
-						<img src="{{ imgage_url }}" class="checkimg" alt="captcha">
-                        <input id="id_reg_captcha_0" name="captcha_0" type="hidden" value="{{ hashkey }}">  
+						<input type="text" autocomplete="off" id="id__captcha_1" name="captcha_1" class="checkword main1_input">
+						<img src="{{ image_url }}" class="checkimg" alt="captcha" id="id_img_1">
+                        <input id="id_captcha_0" name="captcha_0" type="hidden" value="{{ hashkey }}">  
 					</div>
 
 					<button type="submit" class="button wel" name="submit" value="欢迎回来">欢迎回来</button>

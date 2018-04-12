@@ -26,13 +26,14 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/', include('Api.urls', namespace='Api')),
     url(r'^douban/', include('DouBan_pages.urls', namespace='DouBan_pages')),
-    url(r'^regist/$', login.userRegister, name='regist'),
-    url(r'^login/$', login.userLogin, name='login'),
     url(r'^ueditor/', include('ueditor.urls')),
     url(r'logout/', logout, name='logout'),
     url(r'^media/pictures/(.+)/$', my_image),
     url(r'^captcha/', include('captcha.urls')),
+    url(r'^login/$', login.userLogin, name='login'),
     url(r'^forget', login.forget_pwd, name='forget'),
+    url(r'^regist/$', login.userRegister, name='regist'),
     url(r'^media/(?P<path>.*)', django.views.static.serve, {'document_root': DouBan.settings.BASE_DIR+'/media'}),
+    url(r'^ajax_val/', login.ajax_val, name='ajax_val'),
     # url(r'^active/(.+)/$', userVerify)
 ]

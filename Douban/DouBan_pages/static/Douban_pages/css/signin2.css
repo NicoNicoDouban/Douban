@@ -44,10 +44,10 @@ a{
 	cursor: pointer;
 }
 .in{
-	background-color: white;
+	background-color:#F7F7F7;
 }
 .loginin{
-	background-color:#F7F7F7;
+	background-color: white;
 }
 .main1,.main2,.main3{
 	position: absolute;
@@ -89,7 +89,7 @@ a{
 }
 
 .main1_input{
-	height:53px; 
+	height:53px;
 	border: none;
 	outline: none;
 	border-radius: 10px;
@@ -103,7 +103,7 @@ a{
 	width: 309px;
 }
 .password_span{
-	left: 5px; 
+	left: 5px;
 }
 .password{
 	width: 309px;
@@ -140,7 +140,7 @@ a{
 	cursor: pointer;
 }
 .main2_input{
-	height:53px; 
+	height:53px;
 	width: 200px;
 	border: none;
 	outline: none;
@@ -167,5 +167,4 @@ a{
 	text-align: center;
 	line-height: 53px;
 }
-
 
