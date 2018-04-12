@@ -121,8 +121,8 @@ class Users(AbstractBaseUser, PermissionsMixin):
 
 
 class Articles(models.Model):
-    title = models.CharField(max_length=20,verbose_name=u"标题", default="一篇文章")
-    author = models.ForeignKey(Users,verbose_name=u"文章作者")
+    title = models.CharField(max_length=20, verbose_name=u"标题", default="一篇文章")
+    author = models.ForeignKey(Users, verbose_name=u"文章作者")
     pub_time = models.DateTimeField(verbose_name=u"发表时间", default=datetime.now)
     click_num = models.IntegerField(verbose_name=u"点击数", default=0)
     text = UEditorField('内容', toolbars="full", filePath='media/file/', imagePath='media/pictures/', upload_settings={"imageMaxSize": 120400}, settings={},)

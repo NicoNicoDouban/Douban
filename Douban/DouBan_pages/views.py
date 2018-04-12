@@ -449,28 +449,15 @@ def search_result(request):
     # 判断是找书
     context = {}
     if request.method == 'GET':
-        search_text = request.GET.get('search_text',default='')
+        search_text = request.GET.get('search_text', default='')
         index = request.GET.get('index', default=1)
         book_author = Books.objects.filter(author__contains=search_text)
         book_name = Books.objects.filter(name__contains=search_text)
 
         article_title = Articles.objects.filter(title__contains=search_text)
-        article_author = Articles.objects.filter(author__contains=search_text)
+        article_author = Articles.objects.filter(author__username=search_text)
         article_text = Articles.objects.filter(text__contains=search_text)
 
-    if request.POST.get('is_book') == 'book':
-        if request.POST.get('search_type') == 'author':
-            search_text = request.POST.get('search_text')
-            books = Books.objects.filter(author__contains=search_text)
-        else:
-            search_text = request.POST.get('search_text')
-            books = Books.objects.filter(name__contains=search_text)
-
-        context = {
-
-        }
-    else:
-        if request.POST.get('is_title') == 'title':
-            search_text = request.POST.get('search_text')
+        
     return render(request, 'formal/search.html', context)
 
