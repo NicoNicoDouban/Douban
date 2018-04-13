@@ -27,7 +27,7 @@ urlpatterns = [
     url(r'^api/', include('Api.urls', namespace='Api')),
     url(r'^douban/', include('DouBan_pages.urls', namespace='DouBan_pages')),
     url(r'^ueditor/', include('ueditor.urls')),
-    url(r'logout/', logout, name='logout'),
+    url(r'^logout/', logout, name='logout'),
     url(r'^media/pictures/(.+)/$', my_image),
     url(r'^captcha/', include('captcha.urls')),
     url(r'^login/$', login.userLogin, name='login'),
