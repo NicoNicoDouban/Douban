@@ -26,10 +26,15 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/', include('Api.urls', namespace='Api')),
     url(r'^douban/', include('DouBan_pages.urls', namespace='DouBan_pages')),
+<<<<<<< HEAD
     url(r'^regist/$', login.userRegister, name='regist'),
     url(r'^login/$', login.userLogin, name='login'),
     url(r'^ueditor/', include('DjangoUeditor.urls')),
     url(r'logout/', logout, name='logout'),
+=======
+    url(r'^ueditor/', include('ueditor.urls')),
+    url(r'^logout/', logout, name='logout'),
+>>>>>>> e92f851436bb9d6b681ca45e5ce47c43d172baf2
     url(r'^media/pictures/(.+)/$', my_image),
     url(r'^captcha/', include('captcha.urls')),
     url(r'^login/$', login.userLogin, name='login'),

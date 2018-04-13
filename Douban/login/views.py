@@ -113,18 +113,15 @@ def userRegister(request):
 @csrf_exempt
 def userLogin(request):
     if request.user.is_authenticated:
-        return render_to_response('signin.html',)  # 主页面
+        return HttpResponseRedirect('/')  # 主页面
     else:
-        print(1)
         hashkey = CaptchaStore.generate_key()
         image_url = captcha_image_url(hashkey)
         if request.method == 'POST':
-            print(2)
             username = request.POST['username']
             password = request.POST['password']
             userform = LoginForm(request.POST)
             if userform.is_valid():
-                print(3)
                 user = authenticate(request, email=username, password=password)
                 if not user:
                     userform.add_error('username', '用户名或密码错误！')
@@ -133,7 +130,7 @@ def userLogin(request):
                                                               'image_url': image_url})
                 else:
                     login(request, user)
-                    return HttpResponse('登陆成功')  # 跳转到主页面
+                    return HttpResponseRedirect('/')  # 跳转到主页面
             else:
                 return render_to_response('signin.html', {'userform': userform, 'username': username,
                                                           'hashkey': hashkey,
@@ -207,47 +204,3 @@ def forget_pwd(request):
     else:
         form = RegistFormS()
     return render_to_response('signin3.html', {'userform': form})
-
-
-@csrf_exempt
-def change_pwd(request, code):
-    exist = userActive.objects.filter(activation_code=code, status='f')
-    if exist:
-        if request.method == 'GET':
-            form = ChangeForm2()
-            return render_to_response('ChangePwd.html', {'form': form})
-        else:
-            form = ChangeForm2(request.POST)
-            new_pwd = request.POST.get('newPwd')
-            con_pwd = request.POST.get('conPwd')
-            if new_pwd == con_pwd:
-                user = Users.objects.get(username=exist[0].username)
-                user.set_password(new_pwd)
-                user.save()
-                exist.delete()
-                return HttpResponse('修改成功')
-            else:
-                form.add_error('conPwd', '请确认两次输入的密码是否相同')
-                return render_to_response('ChangePwd.html', {'form': form})
-    else:
-        if request.method == 'GET':
-            form = ChangeForm()
-            return render_to_response('ChangePwd.html', {'form': form})
-        else:
-            form = ChangeForm(request.POST)
-            old_pwd = form['oldPwd']
-            user_ = request.user
-            if user_.check_passwrod(old_pwd):
-                new_pwd = request.POST.get('newPwd')
-                con_pwd = request.POST.get('conPwd')
-                if new_pwd == con_pwd:
-                    user = Users.objects.get(username=user_.username)
-                    user.set_password(new_pwd)
-                    user.save()
-                    return HttpResponse('修改成功')
-                else:
-                    form.add_error('conPwd', '请确认两次输入的密码是否相同')
-                    return render_to_response('ChangePwd.html', {'form': form})
-            else:
-                form.add_error('oldPwd', '密码错误')
-                return render_to_response('ChangePwd.html', {'form': form})
