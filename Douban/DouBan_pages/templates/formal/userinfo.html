@@ -42,8 +42,8 @@
 	    			<div class="block">
                         <form action="{% url 'DouBan_pages:user_info' user_info_query.id %}" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
-                            <input type="file" id="btn_file" name="pic1" value="浏览" />
-	    				    <input type="submit" value="确定" />
+                            <input type="file" id="btn_file" name="pic1" value="浏览" class="emm"/>
+	    				    <input type="submit" value="确定" class="buu"/>
                         </form>
 	    			</div>
 	    		</div>
@@ -74,11 +74,10 @@
 						<img src="{% static 'Douban_pages/imgs/ioi.png' %}">
 						<input type="text" name="birthday" class="input date_input" value="{{ birthday|date:"Y-m-d" }}" readonly="readonly">
 						<img src="{% static 'Douban_pages/imgs/white.png' %}" class="white white4">
+                        {% if is_user_self %}
                         <button class="save">保存</button>
+                        {% endif %}
 					</div>
-                    {% if is_user_self %}
-                        <input type="submit" name="submit" class="submit" >
-                    {% endif %}
 				</div>
                 </form>
             </div>

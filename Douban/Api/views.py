@@ -4,6 +4,8 @@ from django.shortcuts import render
 from Users import models
 from DouBan import settings
 import hashlib
+from login.emailVerify import send_email,createCode
+from django.utils import timezone
 from Users.models import Users
 from Users.models import Books
 from Users.models import Articles
@@ -18,18 +20,29 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 import datetime
 
+def addUser(requset):
+    info=Users.objects.create_user(email="123@qq.com",password="123456")
 
 def test(request):
     return render(request, "index.html")
 
 
+
 def test2(request):
-    id = request.user.id
-    return HttpResponse(json.dumps(id), content_type="application/json")
-    if not request.user.is_authenticated():
-        return render(request, "index.html")
-    else:
-        return render(request, "test.html")
+
+    import smtplib
+    #try:
+    s = smtplib.SMTP()
+    s.connect("smtp.office365.com", 587)
+    s.ehlo()
+    s.starttls()
+    s.ehlo()
+    s.login("mrtjming@outlook.com", "Nicodouban123")
+    s.sendmail("mrtjming@outlook.com", "983739298@qq.com", "11111111111111111111Code")
+    #except:
+        #return 1
+    #send_email("xiaoming ", createCode(), )
+    return 0
 
 @csrf_exempt
 def photo(request):
@@ -48,6 +61,8 @@ def getHotAricles(request):
     result = func.Search.good_article()
     return HttpResponse(result, content_type="application/json")
 
+def sendCode(email,Message):
+    pass
 
 def toRegiste(request):
     if request.GET.get("type") == "email":
@@ -123,18 +138,24 @@ class users(View):
             type = request.POST.get("type")
             username = request.POST.get("username")
             if not users().judgeExist(type=type, text=text):
-                user = Users.objects.create()
+                user = Users.objects.create(email=text)
                 if type == "email":
                     user.email = text
                     user.username = username
                     user.password = make_password(pwd)
                     user.is_active=False
+
+                    try:
+                        send_email(username, createCode(), text)
+                    except:
+                        resp = {'rsNum': -2}
+                        return HttpResponse(json.dumps(resp), content_type="application/json")
                     user.save()
                     resp = {'rsNum': 1}
                 else:
                     resp = {'rsNum': -1}
             else:
-                resp = {'rsNum': -1}
+                resp = {'rsNum': -3}
         except:
             resp = {'rsNum': 0}
         return HttpResponse(json.dumps(resp), content_type="application/json")
@@ -156,7 +177,7 @@ class users(View):
                                 login(request, user[0])
                                 resp = {'rsNum': 1}
                             else:
-                                resp = {'rsNum': 0}
+                                resp = {'rsNum': -3}
                         else:
                             resp = {'rsNum': -2}
                     else:
@@ -199,16 +220,17 @@ class users(View):
 class search(View):
     # 获取热门内容
     def getHotText(request):
+        context = []
         type = request.GET.get("type")
         if type == "articles":
-            searchResult = Articles.objects.order_by('-good_num').all()
+            searchResult = Articles.objects.order_by('-like_num').all()
         elif type == "books":
-            searchResult = Books.objects.order_by('-good_num').all()
+            searchResult = Books.objects.order_by('-like_num').all()
         else:
             resp = {"rsNum": 0}
             return HttpResponse(json.dumps(resp), content_type="application/json")
         page =int(request.GET.get("page",1))
-        p = Paginator(searchResult, 5)
+        p = Paginator(searchResult, 10)
         try:
             result = p.page(page)
         except PageNotAnInteger:
@@ -219,20 +241,21 @@ class search(View):
                 page = 1
                 result = p.page(page)
             else:
-                page = p.num_pages
-                result = p.page(page)
-
-        context = []
+                resp = {"rsNum": -1}
+                context.append(resp)
+                return HttpResponse(json.dumps(context), content_type="application/json")
+        resp = {"rsNum": 1}
+        context.append(resp)
         if type == "articles":
             for article in result:
                 temp = {'id': article.id, 'title': article.title, 'author': article.author.username,
                         'pub_time': str(article.pub_time),
-                        'click_num': article.click_num, 'good_num': article.good_num, 'text': article.text, }
+                        'click_num': article.click_num, 'text': article.text, 'src':str(article.author.image)}
                 context.append(temp)
         elif type == "books":
             for book in result:
                 temp = {'id': book.id, 'name': book.name, 'author': book.author, 'publisher': book.publisher,
-                        'click_num': book.click_num, 'good_num': book.good_num, 'text': book.text, 'src': book.src}
+                        'click_num': book.click_num, 'like_num': book.like_num, 'text': book.text, 'src':str(book.src)}
                 context.append(temp)
         return HttpResponse(json.dumps(context), content_type="application/json")
 
@@ -242,25 +265,26 @@ class search(View):
         type = request.GET.get("type")
         searchText = request.GET.get("text")
         page = int(request.GET.get("page",1))
+        context = []
         if searchType == "articles":
             if type == "title":
-                searchResult = Articles.objects.filter(title__contains=searchText).order_by("-good_num")
+                searchResult = Articles.objects.filter(title__contains=searchText).order_by("-like_num")
             elif type == "author":
-                searchResult = Articles.objects.filter(author__username__contains=searchText).order_by("-good_num")
+                searchResult = Articles.objects.filter(author__username__contains=searchText).order_by("-like_num")
             elif type == "text":
-                searchResult = Articles.objects.filter(text__contains=searchText).order_by("-good_num")
+                searchResult = Articles.objects.filter(text__contains=searchText).order_by("-like_num")
         elif searchType == "books":
             if type == "name":
-                searchResult = Books.objects.filter(name__contains=searchText).order_by("-good_num")
+                searchResult = Books.objects.filter(name__contains=searchText).order_by("-like_num")
             elif type == "author":
-                searchResult = Books.objects.filter(author__contains=searchText).order_by("-good_num")
+                searchResult = Books.objects.filter(author__contains=searchText).order_by("-like_num")
             elif type == "text":
-                searchResult = Books.objects.filter(text__contains=searchText).order_by("-good_num")
+                searchResult = Books.objects.filter(text__contains=searchText).order_by("-like_num")
         else:
             resp = {"rsNum": 0}
             return HttpResponse(json.dumps(resp), content_type="application/json")
 
-        p = Paginator(searchResult, 5)
+        p = Paginator(searchResult, 10)
         try:
             result = p.page(page)
         except PageNotAnInteger:
@@ -269,21 +293,22 @@ class search(View):
         except EmptyPage:
             if page <= 0:
                 page = 1
-
             else:
-                page = p.num_pages
-            result = p.page(page)
-        context = []
+                resp = {"rsNum": -1}
+                context.append(resp)
+                return HttpResponse(json.dumps(context), content_type="application/json")
+        resp = {"rsNum": 1}
+        context.append(resp)
         if searchType == "articles":
             for article in result:
                 temp = {'id': article.id, 'title': article.title, 'author': article.author.username,
                         'pub_time': str(article.pub_time),
-                        'click_num': article.click_num, 'good_num': article.good_num, 'text': article.text, }
+                        'click_num': article.click_num, 'like_num': article.like_num, 'text': article.text, }
                 context.append(temp)
         elif searchType == "books":
             for book in result:
                 temp = {'id': book.id, 'name': book.name, 'author': book.author, 'publisher': book.publisher,
-                        'good_num': book.good_num, 'text': book.text, 'src': book.src}
+                        'like_num': book.like_num, 'text': book.text, 'src':str(book.src)}
                 context.append(temp)
         return HttpResponse(json.dumps(context), content_type="application/json")
 
@@ -314,12 +339,19 @@ class search(View):
     def getDetails(request):
         # search = func.Search(1, 5)
         context = []
+        userid=request.user.id
         if request.GET.get("type") == "book":
             book = Books.objects.filter(id=request.GET.get("id"))
             if len(book):
                 book = book[0]
-                temp = {'id': book.id, 'name': book.name, 'author': book.author, 'publisher': book.publisher,
-                        'good_num': book.good_num, 'text': book.text, 'src': book.src}
+                if not userid:
+                    temp = {'id': book.id, 'name': book.name, 'author': book.author, 'publisher': book.publisher,
+                            'like_num': book.like_num, 'text': book.text, 'src':str(book.src),'collected':-1,'gooded':-1}
+                else:
+                    temp = {'id': book.id, 'name': book.name, 'author': book.author, 'publisher': book.publisher,
+                            'like_num': book.like_num, 'text': book.text, 'src': str(book.src),'collected':collect().checkCollected(type="book",userId=userid,objId=request.GET.get("id")),
+                            'gooded':comments().checkGood(userId=userid,objId=request.GET.get("id"))
+                            }
                 context.append(temp)
             else:
                 resp = {'rsNum': 0}
@@ -330,9 +362,15 @@ class search(View):
                 article = article[0]
                 article.click_num = article.click_num + 1
                 article.save()
-                temp = {'id': article.id, 'title': article.title, 'author': article.author.username,
-                        'pub_time': str(article.pub_time),
-                        'click_num': article.click_num, 'good_num': article.good_num, 'text': article.text, }
+                if not userid:
+                    temp = {'id': article.id, 'title': article.title, 'author': article.author.username,
+                            'pub_time': str(article.pub_time),
+                            'click_num': article.click_num, 'like_num': article.like_num, 'text': article.text,'collected':-1 }
+                else:
+                    temp = {'id': article.id, 'title': article.title, 'author': article.author.username,
+                            'pub_time': str(article.pub_time),
+                            'click_num': article.click_num, 'like_num': article.like_num, 'text': article.text,
+                            'collected': collect().checkCollected(type="article",userId=userid,objId=request.GET.get("id"))}
                 context.append(temp)
             else:
                 resp = {'rsNum': 0}
@@ -356,7 +394,7 @@ class userInfo(View):
                     user = Users.objects.get(email=text)
                     user.birthday = str(user.birthday)
                 info = {'birthday': user.birthday, 'gender': user.gender, 'address': user.address,
-                        'username': user.username}
+                        'username': user.username,"src":user.image}
                 context.append(info)
                 resp = {'rsNum': 1}
                 context.append(resp)
@@ -375,7 +413,7 @@ class userInfo(View):
             try:
                 user = Users.objects.get(id=id)
                 info = {'birthday': str(user.birthday), 'gender': user.gender, 'address': user.address,
-                        'username': user.username, 'email': user.email}
+                        'username': user.username, 'email': user.email,"src":str(user.image)}
                 context.append(info)
                 resp = {'rsNum': 1}
                 context.append(resp)
@@ -416,10 +454,10 @@ class userInfo(View):
                 image = request.FILES.get("image")
                 size = image.size
                 if size<=2048000:
-                    name=hashlib.md5((str(id)+str(size)+image.name+str(datetime.datetime.now())).encode('utf-8')).hexdigest()[8:-8]+".jpg"
-                    src = '%s%s' % (settings.MEDIA_ROOT, name)
+                    name=hashlib.md5((str(id)+str(size)+image.name+str(datetime.datetime.now(tz=timezone.utc))).encode('utf-8')).hexdigest()[8:-8]+".jpg"
+                    src = '%s\\headImage\\%s' % (settings.MEDIA_ROOT, name)
                     user=Users.objects.get(id=id)
-                    user.image="/image/"+name
+                    user.image="media/headImage/"+name
                     user.save()
                     with open(src,"wb") as f:
                         for fimg in image.chunks():
@@ -441,7 +479,7 @@ class userInfo(View):
             for temp in results:
                 book = Books.objects.get(id=temp.bookId_id)
                 temp = {'id': book.id, 'name': book.name, 'author': book.author, 'publisher': book.publisher,
-                        'good_num': book.good_num, 'text': book.text, 'src': book.src}
+                        'like_num': book.like_num, 'text': book.text, 'src':str(book.src)}
                 context.append(temp)
         except:
             resp = {'rsNum': 0}  # 未知错误
@@ -456,7 +494,7 @@ class userInfo(View):
             for article in results:
                 temp = {'id': article.id, 'title': article.title, 'author': article.author.username,
                         'pub_time': str(article.pub_time),
-                        'click_num': article.click_num, 'good_num': article.good_num, 'text': article.text, }
+                        'click_num': article.click_num, 'like_num': article.like_num, 'text': article.text, }
                 context.append(temp)
         except:
             resp = {'rsNum': 0}  # 未知错误
@@ -466,6 +504,13 @@ class userInfo(View):
 
 #基本完善
 class comments(View):
+    def checkGood(self,userId,objId):
+        result=models.GoodLink.objects.filter(userId_id=userId,bookId_id=objId)
+        if len(result):
+            return 1
+        else:
+            return 0
+
     # 获取指定id书或用户的评论
     def getComments(request):
         try:
@@ -476,12 +521,12 @@ class comments(View):
                 results = models.Comments.objects.filter(book_id=id)
                 for comment in results:
                     temp = {"id": comment.id, "pub_time": str(comment.pub_time), 'text': comment.text,
-                            'commenterId': comment.commenter_id.id, 'commenterName': comment.commenter_id.username}
+                            'commenterId': comment.commenter_id.id, 'commenterName': comment.commenter_id.username,"src":str(comment.commenter_id.image)}
                     context.append(temp)
             elif type == "user":
                 results = models.Comments.objects.filter(commenter_id=id)
                 for comment in results:
-                    temp = {"id": comment.id, "pug_time": str(comment.pub_time), 'text': comment.text, 'bookId': comment.book_id.id,
+                    temp = {"id": comment.id, "pub_time": str(comment.pub_time), 'text': comment.text, 'bookId': comment.book_id.id,
                             'bookName': comment.book_id.name}
                     context.append(temp)
         except:
@@ -498,7 +543,7 @@ class comments(View):
                 id = request.user.id
                 bookId = request.POST.get("bookId")
                 text = request.POST.get("text")
-                time = datetime.datetime.now()
+                time = datetime.datetime.now(tz=timezone.utc)
                 newInfo = models.Comments.objects.create(book_id_id=bookId,commenter_id_id=id,pub_time=time,text=text)
                 newInfo.save()
                 resp = {'rsNum': 1} # 成功
@@ -534,7 +579,7 @@ class comments(View):
                 results = models.GoodLink.objects.filter(bookId=id)
                 for comment in results:
                     temp = {"id": comment.id, "time": str(comment.Time),
-                            'userId': comment.userId.id, 'userName': comment.userId.username}
+                            'userId': comment.userId.id, 'userName': comment.userId.username,"src":str(comment.userId.image)}
                     context.append(temp)
             elif type == "user":
                 results = models.GoodLink.objects.filter(userId_id=id)
@@ -557,11 +602,12 @@ class comments(View):
             if len(info):
                 resp = {'rsNum': -1} # 已结点赞过
             else:
-                time = datetime.datetime.now()
+
+                time = datetime.datetime.now(tz=timezone.utc)
                 newInfo = models.GoodLink.objects.create(userId_id=id,bookId_id=bookId,Time=time)
                 newInfo.save()
                 book = Books.objects.get(id=bookId)
-                book.good_num = book.good_num + 1
+                book.like_num = book.like_num + 1
                 book.save()
                 resp = {'rsNum': 1}
         except:
@@ -589,6 +635,16 @@ class comments(View):
 
 #基本完善
 class collect(View):
+    def checkCollected(self,type,userId,objId):
+        if type=="book":
+            result=models.UserCollectionBooks.objects.filter(username_id=userId,book_id=objId)
+        elif type=="article":
+            result=models.UserCollectionArticles.objects.filter(username_id=userId,Articles_id=objId)
+        if len(result):
+            return 1
+        else:
+            return 0
+
     def getCollectedInfo(request):
         try:
             id=request.user.id
@@ -597,15 +653,15 @@ class collect(View):
             if type=="books":
                 results = models.UserCollectionBooks.objects.filter(username__id=id)
                 for collected in results:
-                    temp = {"id": collected.id, "name": collected.book.name, 'author': collected.book.author,'click_num': collected.book.click_num,
-                            'publisher': collected.book.publisher, 'good_num': collected.book.good_num,"text":collected.book.text,"src":collected.book.src}
+                    temp = {"id": collected.book.id, "name": collected.book.name, 'author': collected.book.author,'click_num': collected.book.click_num,
+                            'publisher': collected.book.publisher, 'like_num': collected.book.like_num,"text":collected.book.text,"src":str(collected.book.src)}
                     context.append(temp)
             elif type=="articles":
                 results = models.UserCollectionArticles.objects.filter(username__id=id)
                 for collected in results:
-                    temp = {"id": collected.id, "title": collected.Articles.title, 'author': collected.Articles.author.username,
+                    temp = {"id": collected.Articles.id, "title": collected.Articles.title, 'author': collected.Articles.author.username,
                             'pub_time': str(collected.Articles.pub_time), 'click_num': collected.Articles.click_num,
-                            "text": collected.Articles.text}
+                            "src":str(collected.Articles.author.image),"text": collected.Articles.text}
                     context.append(temp)
             else:
                 resp = {'rsNum': -1} #type 不对
@@ -647,18 +703,18 @@ class collect(View):
             id=request.user.id
             type=request.POST.get("type")
             objId=request.POST.get("id")
-            if type=="book":
-                oldInfo = models.UserCollectionBooks.objects.filter(username_id=id, book_id=objId)
+            if type=="books":
+                oldInfo = models.UserCollectionBooks.objects.filter(username=id, book=objId)
                 if len(oldInfo):
-                    info=models.UserCollectionBooks.objects.get(username__id=id,book_id=id)
+                    info=models.UserCollectionBooks.objects.get(username=id,book=objId)
                     info.delete()
                     resp = {'rsNum': 1}  # 成功
                 else:
                     resp = {'rsNum': -2}  # 没有收藏
-            elif type=="article":
-                oldInfo = models.UserCollectionArticles.objects.filter(username_id=id, Articles_id=objId)
+            elif type=="articles":
+                oldInfo = models.UserCollectionArticles.objects.filter(username=id, Articles=objId)
                 if len(oldInfo):
-                    info=models.UserCollectionArticles.objects.get(username__id=id,Articles__id=objId)
+                    info=models.UserCollectionArticles.objects.get(username=id,Articles=objId)
                     info.delete()
                     resp = {'rsNum': 1}  # 成功
                 else:

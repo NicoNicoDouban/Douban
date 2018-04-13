@@ -107,6 +107,7 @@
 	position: absolute;
     bottom: 130px;
     right: 2px;
+	cursor: pointer;
 }
 .pointview{
 	width: 312px;
@@ -222,6 +223,14 @@
 .two:hover{
 	height: 40px;
 	width: 40px;
+}
+.before{
+	height: 40px;
+	width: 70px;
+}
+.before:hover{
+	height: 40px;
+	width: 70px;
 }
 .last{
 	height: 40px;

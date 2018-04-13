@@ -7,6 +7,7 @@ from .emailVerify import *
 from Users.models import *
 from captcha.models import CaptchaStore
 from captcha.helpers import captcha_image_url
+from django.http import JsonResponse
 from django.contrib.auth.hashers import make_password,check_password
 from django.template import RequestContext
 from django.contrib.auth.password_validation import validate_password
@@ -14,6 +15,18 @@ from django.contrib.auth.password_validation import validate_password
 
 # Create your views here.
 
+
+def ajax_val(request):
+    if request.is_ajax():
+        cs = CaptchaStore.objects.filter(response=request.GET['response'], hashkey=request.GET['hashkey'])
+        if cs:
+            json_data = {'status': 1}
+        else:
+            json_data = {"status": 0}
+        return JsonResponse(json_data)
+    else:
+        json_data = {"status": 0}
+        return JsonResponse(json_data)
 
 def userVerify(request, code):
     exist = userActive.objects.get(activation_code=code, status='r')
@@ -29,137 +42,171 @@ def userVerify(request, code):
 @csrf_exempt
 def userRegister(request):
     if request.method == 'POST':
-        userform = RegistForm(request.POST)
-        if userform.is_valid():
-            email = request.POST['username']
-            password = request.POST['password']
-            verification = request.POST['verification']
-            button = request.POST['submit']
-            if button == 'send':
+        button = request.POST['submit']
+        email = request.POST['username']
+        password = request.POST['password']
+        verification = request.POST['verification']
+        if button == 'send':
+            userform = RegistFormS(request.POST)
+            if userform.is_valid():
                 isuser = Users.objects.filter(email=email)
                 if not isuser:
                     code = createCode()
+                    exist = userActive.objects.filter(email=email, status='r')
+                    if exist:
+                        userform.add_error('username', '验证码已发送，请去邮箱查看')
+                        return render_to_response('signin2.html',
+                                                  {'userform': userform,
+                                                   'username': email,
+                                                   'verification': verification, })
                     try:
                         send_email('豆瓣新用户', code, email)
-                    except:
+                    except BadHeaderError:
                         userform.add_error('username', '邮箱无效')  # 错误信息
-                        return render_to_response('Register.html', {'userform': userform})
-                    user = Users.objects.create(email=email, password=password, is_active=False)
+                        return render_to_response('signin2.html',
+                                                  {'userform': userform,
+                                                   'username': email,
+                                                   'verification': verification,})
+                    userActive.objects.create(email=email, activation_code=code, status='r')
+                    return render_to_response('signin2.html',
+                                              {'userform': userform,
+                                               'username': email,
+                                               'verification': verification,})  # 跳转到主页面
+                else:
+                    userform.add_error('username', '邮箱已被注册')  # 错误信息
+                    return render_to_response('signin2.html',
+                                              {'userform': userform,
+                                               'username': email,
+                                               'verification': verification,})
+            else:
+                return render_to_response('signin2.html',
+                                          {'userform': userform,
+                                           'username': email,
+                                           'verification': verification, })
+        elif button == 'regist':
+            userform = RegistFormR(request.POST)
+            if userform.is_valid():
+                exist = userActive.objects.filter(activation_code=verification, status='r')
+                if exist and email == exist[0].email:
+                    exist[0].delete()
+                    user = Users.objects.create(email=email, password=password)
                     user.set_password(password)
-                    userActive.objects.create(username=user, activation_code=code, status='r')
-                    context = {'username': email}
-                    return render_to_response('signin.html', {'userform': userform}, context)  # 跳转到主页面
+                    user.save()
+                    hashkey = CaptchaStore.generate_key()
+                    image_url = captcha_image_url(hashkey)
+                    return render_to_response('signin.html', {'userform': userform, 'username': email,
+                                                              'hashkey': hashkey,
+                                                              'image_url': image_url })
                 else:
-                    userform.add_error('username', '邮箱已被注册')  # 错误信息
-                    return render_to_response('Register.html', {'userform': userform})
-            elif button == 'regist':
-                exist = userActive.objects.get(activation_code=verification, status='r')
-                user = Users.objects.filter(email=email)
-                print(user.id)
-                print(exist.username_id)
-                if user:
-                    userform.add_error('username', '邮箱已被注册')  # 错误信息
-                    return render_to_response('Register.html', {'userform': userform})
-                else:
-                    if user.id == exist.username_id:
-                        user[0].is_active = True
-                        user[0].save()
-                        exist.delete()
-                        return HttpResponse('您已完成注册')
-                    else:
-                        return HttpResponse('注册失败')
-        else:
-            # 错误信息
-            return render_to_response('signin.html', {'userform': userform})
-    else:
-        userform = RegistForm()
-    return render_to_response('Register.html', {'userform': userform})
+                    userform.add_error('verification', '验证码未发送或验证码错误')
+                    return render_to_response('signin2.html',
+                                              {'userform': userform, 'username': email,
+                                               'verification': verification,})
+            else:
+                return render_to_response('signin2.html',
+                                          {'userform': userform,
+                                           'username': email,
+                                           'verification': verification,})
+    return render_to_response('signin2.html')
 
 
 @csrf_exempt
 def userLogin(request):
     if request.user.is_authenticated:
-        logout(request)
-        return render_to_response('signin.html',)
+        return render_to_response('signin.html',)  # 主页面
     else:
+        print(1)
+        hashkey = CaptchaStore.generate_key()
+        image_url = captcha_image_url(hashkey)
         if request.method == 'POST':
-            print('Step 2')
-            button = request.POST.get('submit')
-            if button == '欢迎回来':
-                username = request.POST['username']
-                password = request.POST['password']
-                print(username)
-                userform = LoginForm(request.POST)
-                if userform.is_valid():
-                    user = authenticate(request, email=username, password=password)
-                    if not user:
-                        # userform.add_error('username', '用户名或密码错误！')
-                        context = {'username': username}
-                        return render_to_response('signin.html', context)
-                    else:
-                        login(request, user)
-                        return HttpResponse('登陆成功')  # 跳转到主页面
+            print(2)
+            username = request.POST['username']
+            password = request.POST['password']
+            userform = LoginForm(request.POST)
+            if userform.is_valid():
+                print(3)
+                user = authenticate(request, email=username, password=password)
+                if not user:
+                    userform.add_error('username', '用户名或密码错误！')
+                    return render_to_response('signin.html', {'userform': userform, 'username': username,
+                                                              'hashkey': hashkey,
+                                                              'image_url': image_url})
                 else:
-                    return render_to_response('signin.html',)
-            elif button == '忘记密码':
-                return render_to_response('ForgetPwd.html')
-        # hashkey = CaptchaStore.generate_key()
-        # image_url = captcha_image_url(hashkey)
-        # context = {'hashkey': hashkey, 'image_url': image_url}
+                    login(request, user)
+                    return HttpResponse('登陆成功')  # 跳转到主页面
+            else:
+                return render_to_response('signin.html', {'userform': userform, 'username': username,
+                                                          'hashkey': hashkey,
+                                                          'image_url': image_url})
         userform = LoginForm()
-        print('Step 1')
-        # print(hashkey)
-        # print(image_url)
-        return render_to_response('signin.html', {'userform': userform})
+        return render_to_response('signin.html', {'userform': userform, 'hashkey': hashkey,
+                                                  'image_url': image_url})
+
 
 
 @csrf_exempt
 def forget_pwd(request):
     if request.method == 'POST':
         button = request.POST.get('submit')
-        print(button)
         email = request.POST['username']
+        verification = request.POST['verification']
+        new_pwd = request.POST.get('password')
         if button == 'send':
-            exist = Users.objects.filter(email=email)
-            if not exist:
-                form = ForgetForm(request.POST)
-                form.add_error('email', '邮箱不存在')  # error信息
-                print('邮箱不存在')
-                return render_to_response('signin.html', {'ForgetForm': form})
+            form = RegistFormS(request.POST)
+            if form.is_valid():
+                exist = Users.objects.filter(email=email)
+                if not exist:
+                    form.add_error('username', '邮箱不存在')  # error信息
+                    return render_to_response('signin3.html', {'userform': form, 'username': email,
+                                                               'verification': verification})
+                else:
+                    active = userActive.objects.filter(email=email, status='f')
+                    if active:
+                        form.add_error('username', '验证码已发送，请去邮箱查看')
+                        return render_to_response('signin3.html', {'userform': form, 'username': email,
+                                                                   'verification': verification, })
+                    code = saveCode(email, 'f')
+                    try:
+                        send_mail(
+                            '豆瓣（伪）',
+                            '亲爱的' + exist[0].username + ',您好！\n豆瓣已经收到了您的忘记密码请求。'
+                                                        '请复制以下验证码，完成修改密码\n' + code,
+                            '1549274402@qq.com',
+                            [email],
+                            fail_silently=False,
+                        )
+                    except BadHeaderError:
+                        return HttpResponse('Invalid header found')
+                    return render_to_response('signin3.html', {'userform': form,
+                                                               'username': email,
+                                                               'verification': verification})
             else:
-                code = saveCode(exist[0], 'f')
-                try:
-                    send_mail(
-                        '豆瓣（伪）',
-                        '亲爱的' + exist[0].username + ',您好！\n豆瓣已经收到了您的忘记密码请求。'
-                                                    '请复制以下验证码，完成修改密码\n'
-                                                    + code,
-                        '1549274402@qq.com',
-                        [email],
-                        fail_silently=False,
-                    )
-                except BadHeaderError:
-                    return HttpResponse('Invalid header found')
-                return HttpResponse('请去您的邮箱查看邮件')
+                return render_to_response('signin3.html', {'userform': form,
+                                                           'username': email, 'verification': verification})
         elif button == 'change':
-            verification = request.POST['verification']
-            flag = userActive.objects.filter(activation_code=verification, status='f', username__email__exact=email)
-            if flag:
-                new_pwd = request.POST.get('password')
-                form = ChangeForm(request.POST)
-                if form.is_valid():
+            form = RegistFormR(request.POST)
+            if form.is_valid():
+                flag = userActive.objects.filter(activation_code=verification, status='f', email=email)
+                if flag:
+                    flag[0].delete()
                     user = Users.objects.get(email=email)
                     user.set_password(new_pwd)
                     user.save()
-                    return HttpResponse('修改完成！')
+                    hashkey = CaptchaStore.generate_key()
+                    image_url = captcha_image_url(hashkey)
+                    return render_to_response('signin.html', {'userform': form, 'username': email,
+                                                              'hashkey': hashkey,
+                                                              'image_url': image_url})
                 else:
-                    return HttpResponse('验证码错误！')
+                    form.add_error('verification', '请确认验证码和邮箱是否正确')
+                    return render_to_response('signin3.html', {'userform': form,
+                                                               'username': email, 'verification': verification})
             else:
-                return HttpResponse('请确认验证码和邮箱是否正确！')
+                return render_to_response('signin3.html', {'userform': form,
+                                                           'username': email, 'verification': verification})
     else:
-        form = ForgetForm()
-    print('hello world')
-    return render_to_response('signin.html', {'ForgetForm': form})
+        form = RegistFormS()
+    return render_to_response('signin3.html', {'userform': form})
 
 
 @csrf_exempt

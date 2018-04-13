@@ -47,15 +47,17 @@
 {#                    <textarea name="text" placeholder="请在此处写上文章内容" class="kong" ></textarea>#}
 {#                    <textarea name="text" placeholder="请在此处写上文章内容" class="kong">#}
 {#                    </textarea>#}
-                     <script id="id_text" name="text"  style="display: inline-block;" type="text/plain">
-                     </script>
-                    <script type="text/javascript">
 
-                     var id_text = UE.getEditor('id_text',{'initialFrameWidth': 909, 'initialFrameHeight': 900, 'serverUrl': '/ueditor/controller/?imageMaxSize=120400&imagePathFormat=&filePathFormat='});
-                    id_text.ready(function(){
+                          <script id="id_text" name="text"  style="display: inline-block;" type="text/plain">
 
-                     });
-                    </script>
+                         </script>
+                        <script type="text/javascript">
+
+                            var id_text = UE.getEditor('id_text',{'initialFrameWidth': 909, 'initialFrameHeight': 900, 'serverUrl': '/ueditor/controller/?imageMaxSize=120400&imagePathFormat=media%2Fpictures%2F&filePathFormat=media%2Ffile%2F'});
+                             id_text.ready(function(){
+
+                             });
+                        </script>
                 </div>
 				<button type="submit" name="add_article" value="add_article" class="sp">发表</button>
 			</form>
@@ -138,7 +140,8 @@
 				<div class="page_turn4">
                 <form action="{% url 'DouBan_pages:my_publish' %}" method="get">
 					<button type="submit" name="first" value="first_page" class="button home fourth_home">首页</button>
-					<button type="submit" name="now" value="{{ index }}" class="button one fourth_one">{{ index }}</button>
+                    <button class="button before first_before" type="submit" name="before_page2" value="before_page2" >上一页</button>
+                    <button type="submit" name="now" value="{{ index }}" class="button one fourth_one">{{ index }}</button>
 					<button type="submit" name="next" value="{{ next_index }}" class="button two fourth_two">{{ next_index }}</button>
 					<button type="submit" name="next_page" value="{{ next_index }}" class="button next fourth_next">下一页</button>
 					<button type="submit" name="last_page" value="last" class="button last fourth_next">尾页</button>

@@ -8,6 +8,7 @@ import os
 import time
 import django.utils.timezone as timezone
 from Users.form import ArticleForm
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 # Create your views here.
 
 search = Search(1)
@@ -66,58 +67,44 @@ def home_page(request):
     return render(request, 'formal/shouye.html', context)
 
 
-def search_start(request):
-    return render(request, 'formal_before/search.html')
-
-
-def search_result_article(request):
-    search_type = request.GET.get('search_type', default=None)
-    search_text = request.GET.get('search_text', default=None)
-    index = request.GET.get('index')
-
-    if search_text == None:
-        search_text = ''
-    if search_type is None:
-        search_type = 'title'
-    if not search.article_searchinfo_safe_test(search_text, search_type):
-        return HttpResponseRedirect(reverse('home'))
-
-    context = search.article_search(search_text, search_type)
-    error = None
-
-    return render(request, 'formal_before/search_result_article.html', {"context": context, "error": error})
-
-
-def search_result_book(request):
-    search_type = request.GET.get('search_type')
-    search_text = request.GET.get('search_text')
-    index = request.GET.get('index')
-
-    if search_text is None:
-        search_text = ''
-    if search_type is None:
-        search_type = 'name'
-    if not search.book_searchinfo_safe_test(search_text, search_type):
-        return HttpResponseRedirect(reverse('home'))
-
-    context = search.book_search(search_text, search_type)
-    error = None
-
-    return render(request, 'formal_before/search_result_book.html', {"context": context, "error": error})
-
-
-def add_article(request):
-    return render(request, 'formal_before/add_article.html')
-
-
-def add_article_result(request):
-    text = request.POST.get('article')
-    context = {"text": text}
-    return render(request, 'formal_before/article_detail.html', context)
-
-
-def test(request):
-    return render(request, 'formal/fourtofour.html')
+# def search_start(request):
+#     return render(request, 'formal_before/search.html')
+#
+#
+# def search_result_article(request):
+#     search_type = request.GET.get('search_type', default=None)
+#     search_text = request.GET.get('search_text', default=None)
+#     index = request.GET.get('index')
+#
+#     if search_text == None:
+#         search_text = ''
+#     if search_type is None:
+#         search_type = 'title'
+#     if not search.article_searchinfo_safe_test(search_text, search_type):
+#         return HttpResponseRedirect(reverse('home'))
+#
+#     context = search.article_search(search_text, search_type)
+#     error = None
+#
+#     return render(request, 'formal_before/search_result_article.html', {"context": context, "error": error})
+#
+#
+# def search_result_book(request):
+#     search_type = request.GET.get('search_type')
+#     search_text = request.GET.get('search_text')
+#     index = request.GET.get('index')
+#
+#     if search_text is None:
+#         search_text = ''
+#     if search_type is None:
+#         search_type = 'name'
+#     if not search.book_searchinfo_safe_test(search_text, search_type):
+#         return HttpResponseRedirect(reverse('home'))
+#
+#     context = search.book_search(search_text, search_type)
+#     error = None
+#
+#     return render(request, 'formal_before/search_result_book.html', {"context": context, "error": error})
 
 
 def user_info(request, user_info_id):
@@ -138,8 +125,8 @@ def user_info(request, user_info_id):
             if not error['flag']:
                 user.save()
         else:
-            old_image_path = os.path.join(settings.BASE_DIR, user.image)
-            if os.path.exists(old_image_path) and user.image[-len('defalut_avatar.png'):] != 'defalut_avatar.png':
+            old_image_path = os.path.join(settings.BASE_DIR, str(user.image))
+            if os.path.exists(old_image_path) and str(user.image)[-len('defalut_avatar.png'):] != 'defalut_avatar.png':
                 os.remove(old_image_path)
             MEDIA_ROOT = os.path.join(settings.BASE_DIR, "media")
             picture = request.FILES['pic1']
@@ -297,14 +284,14 @@ def book_details(request, book_id):
             )
             good.save()
         if request.POST.get('like_or_not') == 'like':
-            good = GoodLink.objects.get(Q(userId=Users.objects.get(id=user_id))| Q(bookId=book))
+            good = GoodLink.objects.get(Q(userId=Users.objects.get(id=user_id))& Q(bookId=book))
             good.delete()
 
 
 
 
     # 判断是否收藏
-    like = GoodLink.objects.filter(Q(userId=context['user'].id) | Q(bookId=book.id))
+    like = GoodLink.objects.filter(Q(userId=user_id) & Q(bookId=book.id))
     if like.count() == 0:
         context['like'] = 0
         context['no_like'] = 1
@@ -317,13 +304,17 @@ def book_details(request, book_id):
 def article_detail(request, article_id):
     user_id = 2
     article = Articles.objects.get(id=article_id)
+    article.click_num += 1
+    article.save()
+    article = Articles.objects.get(id=article_id)
     user = Users.objects.get(id=user_id)
-    article_list = Articles.objects.filter(author=article.author)[0, 10]
+    article_list = Articles.objects.filter(author=article.author)
+    p = Paginator(article_list, 10)
     context = {
         'article': article,
         'user': user,
         'author': article.author,
-        'article_list': article_list,
+        'article_list': p.page(1),
     }
     return render(request, 'formal/textdetail.html', context)
 
@@ -336,11 +327,12 @@ def collection(request):
         "articles": articles[0: int(min(15, articles.count()))],
         "user": Users.objects.get(id=user_id),
     }
-    # 分页
+
     book_list = Books.objects.filter(goodlink__userId_id=user_id)
     for i in book_list:
         i.text = i.text[0:min(len(i.text), 10)] + '...'
     count = 1
+    # 分页
     if True:
         objects = articles
         page_items = 15
@@ -427,10 +419,6 @@ def book_list(request):
     return render(request, 'formal/booklist.html', context)
 
 
-def add_image_start(request):
-    return render(request, 'formal_before/add_image.html')
-
-
 def add_image(request):
     MEDIA_ROOT = os.path.join(settings.BASE_DIR, "media")
     if request.method == "POST":
@@ -455,9 +443,104 @@ def search_result(request):
         book_name = Books.objects.filter(name__contains=search_text)
 
         article_title = Articles.objects.filter(title__contains=search_text)
-        article_author = Articles.objects.filter(author__username=search_text)
+        article_author = Articles.objects.filter(author__username__contains=search_text)
         article_text = Articles.objects.filter(text__contains=search_text)
 
-        
+        # for i in article_text:
+        #     i.text = i.text[0: min(10, len(i.text))]
+        # for i in article_author:
+        #     i.text = i.text[0: min(10, len(i.text))]
+        # for i in article_title:
+        #     i.text = i.text[0: min(10, len(i.text))]
+
+        if True:
+            objects = book_name
+            page_items = 15
+            objects_num = objects.count()
+            all_index = int(objects_num / page_items) + 1
+            if objects_num % page_items == 0:
+                all_index -= 1
+            if objects_num == 0:
+                all_index += 1
+            index = 1
+            if not request.GET.get('first_page1') is None:
+                index = 1
+            if not request.GET.get('now1') is None:
+                index = int(request.GET.get('now1'))
+            if not request.GET.get('next1') is None:
+                index = int(request.GET.get('next1'))
+            if not request.GET.get('next_page1') is None:
+                index = int(request.GET.get('next_page1'))
+            if not request.GET.get('last_page1') is None:
+                index = int(all_index)
+
+            context['index1'] = index
+            context['all_index1'] = all_index
+            context['next_index1'] = str(min(index + 1, all_index))
+            context['next_index_21'] = str(min(index + 2, all_index))
+        if True:
+            objects = article_title
+            page_items = 8
+            objects_num = objects.count()
+            all_index = int(objects_num / page_items) + 1
+            if objects_num % page_items == 0:
+                all_index -= 1
+            if objects_num == 0:
+                all_index += 1
+            index = 1
+            if not request.GET.get('first_page2') is None:
+                index = 1
+            if not request.GET.get('now2') is None:
+                index = int(request.GET.get('now2'))
+            if not request.GET.get('next2') is None:
+                index = int(request.GET.get('next2'))
+            if not request.GET.get('next_page2') is None:
+                index = int(request.GET.get('next_page2'))
+            if not request.GET.get('last_page2') is None:
+                index = int(all_index)
+
+            context['index2'] = index
+            context['all_index2'] = all_index
+            context['next_index2'] = str(min(index + 1, all_index))
+            context['next_index_22'] = str(min(index + 2, all_index))
+
+        # 分页物件
+        index = context['index1']
+        try:
+            p = Paginator(book_author, 6)
+            context['book_author'] = p.page(int(index))
+        except (EmptyPage, PageNotAnInteger):
+            context['book_author'] = p.page(1)
+        # context['book_author'] = book_author[(index-1)*6, min((index-1)*6, book_author.count())]
+
+        index = context['index1']
+        try:
+            p = Paginator(book_name, 6)
+            context['book_name'] = p.page(int(index))
+        except (EmptyPage, PageNotAnInteger):
+            context['book_name'] = p.page(1)
+        # context['book_name'] = book_name[(index - 1) * 6, min((index - 1) * 6, book_name.count())]
+        index = context['index2']
+        try:
+            p = Paginator(article_author, 5)
+            context['article_author'] = p.page(int(index))
+        except (EmptyPage, PageNotAnInteger):
+            context['article_author'] = p.page(1)
+        # context['article_author'] = article_author[(index - 1) * 6, min((index - 1) * 6, article_author.count())]
+        index = context['index2']
+        try:
+            p = Paginator(article_title, 5)
+            context['article_title'] = p.page(int(index))
+        except (EmptyPage, PageNotAnInteger):
+            context['article_title'] = p.page(1)
+        # context['article_author'] = article_title[(index - 1) * 6, min((index - 1) * 6, article_title.count())]
+        index = context['index2']
+        try:
+            p = Paginator(article_text, 5)
+            context['article_text'] = p.page(int(index))
+        except (EmptyPage, PageNotAnInteger):
+            context['article_text'] = p.page(1)
+        # context['article_author'] = article_text[(index - 1) * 6, min((index - 1) * 6, article_text.count())]
+
     return render(request, 'formal/search.html', context)
 

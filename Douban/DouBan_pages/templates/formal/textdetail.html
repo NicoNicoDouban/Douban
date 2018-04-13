@@ -38,6 +38,8 @@
 						<a href="{% url 'DouBan_pages:user_info' author.id %}"><img src="/{{ author.image }}" class="user_img"></a>
 						<span class="user_name">{{ author.username }}</span>
 						<span class="date">{{ article.pub_time|date:'Y-m-d' }}</span>
+                        <img src="{% static 'Douban_pages/imgs/like.png' %}" class="love">
+                        <img src="{% static 'Douban_pages/imgs/like1.png' %}" class="love1">
 					</div>
 					<div class="left_text">
 						<p>{{ article.text|safe }}

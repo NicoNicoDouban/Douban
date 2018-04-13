@@ -98,6 +98,7 @@ a{
 	font-size: 20px;
 	background-color: transparent;
 	color: white;
+	text-align: center;
 }
 .white{
 	position: absolute;
@@ -137,7 +138,8 @@ a{
 	box-shadow:5px 0px 9px rgba(0,0,0,0.28);
 }
 .no_text{
-	float: right;
+
+	margin: auto;
 	box-shadow:5px 0px 9px rgba(0,0,0,0.28);
 	padding-top: 1px;
 	position: relative;
@@ -245,6 +247,14 @@ a{
 .two{
 	height: 40px;
 	width: 40px;
+}
+.before{
+	height: 40px;
+	width: 70px;
+}
+.before:hover{
+	height: 40px;
+	width: 70px;
 }
 .one:hover{
 	height: 40px;

@@ -77,7 +77,8 @@
                 {% endfor %}
 				<div class="page_turn2">
 					<button type="submit" name="first_page1" value="first_page" class="button home second_home">首页</button>
-					<button type="submit" name="now1" value="{{ index1 }}" class="button one second_one">{{ index1 }}</button>
+                    <button class="button before first_before" type="submit" name="before_page2" value="before_page2" >上一页</button>
+                    <button type="submit" name="now1" value="{{ index1 }}" class="button one second_one">{{ index1 }}</button>
 					<button type="submit" name="next_index1" value="{{ next_index1 }}" class="button two second_two">{{ next_index1 }}</button>
 					<button type="submit" name="next_page1" value="next_page1" class="button next second_next">下一页</button>
                     <button type="submit" name="last_page1" value="last_page1" class="button last first_last">尾页</button>
@@ -156,7 +157,8 @@
                     {% endif %}
 				<div class="page_turn3">
 					<button type="submit" name="first_page2" value="first_page2" class="button home third_home">首页</button>
-					<button type="submit" name="now2" value="{{ index2 }}" class="button one third_one">{{ index2 }}</button>
+                    <button class="button before first_before" type="submit" name="before_page2" value="before_page2" >上一页</button>
+                    <button type="submit" name="now2" value="{{ index2 }}" class="button one third_one">{{ index2 }}</button>
 					<button type="submit" name="next_index2" value="{{ next_index2 }}" class="button two third_two">{{ next_index2 }}</button>
 					<button type="submit" name="next_page2" value="next_page2" class="button next third_next">下一页</button>
 					<button type="submit" name="last_page2" value="last_page2" class="button last third_next">尾页</button>

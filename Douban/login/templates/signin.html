@@ -1,9 +1,9 @@
 <!DOCTYPE html>
+<meta charset="utf-8" />
 <html>
 {% load static %}
 <head>
 	<title></title>
-	<meta charset="utf-8" />
 	<link rel="stylesheet" type="text/css" href="{% static 'Douban_pages/css/d.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'Douban_pages/css/signin.css' %}">
 </head>
@@ -13,67 +13,37 @@
 			<img src="{% static 'Douban_pages/imgs/logo2.png' %}" class="douban">
 			<div class="form">
 				<div class="selete">
-					<div class="register in">用户登录</div>
-					<div class="register loginin">新用户注册</div>
+					<a><div class="register in">用户登录</div></a>
+					<a href="{% url 'regist' %}"><div class="register loginin">新用户注册</div></a>
 				</div>
-				<div class="main1">
-                        <form action="{% url "login" %}" method="post">
-					<div class="input_div">
-						<span class="username_span">用户名</span>
-						<input type="text" name="username" class="username main1_input" placeholder="请输入正确的邮箱地址">
-					</div>
-					<div class="input_div">
-						<span class="password_span">密码</span>
-						<input type="text" name="password" class="password main1_input" placeholder="请输入密码">
-					</div>
-					<div class="input_div">
-						<span class="checkword_span">验证码</span>
-						<input type="text" name="" class="checkword main1_input">
-						<img src="{% static 'Douban_pages/imgs/dd141.jpg' %}" class="checkimg">
-					</div>
-					<button class="button wel">欢迎回来</button>
-					<a class="forget" style="text-decoration: none;">忘记密码？</a>
-                        </form>
-				</div>
-				<div class="main2">
-                    <form action="{% url "regist" %}" method="post">
-					<div class="input_div">
 
-						<span class="username_span">用户名</span>
-						<input type="text" name="email" class="username main1_input" placeholder="请输入正确的邮箱地址">
-					</div>
+				<div class="main1">
+                    <form action="{% url 'login' %}" method="post">
 					<div class="input_div">
-						<span class="checkword_span">验证码</span>
-						<input type="" name="password" class="checkword main2_input" placeholder="请输入验证码">
-						<a href="" class="send">发送验证码</a>
+						<span class="username_span">邮箱</span>
+						<input type="text" name="username" class="username main1_input" placeholder="请输入正确的邮箱地址" required id="id_username" value="{{ username }}">
+                        <div class="wrong">{{ userform.username.errors }}</div>
 					</div>
 					<div class="input_div">
 						<span class="password_span">密码</span>
-						<input type="" name="password" class="password main1_input" placeholder="请输入密码">
+						<input type="password" name="password" class="password main1_input" placeholder="请输入密码" required id="id_password">
+                        <div class="wrong">{{ userform.password.errors }}</div>
 					</div>
-					
-					<button class="button back">欢迎注册</button>
+					<div class="input_div">
+						<span class="checkword_span">验证码</span>
+						<input type="text" autocomplete="off" id="id_captcha_1" name="captcha_1" class="checkword main1_input" required="">
+						<img src="{{ image_url }}" class="checkimg captcha" alt="captcha" id="captcha">
+                        <input id="id_captcha_0" name="captcha_0" type="hidden" value="{{ hashkey }}"> 
+                        <div class="wrong"><input id="id_captcha_status" type="hidden"></div> 
+					</div>
+
+					<button type="submit" class="button wel" name="submit" value="login">欢迎回来</button>
+					<a class="forget" style="text-decoration: none;" href="{% url 'forget' %}">忘记密码？</a>
                     </form>
 				</div>
-				<div class="main3">
-					<div class="input_div">
-						<span class="username_span">用户名</span>
-						<input type="" name="" class="username main1_input" placeholder="请输入正确的邮箱地址">
-					</div>
-					<div class="input_div">
-						<span class="checkword_span">验证码</span>
-						<input type="" name="" class="checkword main2_input" placeholder="请输入验证码">
-						<a href="" class="send">发送验证码</a>
-					</div>
-					<div class="input_div">
-						<span class="password_span">新密码</span>
-						<input type="" name="" class="password main1_input" placeholder="请输入密码">
-					</div>					
-					<button class="button back">欢迎注册</button>
-				</div>
-			</d>
+			</div>
 		</div>
-		
+
 	</div>
 	<script type="text/javascript" src="{% static 'Douban_pages/js/jquery-3.3.1.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'Douban_pages/js/signin.js' %}"></script>

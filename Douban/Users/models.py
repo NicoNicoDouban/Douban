@@ -70,14 +70,14 @@ class Users(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
     USERNAME_FIELD = 'email'  # 认证标识
     REQUIRED_FIELDS = ["username"]
-    username=models.CharField(max_length=20,verbose_name=u"昵称",default="user",null=True, unique=False)
+    username = models.CharField(max_length=20,verbose_name=u"昵称",default="user",null=True, unique=False)
     email = models.EmailField(verbose_name=u"邮箱",default="",null=False,unique=True)
     birthday = models.DateField(verbose_name=u"生日",default="2000-01-01")
     gender = models.CharField(max_length=1, verbose_name=u"性别",default="S", choices=Gender_Choice)
     follow_num = models.IntegerField(verbose_name=u"被关注数",default=0)
     pub_time = models.DateTimeField(verbose_name=u"注册时间",default=datetime.now)
     address = models.CharField(max_length=100,verbose_name=u"用户地址", default=u"保密")
-    image = models.ImageField(verbose_name=u"用户头像", default='media/pictures/defalut_avatar.png', max_length=100,
+    image = models.ImageField(verbose_name=u"用户头像", default='media/default/default_avatar.png', max_length=100,
                               upload_to='media/pictures/')
     signature = models.CharField(verbose_name=u"个性签名", default=u"这个人很懒什么都没写", max_length=50)
     is_staff = models.BooleanField(
@@ -201,7 +201,7 @@ class FollowLink(models.Model):
 
 
 class userActive(models.Model):
-    username = models.ForeignKey(Users, on_delete=models.CASCADE, verbose_name=u"用户")
+    email = models.EmailField(verbose_name=u"用户")
     activation_code = models.CharField(max_length=30, verbose_name=u"激活码")
     status = models.CharField(max_length=1, default='r', verbose_name=u"状态")
 

@@ -35,11 +35,12 @@
 			{% endif %}
             <img src="{% static 'Douban_pages/imgs/phone.png' %}" class="phone">
 			<div class="head_search_div">
-                <form action="{% url 'DouBan_pages:search' %}" method="get">
+                <form name="formtest" action="{% url 'DouBan_pages:search' %}" method="get">
                     <input type="hidden" name="search_type" value="title">
                     <input type="hidden" name="is_book" value="book">
 				<input type="text" name="search_text" class="head_search" placeholder="请输入关键字">
-                <button type="submit"><img src="{% static 'Douban_pages/imgs/search.png' %}" class="search_img"></button>
+                    <img src="{% static 'Douban_pages/imgs/search.png' %}" class="search_img" onclick="document.formtest.submit()">
+{#                <button type="submit"><img src="{% static 'Douban_pages/imgs/search.png' %}" class="search_img"></button>#}
                 </form>
 			</div>
 			<div class="pop_window">

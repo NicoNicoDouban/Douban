@@ -143,6 +143,10 @@ a{
 	position: absolute;
 	top:80px;
 	left: 80px;
+	width: 100px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 .date{
 	font-size: 16px;
@@ -150,6 +154,11 @@ a{
 	position: absolute;
 	left: 182px;
 	top: 82px;
+}
+.love,.love1{
+	position: absolute;
+	left: 300px;
+	top: 80px;
 }
 .right_head{
 	height: 93px;
