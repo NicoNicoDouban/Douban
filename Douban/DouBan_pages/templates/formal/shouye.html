@@ -27,11 +27,11 @@
                 <a class="navi LOGIN" style="margin-right: 0px;text-decoration:none;" href="{% url "logout" %}">LOGOUT</a>
                 {% endif %}
                 {% if no_login %}
-				<a class="navi LOGIN" style="margin-right: 0px;text-decoration:none;" href="{% url "login" %}">LOGIN</a>
+				<a class="navi LOGIN" style="margin-right: 0px;text-decoration:none;" href="{% url 'login' %}">LOGIN</a>
                 {% endif %}
 			</ul>
             {% if login %}
-            <a href="{% url 'DouBan_pages:user_info' user_id %}"><img src="{{ user_image }}" class="change"></a>
+            <a href="{% url 'DouBan_pages:user_info' user_id %}"><img src="/{{ user_image }}" class="change"></a>
 			{% endif %}
             <img src="{% static 'Douban_pages/imgs/phone.png' %}" class="phone">
 			<div class="head_search_div">
@@ -168,7 +168,6 @@
 					<div class="book_intros">{{ book7.text }}</div>
 					<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 				</a>
-				<a class="book second_line" href="
 				{% if book8.id == 0 %}
                     <a class="book second_line" href="{% url 'home' %}">
 				{% else %}

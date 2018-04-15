@@ -38,8 +38,22 @@
 						<a href="{% url 'DouBan_pages:user_info' author.id %}"><img src="/{{ author.image }}" class="user_img"></a>
 						<span class="user_name">{{ author.username }}</span>
 						<span class="date">{{ article.pub_time|date:'Y-m-d' }}</span>
-                        <img src="{% static 'Douban_pages/imgs/like.png' %}" class="love">
-                        <img src="{% static 'Douban_pages/imgs/like1.png' %}" class="love1">
+                        <form name="formtest" action="{% url 'DouBan_pages:article_detail' article.id %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" value="like" name="like">
+
+{#				<a href="#"><img src="{% static 'Douban_pages/imgs/share.png' %}" class="share"></a>#}
+                            {% if no_like %}
+                                <input type="hidden" name="like_or_not" value="no_like">
+                                <img src="{% static 'Douban_pages/imgs/like.png' %}" class="love" onclick="document.formtest.submit()">
+                            {% endif %}
+                            {% if like %}
+                                <input type="hidden" name="like_or_not" value="like">
+                                <img src="{% static 'Douban_pages/imgs/like1.png' %}" class="love1" onclick="document.formtest.submit()">
+                            {% endif %}
+                        </form>
+{#                        <img src="{% static 'Douban_pages/imgs/like.png' %}" class="love">#}
+{#                        <img src="{% static 'Douban_pages/imgs/like1.png' %}" class="love1">#}
 					</div>
 					<div class="left_text">
 						<p>{{ article.text|safe }}
@@ -89,9 +103,9 @@
 		</div>
 		{% include 'base/footer.html' %}
 	<script src="http://www.jq22.com/jquery/1.9.1/jquery.min.js"></script>
-	
+
 	<script type="text/javascript" src="{% static "Douban_pages/js/jquery.mCustomScrollbar.concat.min.js" %}"></script>
-	<script type="text/javascript" src="{% static "Douban_pages/js/booklist.js" %}"></script>
+	<script type="text/javascript" src="{% static "Douban_pages/js/textdetail.js" %}"></script>
 	<script>
 
 		(function($){

@@ -11,6 +11,9 @@
 </head>
 <body>
 	<div class="container">
+        {% if error %}
+        <div class="wrong_message">{{ error }}</div>
+        {% endif %}
 		<div class="head">
 		    <div class="center">
 		    	<img src="{% static 'Douban_pages/imgs/logo.png' %}" class="douban_logo">
@@ -26,7 +29,7 @@
 	    <div class="background">
 	    	<div class="user">
 	    		<h1 class="name">{{ username }}的个人主页</h1>
-	    		<img src="{{ image }}" class="portrait">
+	    		<img src="/{{ image }}" class="portrait">
 	    		<input type="" name="" value="{{ signature }}" class="sign" style="text-align: center" readonly="readonly">
 	    		<img src="{% static 'Douban_pages/imgs/white.png' %}" class="white white1">
 	    	</div>
@@ -37,11 +40,16 @@
 				<h2>我发表过的文章</h2>
 			</div>
 			<div class="add">
-				<img src="{% static 'Douban_pages/imgs/gugi.png' %}" class="add_img">
+                <form name="formtest" action="{% url 'DouBan_pages:my_publish' %}" method="get">
+                    <input hidden name="edit" value="edit" >
+				<img src="{% static 'Douban_pages/imgs/gugi.png' %}" class="add_img" onclick="document.formtest.submit()">
 				<span class="add_text">(添加文章)</span>
+                </form>
 			</div>
+            {% if edit_judge %}
 			<form class="form" action="{% url "DouBan_pages:my_publish" %}" method="post">
-                标题：<input type="text" name="title">
+            <input name="edit_id" type="hidden" value="{{ edit_id }}">
+                标题：<input type="text" name="title" value="{{ title }}">
 				<div class="kong">
                  {% csrf_token %}
 {#                    <textarea name="text" placeholder="请在此处写上文章内容" class="kong" ></textarea>#}
@@ -55,12 +63,13 @@
 
                             var id_text = UE.getEditor('id_text',{'initialFrameWidth': 909, 'initialFrameHeight': 900, 'serverUrl': '/ueditor/controller/?imageMaxSize=120400&imagePathFormat=media%2Fpictures%2F&filePathFormat=media%2Ffile%2F'});
                              id_text.ready(function(){
-
+                                    id_text.setContent('{{ text|safe }}')
                              });
                         </script>
                 </div>
 				<button type="submit" name="add_article" value="add_article" class="sp">发表</button>
 			</form>
+            {% else %}
 			<div class="article">
                 {% if p1 %}
 				<div class="article_one article_div">
@@ -76,9 +85,11 @@
 						<button class="cancle">取消</button>
                         </form>
 					</div>
-                    <form action="{% url "DouBan_pages:my_publish" %}">
 					<button class="delete2">删除</button>
-					<button type="submit" name="edit" value="edit" class="edit">编辑</button>
+					<form action="{% url 'DouBan_pages:my_publish' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="article_id" value="{{ p1.id }}">
+					<button type="submit" name="edit" value="{{ p1.id }}" class="edit">编辑</button>
                     </form>
 				</div>
                 {% endif %}
@@ -97,7 +108,11 @@
                         </form>
 					</div>
 					<button class="delete2">删除</button>
-					<button class="edit">编辑</button>
+					<form action="{% url 'DouBan_pages:my_publish' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="article_id" value="{{ p2.id }}">
+					<button type="submit" name="edit" value="{{ p2.id }}" class="edit">编辑</button>
+                    </form>
 				</div>
                 {% endif %}
                 {% if p3 %}
@@ -115,7 +130,11 @@
                         </form>
 					</div>
 					<button class="delete2">删除</button>
-					<button class="edit">编辑</button>
+					<form action="{% url 'DouBan_pages:my_publish' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="article_id" value="{{ p3.id }}">
+					<button type="submit" name="edit" value="{{ p3.id }}" class="edit">编辑</button>
+                    </form>
 				</div>
                 {% endif %}
                 {% if p4 %}
@@ -133,8 +152,11 @@
                         </form>
 					</div>
 					<button class="delete2">删除</button>
-					<button class="edit">编辑</button>
-
+                    <form action="{% url 'DouBan_pages:my_publish' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="article_id" value="{{ p4.id }}">
+					<button type="submit" name="edit" value="{{ p4.id }}" class="edit">编辑</button>
+                    </form>
 				</div>
                 {% endif %}
 				<div class="page_turn4">
@@ -148,6 +170,7 @@
                 </form>
 				</div>
 			</div>
+        {% endif %}
 	    </div>
 	</div>
 	{% include 'base/footer.html' %}

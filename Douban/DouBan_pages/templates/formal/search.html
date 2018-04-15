@@ -17,7 +17,12 @@
 				<a class="navi HOME" style="text-decoration: none;" href="{% url 'home' %}">HOME</a>
 				<a class="navi BOOK" style="text-decoration: none;" href="{% url 'DouBan_pages:book_list' %}">BOOK</a>
 				<a class="navi ARTICLE" style="text-decoration: none;" href="{% url 'DouBan_pages:search' %}">ARTICLE</a>
-				<a class="navi LOGIN" style="margin-right: 0px;text-decoration: none;" href="{% url 'logout' %}">LOGIN</a>
+				{% if login %}
+                <a class="navi LOGIN" style="margin-right: 0px;text-decoration:none;" href="{% url "logout" %}">LOGOUT</a>
+                {% endif %}
+                {% if no_login %}
+				<a class="navi LOGIN" style="margin-right: 0px;text-decoration:none;" href="{% url 'login' %}">LOGIN</a>
+                {% endif %}
 			</ul>
 			<div class="head_search_div">
                 <form name="formtest" action="{% url 'DouBan_pages:search' %}" method="get">

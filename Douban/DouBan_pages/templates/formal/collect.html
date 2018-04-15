@@ -8,8 +8,6 @@
 	<link rel="stylesheet" type="text/css" href="{% static "Douban_pages/css/collect.css" %}">
 </head>
 <body>
-<form action="{% url "DouBan_pages:collection" %}" method="post">
-{% csrf_token %}
 	<div class="container">
 		<div class="head">
 		    <div class="center">
@@ -69,19 +67,31 @@
 				</div>
 			</div>-->
 			<div class="text no_text">
+
+                    {% csrf_token %}
                 {% for i in articles %}
 				<div class="text_div first" style="margin-top: 20px;">
-					<a><h3 class="subject">{{ i.title }}</h3></a>
-					<input type="submit" name="delete" src="{% static "Douban_pages/imgs/shan.png" %}" class="delete">
-				</div>
+
+                <form name="formtest0" action="{% url 'DouBan_pages:article_detail' i.id %}">
+					<a><h3 class="subject" onclick="document.formtest0.submit()">{{ i.title }}</h3></a>
+                </form>
+                    <form name="formtest" action="{% url "DouBan_pages:collection" %}" method="get">
+                        <input type="hidden" name="delete" value="{{ i.id }}" >
+                        <img src="{% static "Douban_pages/imgs/shan.png" %}" class="delete" onclick="document.formtest.submit()">
+				    </form>
+                </div>
                 {% endfor %}
+
 				<div class="page_turn2">
+                    <form action="{% url "DouBan_pages:collection" %}" method="get">
+                    {% csrf_token %}
 					<button type="submit" name="first_page1" value="first_page" class="button home second_home">首页</button>
-                    <button class="button before first_before" type="submit" name="before_page2" value="before_page2" >上一页</button>
+                    <button class="button before first_before" type="submit" name="before_page1" value="before_page1" >上一页</button>
                     <button type="submit" name="now1" value="{{ index1 }}" class="button one second_one">{{ index1 }}</button>
 					<button type="submit" name="next_index1" value="{{ next_index1 }}" class="button two second_two">{{ next_index1 }}</button>
 					<button type="submit" name="next_page1" value="next_page1" class="button next second_next">下一页</button>
                     <button type="submit" name="last_page1" value="last_page1" class="button last first_last">尾页</button>
+                    </form>
                 </div>
 			</div>
 			</div>
@@ -155,6 +165,8 @@
 					<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 				</a>
                     {% endif %}
+                <form action="{% url "DouBan_pages:collection" %}" method="get">
+                    {% csrf_token %}
 				<div class="page_turn3">
 					<button type="submit" name="first_page2" value="first_page2" class="button home third_home">首页</button>
                     <button class="button before first_before" type="submit" name="before_page2" value="before_page2" >上一页</button>
@@ -163,6 +175,7 @@
 					<button type="submit" name="next_page2" value="next_page2" class="button next third_next">下一页</button>
 					<button type="submit" name="last_page2" value="last_page2" class="button last third_next">尾页</button>
 				</div>
+                </form>
 				</div>
 			</div>		
 	    </div>
@@ -170,6 +183,5 @@
 	</div>
 	<script type="text/javascript" src="{% static "Douban_pages/js/jquery-3.3.1.min.js" %}"></script>
 	<script type="text/javascript" src="{% static "Douban_pages/js/collect.js" %}"></script>
-</form>
 </body>
 </html>

@@ -22,10 +22,10 @@ $(".cancle").click(function(){
 	$(this).parent().css("display","none");
 })
 
-$(".add").click(function(){
-	$(".article").css("display","none");
-	$(".form").css("display","block");
-})
+// $(".add").click(function(){
+// 	$(".article").css("display","none");
+// 	$(".form").css("display","block");
+// })
 $(".edit").click(function(){
 	$(".article").css("display","none");
 	$(".form").css("display","block");

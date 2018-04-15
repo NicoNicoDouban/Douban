@@ -9,25 +9,49 @@
 </head>
 <body>
 	<div class="container">
+    {% if error %}
+    <div class="wrong_message">{{ error }}</div>
+    {% endif %}
 		<div class="head">
 		    <div class="center">
 		    	<img src="{% static 'Douban_pages/imgs/logo.png' %}" class="douban_logo">
 		    	<ul class="head_list">
+                    <div class="pop">
+                    <img src="{% static 'Douban_pages/imgs/triangle_lef.png' %}" class="tri">
+                        {% if user_info_query.id == user.id %}
+                        <div class="block">
+                        <form action="{% url 'DouBan_pages:user_info' user_info_query.id %}" method="post" enctype="multipart/form-data" class="lookup">
+                            {% csrf_token %}
+                            <input type="file" id="btn_file" name="pic1" value="浏览" class="emm"/>
+                            <input type="submit" value="确定" class="buu"/>
+                        </form>
+                        </div>
+                        {% endif %}
+                    </div>
 		    		<a class="navi HOME" style="text-decoration: none;" href="{% url 'home' %}">HOME</a>
 		    		<a class="navi WAITING" style="text-decoration: none;" href="{% url "DouBan_pages:my_publish" %}">WRITING</a>
 		    		<a class="navi INFORMATION" style="text-decoration: none;" herf="{% url "DouBan_pages:user_info" user_info_query.id %}">INFORMATION</a>
 		    		<a class="navi COLLECTION" style="text-decoration: none;" href="{% url "DouBan_pages:collection" %}">COLLECTION</a>
-		    		<a class="navi LOGOUT" style="margin-right: 0px;text-decoration: none;" href="{% url 'logout' %}">LOGOUT</a>
+		    		{% if user_info_query.id == user.id %}
+                    <a class="navi LOGIN" style="margin-right: 0px;text-decoration:none;" href="{% url "logout" %}">LOGOUT</a>
+                    {% else %}
+                    <a class="navi LOGIN" style="margin-right: 0px;text-decoration:none;" href="{% url 'login' %}">LOGIN</a>
+                    {% endif %}
 		    	</ul>
 		    </div>
 	    </div>
 
+
+        <form name="form1" id="form1" action="{% url 'DouBan_pages:user_info'  user_info_query.id %}" method="post">
 	    <div class="background">
 	    	<div class="user">
 	    		<h1 class="name">{{ username }}的个人主页</h1>
                 <img src="/{{ image }}" class="portrait">
-                <input type="text" name="signature" value="{{ signature }}" class="sign" style="text-align: center;" readonly="readonly" align="center">
-{#                <form action="{% url 'DouBan_pages:user_info' user_info_query.id %}" method="post" enctype="multipart/form-data">#}
+
+
+                <input type="text" name="signature" value="{{ signature }}" maxlength="20" class="sign" style="text-align: center;" readonly="readonly" align="center">
+
+                    {#                <form action="{% url 'DouBan_pages:user_info' user_info_query.id %}" method="post" enctype="multipart/form-data">#}
 {#                        {% csrf_token %}#}
 {#                    {% if is_user_self %}#}
 {#                    <input type="file" id="btn_file" name="pic1" />#}
@@ -37,21 +61,14 @@
 {#                    {% endif %}#}
                     <br/>
 	    		<img src="{% static 'Douban_pages/imgs/white.png' %}" class="white white1">
-                <div class="pop">
-	    			<img src="{% static 'Douban_pages/imgs/triangle_lef.png' %}" class="tri">
-	    			<div class="block">
-                        <form action="{% url 'DouBan_pages:user_info' user_info_query.id %}" method="post" enctype="multipart/form-data">
-                            {% csrf_token %}
-                            <input type="file" id="btn_file" name="pic1" value="浏览" class="emm"/>
-	    				    <input type="submit" value="确定" class="buu"/>
-                        </form>
-	    			</div>
-	    		</div>
+                {% if user_info_query.id == user.id %}
+
+                {% endif %}
 	    	</div>
 	    </div>
 	    <div class="main">
 	    	<div class="center">
-              <form name="formtest1" action="{% url 'DouBan_pages:user_info' user_info_query.id %}" method="post">
+{#              <form name="form2" id="form2" action="{% url 'DouBan_pages:user_info' user_info_query.id %}" method="post">#}
 {#            <form id="formtest" action="{% url 'home' %}" method="post">#}
             {% csrf_token %}
               <input type="hidden" name="type" value="info">
@@ -62,26 +79,27 @@
 				<div class="message">
 					<div class="name_div div" style="margin-top: 0px;">
 						<img src="{% static 'Douban_pages/imgs/gigu.png' %}">
-						<input type="text" name="username" class="input name_input" value="{{ username }}" readonly="readonly">
+						<input type="text" name="username" class="input name_input" maxlength="10" value="{{ username }}" readonly="readonly">
 						<img src="{% static 'Douban_pages/imgs/white.png' %}" class="white white2">
 					</div>
 					<div class="gender_div div">
 						<img src="{% static 'Douban_pages/imgs/fugo.png' %}">
-						<input type="text" name="gender" class="input gender_input" value="{{ gender }}" readonly="readonly">
+						<input name="gender" class="input gender_input"  value="{{ gender }}" readonly="readonly">
 						<img src="{% static 'Douban_pages/imgs/white.png' %}" class="white white3">
 					</div>
 					<div class="date_div div" >
 						<img src="{% static 'Douban_pages/imgs/ioi.png' %}">
-						<input type="text" name="birthday" class="input date_input" value="{{ birthday|date:"Y-m-d" }}" readonly="readonly">
+						<input type="text" name="birthday" class="input date_input" maxlength="10" value="{{ birthday|date:"Y-m-d" }}" readonly="readonly">
 						<img src="{% static 'Douban_pages/imgs/white.png' %}" class="white white4">
-                        {% if is_user_self %}
-                        <button class="save">保存</button>
+                        {% if user_info_query.id == user.id %}
+                            <button  class="save" onclick="document.form1.submit();document.form2.submit()">保存</button>
                         {% endif %}
 					</div>
 				</div>
-                </form>
+
             </div>
 	    </div>
+        </form>
 
 
 	</div>
@@ -92,5 +110,6 @@
     <script type="text/javascript">
         //document.formtest1.submit();
     </script>
+
 </body>
 </html>

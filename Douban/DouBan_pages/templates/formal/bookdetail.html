@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 {% load static %}
 <html>
 <head>
@@ -40,8 +39,9 @@
                         <input type="hidden" name="like_or_not" value="like">
                         <img src="{% static 'Douban_pages/imgs/like1.png' %}" class="like" onclick="document.formtest.submit()">
                     {% endif %}
-                <a href="#"><div class="pointview">我来发表评论</div></a>
                 </form>
+                <a href="#"><div class="pointview">我来发表评论</div></a>
+
 			</div>
 			<div class="book_review">
 				<div class="book_name_sign">
@@ -50,41 +50,72 @@
 					{% comment %}<h3 class="book_sign">唤醒爱，唯有爱</h3>{% endcomment %}
 				</div>
 				<div class="review_content">
-                    {% if comment1 %}
-					<div class="pointview_one">
+                {% for i in comment %}
+                    {% if forloop.counter == 1 %}
+                        <div class="pointview_one">
 						<div class="person_infor">
-                            <a href="{% url "DouBan_pages:user_info" commenter1.id %}"><img src="/{{ commenter1.image }}" class="portrait portrait_one"></a>
-							<h4 class="name name_one">{{ commenter1.username }}</h4>
-							<h4 class="date date_one">{{ comment1.pub_time|date:"Y-m-d" }}</h4>
+                            <a href="{% url "DouBan_pages:user_info" i.commenter_id.id %}"><img src="/{{ i.commenter_id.image }}" class="portrait portrait_one"></a>
+							<h4 class="name name_one">{{ i.commenter_id.username }}</h4>
+							<h4 class="date date_one">{{ i.pub_time|date:"Y-m-d" }}</h4>
 						</div>
 						<div class="content_div">
-							<div class="content_main"><p class="content_main_em content_main_em_one">{{ comment1.text }}</p></div>
+							<div class="content_main"><p class="content_main_em content_main_em_one">{{ i.text }}</p></div>
 							<!--<img src="{% static 'Douban_pages/imgs/zan.png' %}" class="zan">-->
-							<span class="zan_number zan_number_one">({{ comment1.pub_time|date:"Y-m-d" }})</span>
+							<span class="zan_number zan_number_one">({{ i.pub_time|date:"Y-m-d" }})</span>
+						</div>
+					</div>
+                    {% else %}
+                        <div class="pointview_two">
+						<div class="person_infor">
+                            <a href="{% url "DouBan_pages:user_info" i.commenter_id.id %}"><img src="/{{ i.commenter_id.image }}" class="portrait portrait_two"></a>
+							<h4 class="name name_two">{{ i.commenter_id.username }}</h4>
+							<h4 class="date date_two">{{ i.pub_time|date:"Y-m-d" }}</h4>
+						</div>
+						<div class="content_div">
+							<div class="content_main"><p class="content_main_em content_main_em_two">{{ i.text }}</p></div>
+							<!--<img src="{% static 'Douban_pages/imgs/zan.png' %}" class="zan">-->
+							<span class="zan_number zan_number_two">({{ i.pub_time|date:"Y-m-d" }})</span>
 						</div>
 					</div>
                     {% endif %}
-                    {% if comment2 %}
-					<div class="pointview_two">
-						<div class="person_infor">
-                            <a href="{% url "DouBan_pages:user_info" commenter2.id %}"><img src="/{{ commenter2.image }}" class="portrait portrait_two"></a>
-							<h4 class="name name_two">{{ commenter2.username }}</h4>
-							<h4 class="date date_two">{{ comment2.pub_time|date:"Y-m-d" }}</h4>
-						</div>
-						<div class="content_div">
-							<div class="content_main"><p class="content_main_em content_main_em_two">{{ comment2.text }}</p></div>
-							<!--<img src="{% static 'Douban_pages/imgs/zan.png' %}" class="zan">-->
-							<span class="zan_number zan_number_two">({{ comment1.pub_time|date:"Y-m-d" }})</span>
-						</div>
-					</div>
-                    {% endif %}
+                {% endfor %}
+{#                    {% if comment1 %}#}
+{#					<div class="pointview_one">#}
+{#						<div class="person_infor">#}
+{#                            <a href="{% url "DouBan_pages:user_info" commenter1.id %}"><img src="/{{ commenter1.image }}" class="portrait portrait_one"></a>#}
+{#							<h4 class="name name_one">{{ commenter1.username }}</h4>#}
+{#							<h4 class="date date_one">{{ comment1.pub_time|date:"Y-m-d" }}</h4>#}
+{#						</div>#}
+{#						<div class="content_div">#}
+{#							<div class="content_main"><p class="content_main_em content_main_em_one">{{ comment1.text }}</p></div>#}
+{#							<!--<img src="{% static 'Douban_pages/imgs/zan.png' %}" class="zan">-->#}
+{#							<span class="zan_number zan_number_one">({{ comment1.pub_time|date:"Y-m-d" }})</span>#}
+{#						</div>#}
+{#					</div>#}
+{#                    {% endif %}#}
+{#                    {% if comment2 %}#}
+{#					<div class="pointview_two">#}
+{#						<div class="person_infor">#}
+{#                            <a href="{% url "DouBan_pages:user_info" commenter2.id %}"><img src="/{{ commenter2.image }}" class="portrait portrait_two"></a>#}
+{#							<h4 class="name name_two">{{ commenter2.username }}</h4>#}
+{#							<h4 class="date date_two">{{ comment2.pub_time|date:"Y-m-d" }}</h4>#}
+{#						</div>#}
+{#						<div class="content_div">#}
+{#							<div class="content_main"><p class="content_main_em content_main_em_two">{{ comment2.text }}</p></div>#}
+{#							<!--<img src="{% static 'Douban_pages/imgs/zan.png' %}" class="zan">-->#}
+{#							<span class="zan_number zan_number_two">({{ comment1.pub_time|date:"Y-m-d" }})</span>#}
+{#						</div>#}
+{#					</div>#}
+{#                    {% endif %}#}
                     <div class="page_turn">
-						<button class="button home first_home">首页</button>
-                        <button class="button before first_before" type="submit" name="before_page2" value="before_page2" >上一页</button>
-						<button class="button one first_one">1</button>
-						<button class="button two first_two">2</button>
-						<button class="button next first_next">下一页</button>
-						<button class="button last first_last">尾页</button>
+                        <form action="{% url 'DouBan_pages:book_detail' book.id %}" method="get">
+						<button class="button home first_home" type="submit" name="first_page" value="1">首页</button>
+                        <button class="button before first_before" type="submit" name="before_page" value="before_page" >上一页</button>
+						<button class="button one first_one" type="submit" name="now" value="{{ index }}">{{ index }}</button>
+						<button class="button two first_two" type="submit" name="next" value="{{ next_index }}">{{ next_index }}</button>
+						<button class="button next first_next" type="submit" name="next_page" value="next_page">下一页</button>
+						<button class="button last first_last" type="submit" name="last_page" value="last_page">尾页</button>
+                        </form>
 					</div>
 				</div>
 			</div>

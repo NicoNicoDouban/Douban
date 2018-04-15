@@ -24,12 +24,16 @@
 					<a class="navi HOME" style="text-decoration: none;" href="{% url 'home' %}">HOME</a>
 					<a class="navi BOOK" style="text-decoration: none;" href="{% url 'DouBan_pages:book_list' %}">BOOK</a>
 					<a class="navi ACTIVITY" style="text-decoration: none;" href="{% url 'DouBan_pages:search' %}">ARTICLE</a>
-					<a class="navi LOGIN" style="margin-right: 0px;text-decoration: none;" href="{% url 'logout' %}">LOGIN</a>
+					{% if login %}
+                    <a class="navi LOGIN" style="margin-right: 0px;text-decoration:none;" href="{% url "logout" %}">LOGOUT</a>
+                    {% endif %}
+                    {% if no_login %}
+                    <a class="navi LOGIN" style="margin-right: 0px;text-decoration:none;" href="{% url 'login' %}">LOGIN</a>
+                    {% endif %}
 				</ul>
 				<div class="head_search_div">
-                    <form action="{% url 'DouBan_pages:search' %}" method="post">
+                    <form name="formtest" action="{% url 'DouBan_pages:search' %}" method="get">
 					<input type="text" name="search_text" class="head_search" placeholder="请输入关键字">
-                    <input type="hidden" name="search_type" value="title">
 					<a href="{% url 'DouBan_pages:search' %}" onclick="document.formtest.submit()"><img src="{% static "Douban_pages/imgs/search.png" %}" class="search_img"></a>
                     </form>
 				</div>
@@ -38,7 +42,7 @@
 		<div class="center">
 			<div class="fen">
 					<img src="{% static 'Douban_pages/imgs/can.png' %}" class="fen_line">
-					<h2>每日新书</h2>
+					<h2>推荐新书</h2>
 				</div>
 		</div>
 		<div class="container" style="height: 450px;overflow: hidden;">
@@ -382,7 +386,7 @@
 						<img src="{% static "Douban_pages/imgs/cs.png" %}" class="sep">
 						<div class="ph">
 							<p>
-								推理小说是以推理方式解开故事谜题 (大多数是找出杀人凶手) 的一种小说，通常故事都含有凶杀案与侦探，亦有部分并非以凶杀为主要剧情走。诸如找寻失物或是找寻事件的谜底等。
+								关于自然界、人类社会和思维发展规律的知识体系。从研究对象看，可分为自然科学、社会科学和思维科学；从同实践的关系看，可分为理论科学、技术科学和应用科学。
 							</p>
 						</div>
 					</div>
@@ -394,7 +398,7 @@
 						<img src="{% static "Douban_pages/imgs/cs.png" %}" class="sep">
 						<div class="ph">
 							<p>
-								推理小说是以推理方式解开故事谜题 (大多数是找出杀人凶手) 的一种小说，通常故事都含有凶杀案与侦探，亦有部分并非以凶杀为主要剧情走。诸如找寻失物或是找寻事件的谜底等。
+								社会科学是用科学的方法，研究人类社会的种种现象的各学科总体或其中任一学科。 如社会学研究人类社会（主要是当代），政治学研究政治、政策和有关的活动，经济学研究资源分配。
 							</p>
 						</div>
 					</div>
@@ -406,7 +410,7 @@
 						<img src="{% static "Douban_pages/imgs/cs.png" %}" class="sep">
 						<div class="ph">
 							<p>
-								推理小说是以推理方式解开故事谜题 (大多数是找出杀人凶手) 的一种小说，通常故事都含有凶杀案与侦探，亦有部分并非以凶杀为主要剧情走。诸如找寻失物或是找寻事件的谜底等。
+								未来可以视为描述一个事件经过一段时间后所变化的结果，和过去(before) 相对。从时间是线性的角度来说，是时间线上将要发生的那部分，也就是说，在时空上表示尚未发生的事的那部分。
 							</p>
 						</div>
 					</div>
@@ -418,7 +422,7 @@
 						<img src="{% static "Douban_pages/imgs/cs.png" %}" class="sep">
 						<div class="ph">
 							<p>
-								推理小说是以推理方式解开故事谜题 (大多数是找出杀人凶手) 的一种小说，通常故事都含有凶杀案与侦探，亦有部分并非以凶杀为主要剧情走。诸如找寻失物或是找寻事件的谜底等。
+								宇宙（英语：Universe）是所有时间、空间与其包含的内容物所构成的统一体；它包含了行星、恒星、星系、星系际空间、次原子粒子以及所有的物质与能量，宇指空间，宙指时间。
 							</p>
 						</div>
 					</div>
@@ -430,7 +434,7 @@
 						<img src="{% static "Douban_pages/imgs/cs.png" %}" class="sep">
 						<div class="ph">
 							<p>
-								推理小说是以推理方式解开故事谜题 (大多数是找出杀人凶手) 的一种小说，通常故事都含有凶杀案与侦探，亦有部分并非以凶杀为主要剧情走。诸如找寻失物或是找寻事件的谜底等。
+								历史，简称史，一般指人类社会历史，它是记载和解释一系列人类活动进程的历史事件的一门学科，多数时候也是对当下时代的映射。以古為鏡，可以知興替
 							</p>
 						</div>
 					</div>
@@ -442,7 +446,7 @@
 						<img src="{% static "Douban_pages/imgs/cs.png" %}" class="sep">
 						<div class="ph">
 							<p>
-								推理小说是以推理方式解开故事谜题 (大多数是找出杀人凶手) 的一种小说，通常故事都含有凶杀案与侦探，亦有部分并非以凶杀为主要剧情走。诸如找寻失物或是找寻事件的谜底等。
+								文学是以语言文字为工具，比较形象化地反映客观现实、表现作家心灵世界的艺术，包括诗歌、散文、小说、剧本、寓言、童话等体裁
 							</p>
 						</div>
 					</div>
@@ -454,7 +458,7 @@
 						<img src="{% static "Douban_pages/imgs/cs.png" %}" class="sep">
 						<div class="ph">
 							<p>
-								推理小说是以推理方式解开故事谜题 (大多数是找出杀人凶手) 的一种小说，通常故事都含有凶杀案与侦探，亦有部分并非以凶杀为主要剧情走。诸如找寻失物或是找寻事件的谜底等。
+
 							</p>
 						</div>
 					</div>
@@ -462,90 +466,92 @@
 						<img src="{% static "Douban_pages/imgs/skj.png" %}" class="delete_right">
 						<div class="right_right ">
 							<div class="a">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type01.id %}">
+									<img src="{{ type01.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">	
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type01.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type01.author }}
 									</p>
 								</div>
 							</div>
 							<div class="a">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type02.id %}">
+									<img src="{{ type02.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">	
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type02.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type02.author }}
 									</p>
 								</div>
 							</div>
 							<div class="a third_detail">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type03.id %}">
+									<img src="{{ type03.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">	
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type03.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type03.author }}
 									</p>
 								</div>
 							</div>
 							<div class="a">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type04.id %}">
+									<img src="{{ type04.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">	
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type04.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type04.author }}
 									</p>
 								</div>
 							</div>
 							<div class="a">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type05.id %}">
+									<img src="{{ type05.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">	
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type05.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type05.author }}
 									</p>
 								</div>
 							</div>
 							<div class="a third_detail">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type06.id %}">
+									<img src="{{ type06.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">	
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type06.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type06.author }}
 									</p>
 								</div>
 							</div>
                             <div class="page_turn">
-								<button class="button home first_home">首页</button>
-                                <button class="button before first_before" type="submit" name="before_page2" value="before_page2" >上一页</button>
-								<button class="button one first_one">1</button>
-								<button class="button two first_two">2</button>
-								<button class="button next first_next">下一页</button>
-								<button class="button last first_last">尾页</button>
+                                <form method="get" action="{% url 'DouBan_pages:book_list' %}">
+								<button class="button home first_home" type="submit" name="first_page0" value="first_page">首页</button>
+                                <button class="button before first_before" type="submit" name="before_page0" value="before_page" >上一页</button>
+								<button class="button one first_one" type="submit" name="now0" value="{{ index0 }}">1</button>
+								<button class="button two first_two" type="submit" name="next_index0">{{ next_index0 }}</button>
+								<button class="button next first_next" type="submit" name="next_page0" value="next_page">下一页</button>
+								<button class="button last first_last" type="submit" name="last_page0" value="last_page">尾页</button>
+                                </form>
 							</div>
 						</div>
 					</div>
@@ -553,90 +559,92 @@
 						<img src="{% static "Douban_pages/imgs/skj.png" %}" class="delete_right">
 						<div class="right_right ">
 							<div class="a">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type11.id %}">
+									<img src="{{ type11.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type11.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type11.author }}
 									</p>
 								</div>
 							</div>
 							<div class="a">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type12.id %}">
+									<img src="{{ type12.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type12.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type12.author }}
 									</p>
 								</div>
 							</div>
 							<div class="a third_detail">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type13.id %}">
+									<img src="{{ type13.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type13.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type13.author }}
 									</p>
 								</div>
 							</div>
 							<div class="a">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type14.id %}">
+									<img src="{{ type14.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type14.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type14.author }}
 									</p>
 								</div>
 							</div>
 							<div class="a">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type15.id %}">
+									<img src="{{ type15.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type15.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type15.author }}
 									</p>
 								</div>
 							</div>
 							<div class="a third_detail">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type16.id %}">
+									<img src="{{ type16.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type16.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type16.author }}
 									</p>
 								</div>
 							</div>
                             <div class="page_turn">
-								<button class="button home first_home">首页</button>
-                                <button class="button before first_before" type="submit" name="before_page2" value="before_page2" >上一页</button>
-								<button class="button one first_one">1</button>
-								<button class="button two first_two">2</button>
-								<button class="button next first_next">下一页</button>
-								<button class="button last first_last">尾页</button>
+                                <form method="get" action="{% url 'DouBan_pages:book_list' %}">
+								<button class="button home first_home" type="submit" name="first_page1" value="first_page">首页</button>
+                                <button class="button before first_before" type="submit" name="before_page1" value="before_page" >上一页</button>
+								<button class="button one first_one" type="submit" name="now1" value="{{ index1 }}">1</button>
+								<button class="button two first_two" type="submit" name="next_index1">{{ next_index1 }}</button>
+								<button class="button next first_next" type="submit" name="next_page1" value="next_page">下一页</button>
+								<button class="button last first_last" type="submit" name="last_page1" value="last_page">尾页</button>
+                                </form>
 							</div>
 						</div>
 					</div>
@@ -644,90 +652,92 @@
 						<img src="{% static "Douban_pages/imgs/skj.png" %}" class="delete_right">
 						<div class="right_right ">
 							<div class="a">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type21.id %}">
+									<img src="{{ type21.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type21.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type21.author }}
 									</p>
 								</div>
 							</div>
 							<div class="a">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type22.id %}">
+									<img src="{{ type22.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type22.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type22.author }}
 									</p>
 								</div>
 							</div>
 							<div class="a third_detail">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type23.id %}">
+									<img src="{{ type23.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type23.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type23.author }}
 									</p>
 								</div>
 							</div>
 							<div class="a">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type24.id %}">
+									<img src="{{ type24.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type24.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type24.author }}
 									</p>
 								</div>
 							</div>
 							<div class="a">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type25.id %}">
+									<img src="{{ type25.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type25.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type25.author }}
 									</p>
 								</div>
 							</div>
 							<div class="a third_detail">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type26.id %}">
+									<img src="{{ type26.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type26.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type26.author }}
 									</p>
 								</div>
 							</div>
                             <div class="page_turn">
-								<button class="button home first_home">首页</button>
-                                <button class="button before first_before" type="submit" name="before_page2" value="before_page2" >上一页</button>
-								<button class="button one first_one">1</button>
-								<button class="button two first_two">2</button>
-								<button class="button next first_next">下一页</button>
-								<button class="button last first_last">尾页</button>
+                                <form method="get" action="{% url 'DouBan_pages:book_list' %}">
+								<button class="button home first_home" type="submit" name="first_page2" value="first_page">首页</button>
+                                <button class="button before first_before" type="submit" name="before_page2" value="before_page" >上一页</button>
+								<button class="button one first_one" type="submit" name="now2" value="{{ index2 }}">1</button>
+								<button class="button two first_two" type="submit" name="next_index2">{{ next_index2 }}</button>
+								<button class="button next first_next" type="submit" name="next_page2" value="next_page">下一页</button>
+								<button class="button last first_last" type="submit" name="last_page2" value="last_page">尾页</button>
+                                </form>
 							</div>
 						</div>
 					</div>
@@ -735,90 +745,92 @@
 						<img src="{% static "Douban_pages/imgs/skj.png" %}" class="delete_right">
 						<div class="right_right ">
 							<div class="a">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type31.id %}">
+									<img src="{{ type31.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type31.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type31.author }}
 									</p>
 								</div>
 							</div>
 							<div class="a">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type32.id %}">
+									<img src="{{ type32.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type32.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type32.author }}
 									</p>
 								</div>
 							</div>
 							<div class="a third_detail">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type33.id %}">
+									<img src="{{ type33.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type33.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type33.author }}
 									</p>
 								</div>
 							</div>
 							<div class="a">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type34.id %}">
+									<img src="{{ type34.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type34.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type34.author }}
 									</p>
 								</div>
 							</div>
 							<div class="a">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type35.id %}">
+									<img src="{{ type35.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type35.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type35.author }}
 									</p>
 								</div>
 							</div>
 							<div class="a third_detail">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type36.id %}">
+									<img src="{{ type36.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type36.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type36.author }}
 									</p>
 								</div>
 							</div>
                             <div class="page_turn">
-								<button class="button home first_home">首页</button>
-                                <button class="button before first_before" type="submit" name="before_page2" value="before_page2" >上一页</button>
-								<button class="button one first_one">1</button>
-								<button class="button two first_two">2</button>
-								<button class="button next first_next">下一页</button>
-								<button class="button last first_last">尾页</button>
+                                <form method="get" action="{% url 'DouBan_pages:book_list' %}">
+								<button class="button home first_home" type="submit" name="first_page3" value="first_page">首页</button>
+                                <button class="button before first_before" type="submit" name="before_page3" value="before_page" >上一页</button>
+								<button class="button one first_one" type="submit" name="now3" value="{{ index3 }}">1</button>
+								<button class="button two first_two" type="submit" name="next_index3">{{ next_index3 }}</button>
+								<button class="button next first_next" type="submit" name="next_page3" value="next_page">下一页</button>
+								<button class="button last first_last" type="submit" name="last_page3" value="last_page">尾页</button>
+                                </form>
 							</div>
 						</div>
 					</div>
@@ -826,90 +838,92 @@
 						<img src="{% static "Douban_pages/imgs/skj.png" %}" class="delete_right">
 						<div class="right_right ">
 							<div class="a">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type41.id %}">
+									<img src="{{ type41.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type41.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type41.author }}
 									</p>
 								</div>
 							</div>
 							<div class="a">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type42.id %}">
+									<img src="{{ type42.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type42.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type42.author }}
 									</p>
 								</div>
 							</div>
 							<div class="a third_detail">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type43.id %}">
+									<img src="{{ type43.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type43.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type43.author }}
 									</p>
 								</div>
 							</div>
 							<div class="a">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type41.id %}">
+									<img src="{{ type41.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type41.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type41.author }}
 									</p>
 								</div>
 							</div>
 							<div class="a">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type42.id %}">
+									<img src="{{ type42.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type42.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type42.author }}
 									</p>
 								</div>
 							</div>
 							<div class="a third_detail">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type46.id %}">
+									<img src="{{ type46.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type46.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type46.author }}
 									</p>
 								</div>
 							</div>
                             <div class="page_turn">
-								<button class="button home first_home">首页</button>
-                                <button class="button before first_before" type="submit" name="before_page2" value="before_page2" >上一页</button>
-								<button class="button one first_one">1</button>
-								<button class="button two first_two">2</button>
-								<button class="button next first_next">下一页</button>
-								<button class="button last first_last">尾页</button>
+                                <form method="get" action="{% url 'DouBan_pages:book_list' %}">
+								<button class="button home first_home" type="submit" name="first_page4" value="first_page">首页</button>
+                                <button class="button before first_before" type="submit" name="before_page4" value="before_page" >上一页</button>
+								<button class="button one first_one" type="submit" name="now4" value="{{ index4 }}">{{ index4 }}</button>
+								<button class="button two first_two" type="submit" name="next_index4">{{ next_index4 }}</button>
+								<button class="button next first_next" type="submit" name="next_page4" value="next_page">下一页</button>
+								<button class="button last first_last" type="submit" name="last_page4" value="last_page">尾页</button>
+                                </form>
 							</div>
 						</div>
 					</div>
@@ -917,90 +931,92 @@
 						<img src="{% static "Douban_pages/imgs/skj.png" %}" class="delete_right">
 						<div class="right_right ">
 							<div class="a">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type51.id %}">
+									<img src="{{ type51.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type51.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type51.author }}
 									</p>
 								</div>
 							</div>
 							<div class="a">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type52.id %}">
+									<img src="{{ type52.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type52.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type52.author }}
 									</p>
 								</div>
 							</div>
 							<div class="a third_detail">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type53.id %}">
+									<img src="{{ type53.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type53.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type53.author }}
 									</p>
 								</div>
 							</div>
 							<div class="a">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type54.id %}">
+									<img src="{{ type54.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type54.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type54.author }}
 									</p>
 								</div>
 							</div>
 							<div class="a">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type55.id %}">
+									<img src="{{ type55.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type55.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type55.author }}
 									</p>
 								</div>
 							</div>
 							<div class="a third_detail">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type56.id %}">
+									<img src="{{ type56.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type56.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type56.author }}
 									</p>
 								</div>
 							</div>
                             <div class="page_turn">
-								<button class="button home first_home">首页</button>
-                                <button class="button before first_before" type="submit" name="before_page2" value="before_page2" >上一页</button>
-								<button class="button one first_one">1</button>
-								<button class="button two first_two">2</button>
-								<button class="button next first_next">下一页</button>
-								<button class="button last first_last">尾页</button>
+                                <form method="get" action="{% url 'DouBan_pages:book_list' %}">
+								<button class="button home first_home" type="submit" name="first_page5" value="first_page">首页</button>
+                                <button class="button before first_before" type="submit" name="before_page5" value="before_page" >上一页</button>
+								<button class="button one first_one" type="submit" name="now5" value="{{ index5 }}">1</button>
+								<button class="button two first_two" type="submit" name="next_index5">{{ next_index5 }}</button>
+								<button class="button next first_next" type="submit" name="next_page5" value="next_page">下一页</button>
+								<button class="button last first_last" type="submit" name="last_page5" value="last_page">尾页</button>
+                                </form>
 							</div>
 						</div>
 					</div>
@@ -1008,90 +1024,92 @@
 						<img src="{% static "Douban_pages/imgs/skj.png" %}" class="delete_right">
 						<div class="right_right ">
 							<div class="a">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type61.id %}">
+									<img src="{{ type61.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type61.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type61.author }}
 									</p>
 								</div>
 							</div>
 							<div class="a">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type62.id %}">
+									<img src="{{ type62.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type62.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type62.author }}
 									</p>
 								</div>
 							</div>
 							<div class="a third_detail">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type63.id %}">
+									<img src="{{ type63.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type63.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type63.author }}
 									</p>
 								</div>
 							</div>
 							<div class="a">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type61.id %}">
+									<img src="{{ type61.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type61.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type61.author }}
 									</p>
 								</div>
 							</div>
 							<div class="a">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type62.id %}">
+									<img src="{{ type62.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type62.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type62.author }}
 									</p>
 								</div>
 							</div>
 							<div class="a third_detail">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type63.id %}">
+									<img src="{{ type63.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type63.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type63.author }}
 									</p>
 								</div>
 							</div>
                             <div class="page_turn">
-								<button class="button home first_home">首页</button>
-                                <button class="button before first_before" type="submit" name="before_page2" value="before_page2" >上一页</button>
-								<button class="button one first_one">1</button>
-								<button class="button two first_two">2</button>
-								<button class="button next first_next">下一页</button>
-								<button class="button last first_last">尾页</button>
+                                <form method="get" action="{% url 'DouBan_pages:book_list' %}">
+								<button class="button home first_home" type="submit" name="first_page6" value="first_page">首页</button>
+                                <button class="button before first_before" type="submit" name="before_page6" value="before_page" >上一页</button>
+								<button class="button one first_one" type="submit" name="now6" value="{{ index6 }}">1</button>
+								<button class="button two first_two" type="submit" name="next_index6">{{ next_index6 }}</button>
+								<button class="button next first_next" type="submit" name="next_page6" value="next_page">下一页</button>
+								<button class="button last first_last" type="submit" name="last_page6" value="last_page">尾页</button>
+                                </form>
 							</div>
 						</div>
 					</div>
@@ -1099,90 +1117,92 @@
 						<img src="{% static "Douban_pages/imgs/skj.png" %}" class="delete_right">
 						<div class="right_right ">
 							<div class="a">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type71.id %}">
+									<img src="{{ type71.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type71.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type71.author }}
 									</p>
 								</div>
 							</div>
 							<div class="a">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type72.id %}">
+									<img src="{{ type72.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type72.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type72.author }}
 									</p>
 								</div>
 							</div>
 							<div class="a third_detail">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type73.id %}">
+									<img src="{{ type73.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type73.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type73.author }}
 									</p>
 								</div>
 							</div>
 							<div class="a">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type71.id %}">
+									<img src="{{ type71.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type71.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type71.author }}
 									</p>
 								</div>
 							</div>
 							<div class="a">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type72.id %}">
+									<img src="{{ type72.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type72.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type72.author }}
 									</p>
 								</div>
 							</div>
 							<div class="a third_detail">
-								<a class="book">
-									<img src="./imgs./s29608420.jpg" class="book_img">
+								<a class="book" href="{% url 'DouBan_pages:book_detail' type73.id %}">
+									<img src="{{ type73.src }}" class="book_img">
 									<div class="white_background"></div>
-									<img src="./imgs./hahs.png" class="coverage">
+									<img src="{% static 'Douban_pages/imgs/hahs.png' %}" class="coverage">
 								</a>
 								<div class="book_intro">
-									<h2 class="book_name">孤独梦想家</h2>
+									<h2 class="book_name">{{ type73.title }}</h2>
 									<p class="book_sum">
-									英] 戴维·巴尼特
+									{{ type73.author }}
 									</p>
 								</div>
 							</div>
                             <div class="page_turn">
-								<button class="button home first_home">首页</button>
-                                <button class="button before first_before" type="submit" name="before_page2" value="before_page2" >上一页</button>
-								<button class="button one first_one">1</button>
-								<button class="button two first_two">2</button>
-								<button class="button next first_next">下一页</button>
-								<button class="button last first_last">尾页</button>
+                                <form method="get" action="{% url 'DouBan_pages:book_list' %}">
+								<button class="button home first_home" type="submit" name="first_page7" value="first_page">首页</button>
+                                <button class="button before first_before" type="submit" name="before_page7" value="before_page" >上一页</button>
+								<button class="button one first_one" type="submit" name="now7" value="{{ index7 }}">1</button>
+								<button class="button two first_two" type="submit" name="next_index7">{{ next_index7 }}</button>
+								<button class="button next first_next" type="submit" name="next_page7" value="next_page">下一页</button>
+								<button class="button last first_last" type="submit" name="last_page7" value="last_page">尾页</button>
+                                </form>
 							</div>
 						</div>
 					</div>

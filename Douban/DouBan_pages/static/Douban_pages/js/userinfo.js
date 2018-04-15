@@ -1,3 +1,10 @@
+
+$(document).click(function(){
+    $(".wrong_message").css("display","none");
+});
+$(".wrong_message").click(function(event){
+    event.stopPropagation();
+});
 $(".white1").click(function(){
 	$(".sign").removeAttr("readonly");
 	$(".save").css("display","block");
@@ -70,3 +77,13 @@ $(".portrait").click(function(event){
 $(".pop").click(function(event){
     event.stopPropagation();
 });
+$(".buu").click(function(event){
+    event.stopPropagation();
+});
+$(".emm").click(function(event){
+    event.stopPropagation();
+});
+$(".lookup").click(function(event){
+    event.stopPropagation();
+});
+

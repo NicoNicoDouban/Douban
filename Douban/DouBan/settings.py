@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
-
+from django.conf.urls import handler404, handler500
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -22,11 +22,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'jqtg*ns%u^e7vz1nnh#7&4&buy(yw12bs)((6!$vio#nn98s8o'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
-
-
+ALLOWED_HOSTS = ['*']
+MAX_UPLOAD_SIZE = "10240" # 上传大小限制
+handler404 = "DouBan_pages.views.no_find"
+handler500 = "DouBan_pages.views.no_find"
 # Application definition
 
 INSTALLED_APPS = [

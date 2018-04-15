@@ -20,9 +20,31 @@
     font-weight: normal;
     font-style: normal;
 }
+
 .head{
 	height: 112px;
 }
+.wrong_message{
+	position: fixed;
+	left: 0;
+	right: 0;
+    margin:0 auto;
+	width:260px;
+	height: 30px;
+	padding-left: 20px;
+	padding-right: 20px;
+	text-align: center;
+	line-height: 30px;
+	color: black;
+	top: 9%;
+	background-color: #FEDFE1;
+	z-index: 10000;
+	border-radius: 10px;
+	border:2px solid #FEDFE1;
+	font-family: 'a';
+	letter-spacing: 2px;
+}
+
 .center{
 	width: 1202px;
 	margin: auto;
@@ -83,8 +105,9 @@
 	width: 150px;
 	display: none;
 	position: absolute;
-	top: 140px;
-	right: 40px;
+	top: 208px;
+	left: 200px;
+	z-index: 10000;
 }
 .tri{
 	position: absolute;
@@ -257,11 +280,11 @@
 	font-size: 16px;
 	letter-spacing: 2px;
 }
-@media screen and (min-width:980px) and (max-width:1423px){
-	.center{
-		width: 100%;
-	}
-	.fen_line{
-		width: 100%;
-	}
-}
+/*@media screen and (min-width:980px) and (max-width:1423px){*/
+	/*.center{*/
+		/*width: 100%;*/
+	/*}*/
+	/*.fen_line{*/
+		/*width: 100%;*/
+	/*}*/
+/*}*/

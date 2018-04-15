@@ -23,6 +23,27 @@
 .head{
 	height: 112px;
 }
+.wrong_message{
+	position: fixed;
+	left: 0;
+	right: 0;
+    margin:0 auto;
+	width:260px;
+	height: 30px;
+	padding-left: 20px;
+	padding-right: 20px;
+	text-align: center;
+	line-height: 30px;
+	color: black;
+	top: 9%;
+	background-color: #FEDFE1;
+	z-index: 10000;
+	border-radius: 10px;
+	border:2px solid #FEDFE1;
+	font-family: 'a';
+	letter-spacing: 2px;
+}
+
 .center{
 	width: 1202px;
 	margin: auto;
@@ -148,13 +169,12 @@
 	height: 1203px;
 	width: 906px;
 	margin: 75px auto 0px auto;
-	display: none;
+	display: block;
 	position: relative;
 }
 .kong{
 	width:906px;
 	height:1003px;
-	background-color: yellow;
 	border-radius: 10px;
 	border:2px solid #D9D9D9;
 }

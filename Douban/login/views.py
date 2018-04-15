@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render_to_response, render
 from django.http import HttpResponse, HttpResponseRedirect, Http404
+from django.urls import reverse
 from .userForm import *
 from django.views.decorators.csrf import csrf_exempt
 from .emailVerify import *
@@ -130,7 +131,7 @@ def userLogin(request):
                                                               'image_url': image_url})
                 else:
                     login(request, user)
-                    return HttpResponseRedirect('/')  # 跳转到主页面
+                    return HttpResponseRedirect(reverse('home'))  # 跳转到主页面
             else:
                 return render_to_response('signin.html', {'userform': userform, 'username': username,
                                                           'hashkey': hashkey,
